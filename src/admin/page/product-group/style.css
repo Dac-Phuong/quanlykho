@@ -1,0 +1,151 @@
+h2 {
+    margin: 0;
+    color: #666;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.css-v4u5dn-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before, .css-v4u5dn-MuiInputBase-root-MuiInput-root:after, .css-l4u8b9-MuiInputBase-root-MuiInput-root:after {
+    border-bottom: 1px solid #1976d2 !important;
+}
+
+.css-v4u5dn-MuiInputBase-root-MuiInput-root:before, .form-textarea ,.css-l4u8b9-MuiInputBase-root-MuiInput-root:before ,.css-zs07ro-MuiInputBase-root-MuiFilledInput-root:before{
+    border-bottom: 1px solid #ddd !important;
+    position: relative;
+}
+
+.form-textarea:hover:not(.Mui-disabled, .Mui-error):before, .form-textarea::after ,.css-zs07ro-MuiInputBase-root-MuiFilledInput-root:after {
+    border-bottom: 1px solid #1976d2 !important;
+}
+
+.css-l4u8b9-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error)::before{
+    border-bottom: 1px solid #1976d2 !important;
+
+}
+.MuiFormControl-root.MuiTextField-root.form-control.css-1u3bzj6-MuiFormControl-root-MuiTextField-root{
+    padding: 10px 0;
+}
+
+.form-textarea::before {
+    left: 0;
+    bottom: 0;
+    content: "\00a0";
+    position: absolute;
+    right: 0;
+    -webkit-transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    pointer-events: none;
+}
+
+.form-textarea::after {
+    border-bottom: 1px solid #1976d2;
+    left: 0;
+    bottom: 0;
+    content: "";
+    position: absolute;
+    right: 0;
+    -webkit-transform: scaleX(0);
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: -webkit-transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+    transition: transform 200ms cubic-bezier(0.0, 0, 0.2, 1) 0ms;
+    pointer-events: none;
+}
+
+.CustomSelect {
+    font-family: IBM Plex Sans, sans-serif;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+    min-width: 320px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-align: left;
+    line-height: 1.5;
+    border: none;
+}
+
+.CustomSelectIntroduction-listbox {
+    font-family: IBM Plex Sans, sans-serif;
+    font-size: 0.875rem;
+    box-sizing: border-box;
+    padding: 6px;
+    margin: 12px 0;
+    min-width: 320px;
+    border-radius: 12px;
+    overflow: auto;
+    outline: 0px;
+}
+
+
+.CustomSelectIntroduction-popper {
+    z-index: 1;
+}
+
+button.MuiSelect-root.CustomSelect {
+    outline: none;
+}
+
+.CustomSelect-option {
+    list-style: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #0000;
+}
+
+.CustomSelect-option:hover {
+    background: #0000;
+
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    color: #555;
+    font-size: 14px;
+    flex-wrap: wrap;
+}
+
+.table thead tr th {
+    padding: 15px 12px;
+    border-bottom: 1px solid #eee;
+
+}
+
+.form-inline .btn-success {
+    background-color: #2b982b !important;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    border-radius: 2px;
+    border: none;
+    font-size: 13px;
+    outline: none;
+    color: #fff;
+    padding: 10px 20px;
+    transition: .5s;
+}
+
+.form-inline .btn-success:hover {
+    background-color: #3ab43a !important;
+}
+
+.css-13cymwt-control {
+    border: none !important;
+    outline: none !important;
+}
+
+span.css-1u9des2-indicatorSeparator {
+    width: 0;
+}
+
+.react-dropdown-select.undefined.css-wmy1p7-ReactDropdownSelect.e1gzf2xs0 {
+    box-shadow: none !important;
+    border: none !important;
+}
+
+.css-1nmdiq6-menu-control {
+    color: #111;
+}

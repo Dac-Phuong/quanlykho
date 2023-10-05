@@ -1,0 +1,16 @@
+button.btn.btn-primary.btn-md.btn-block.waves-effect.waves-light.text-center.m-b-20{
+    background-color: #448aff !important;
+}
+button.btn.btn-danger.waves-effect.waves-light.w-full{
+    background-color: #ff5252 !important;
+}
+h3 {
+    font-size: 1.75rem;
+    color: #455A64;
+}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0,0,0,.1);
+}

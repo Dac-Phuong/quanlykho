@@ -1,13 +1,222 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  color: #9e9ea4;
+  font-family: 'Roboto', Arial, Tahoma, sans-serif;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.pcoded .pcoded-navbar .pcoded-item {
+  padding: 0 0 11px 0;
+}
+
+.main-menu .main-menu-header img {
+  margin: 0 auto;
+}
+
+.page-header:before, .main-menu .main-menu-header:before {
+  content: "";
+  background-color: rgba(68, 138, 255, 0.5);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+.table-bordered tbody tr td, .table-bordered tbody tr th, .table-bordered thead tr th {
+  padding: 10px;
+  border: 1px solid #eee;
+}
+
+.table-bordered>tbody>tr:nth-of-type(odd) {
+  background-color: #f9f9f9;
+}
+
+
+small {
+  display: block;
+  font-size: 12px;
+  margin-top: 5px;
+  color: #999;
+  line-height: 15px;
+}
+
+
+
+label {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+
+.loading {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1400;
+  background: #fff;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.lds-ring {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  margin: 8px;
+  border: 3px solid #448AFF;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #448AFF transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-zs07ro-MuiInputBase-root-MuiFilledInput-root {
+  background-color: #fff;
+}
+
+.MuiDataGrid-virtualScrollerContent.css-1kwdphh-MuiDataGrid-virtualScrollerContent {
+  min-height: 50px !important;
+}
+
+.btn-button {
+  padding: 7px 15px !important;
+  border-radius: 2px !important;
+}
+
+.btn-primary:hover {
+  background-color: #619CFF !important;
+}
+
+.btn-danger:hover {
+  background-color: #FF7777 !important;
+}
+
+.MuiDataGrid-columnHeaders.MuiDataGrid-withBorderColor.css-1iyq7zh-MuiDataGrid-columnHeaders {
+  background-color: #619CFF !important;
+  color: #fff !important;
+}
+
+.table-responsive table thead tr th {
+  border-top: none;
+}
+
+.table-responsive table thead tbody tr th {
+  border-bottom: 1px solid #ddd;
+}
+
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+  max-width: 900px !important;
+  min-width: 600px !important;
+}
+
+.bg-red {
+  background: #ec4a4a !important;
+  color: #fff;
+}
+
+.alert-info {
+  background-color: #00b0e4;
+  padding: 12px;
+  color: #fff;
+}
+
+.table-hover tbody tr {
+  border-bottom: 1px solid #eee;
+}
+
+.css-5wly58-MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within, .css-5wly58-MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+  outline: none !important;
+}
+
+.css-1tqrhto>.ps-menu-button, .css-lg1vuy>.ps-menu-button {
+  height: 45px !important;
+}
+
+.col-8 h4{
+  font-size: 1.375rem !important;
+  font-weight: 500;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+.col-8 h6{
+  font-weight: 500;
 }
