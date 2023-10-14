@@ -38,6 +38,7 @@
     "react-to-print": "^2.14.13",
     "react-toastify": "^9.1.3",
     "recharts": "^2.8.0",
+    "vn-num2words": "^1.0.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

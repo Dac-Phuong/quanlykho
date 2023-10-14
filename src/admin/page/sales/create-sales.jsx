@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import { CREATE_SALES } from "../../api";
+import { CREATE_SALES, FILTER_PRODUCTS_SALES } from "../../api";
 import dayjs from "dayjs";
 import { http } from "../../utils/http";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -18,6 +18,7 @@ import {
 import { DatePicker } from "@mui/x-date-pickers";
 import Input from "../../../components/input";
 import { useGetDataCreateSales } from "../../api/useFetchData";
+import { getUserData } from "../../utils/function";
 
 export default function CreateSales() {
   const Title = "Bán hàng";
@@ -33,7 +34,8 @@ export default function CreateSales() {
   const [note, setNote] = useState("");
   const queryKey = "sales_key";
   const [newArray, setNewArray] = useState([]);
-
+  const [newData, setNewData] = useState(null);
+  const userData = getUserData();
   //   thêm sản phẩm vào mảng state
   const handleAutocompleteChange = (event, newValue) => {
     if (newValue && newValue.id) {
@@ -74,7 +76,6 @@ export default function CreateSales() {
 
     setNewArray(updatedItems);
   };
-
   // xóa sản phẩm khỏi mảng
   const handleDeleteItem = (item) => {
     const updatedItems = newArray.filter(
@@ -102,7 +103,7 @@ export default function CreateSales() {
   const formData = {
     sales_item: newArray,
     sales: {
-      user_id: "1",
+      user_id: userData?.user?.id,
       customer_id: customerId?.id,
       staff_id: staffId?.id,
       date: dayjs(date).format("YYYY-MM-DD"),
@@ -125,8 +126,15 @@ export default function CreateSales() {
       return response.data;
     } catch (error) {
       setLoading(false);
-      showToastError("Tạo đơn hàng thất bại!");
-      console.log(error);
+      if (error?.response.status === 400) {
+        showToastError(
+          error?.response?.data?.product_name +
+            " không đủ số lượng bán. số lượng còn lại trong kho: " +
+            error?.response?.data?.quality
+        );
+      } else {
+        showToastError("Tạo đơn hàng thất bại!");
+      }
     }
   };
   // tạo useQuery
@@ -151,6 +159,21 @@ export default function CreateSales() {
     }
   }, [data, warehouseId]);
 
+  // lọc sản phẩm theo kho nhập
+  const submitFilter = async (id) => {
+    await http
+      .post(FILTER_PRODUCTS_SALES + id)
+      .then((response) => {
+        if (response.status === 200) {
+          setNewData(response.data.products);
+          setNewArray([]);
+        }
+      })
+      .catch((error) => {
+        console.error(error.response);
+        showToastError("Lỗi tìm kiếm");
+      });
+  };
   if (isLoading) {
     return <Loading />;
   }
@@ -158,7 +181,7 @@ export default function CreateSales() {
   const validation = () => {
     let isValid = true;
     if (newArray.length === 0) {
-      showToastError("Vui lòng chọn sản phẩm!");
+      showToastError("Vui lòng chọn mặt hàng!");
       isValid = false;
     }
     for (let i = 0; i < newArray.length; i++) {
@@ -210,7 +233,13 @@ export default function CreateSales() {
                 fullWidth
                 id="disable-close-on-select"
                 clearOnEscape
-                options={data && data.products ? data.products : []}
+                options={
+                  newData === null
+                    ? data && data.products
+                      ? data.products
+                      : []
+                    : newData
+                }
                 onChange={handleAutocompleteChange}
                 getOptionLabel={(rows) => rows?.name || ""}
                 renderInput={(params) => (
@@ -243,8 +272,7 @@ export default function CreateSales() {
                     <tbody className="text-left">
                       {newArray?.map((item) => {
                         const subtotal = item?.quality * item?.price;
-                        const discountAmount =
-                          subtotal * (item?.discount / 100);
+                        const discountAmount = subtotal * (item?.discount / 100);
                         return (
                           <tr key={item?.product_id} className="">
                             <th>{item?.code}</th>
@@ -365,9 +393,13 @@ export default function CreateSales() {
                   id="standard-basic"
                   variant="standard"
                 >
-                  {data?.warehouses?.map((item, index) => {
+                  {data?.warehouses?.map((item) => {
                     return (
-                      <MenuItem key={item.id} value={item.id}>
+                      <MenuItem
+                        key={item.id}
+                        value={item.id}
+                        onClick={() => submitFilter(item.id)}
+                      >
                         {item.fullname}
                       </MenuItem>
                     );
@@ -404,6 +436,7 @@ export default function CreateSales() {
                   clearOnEscape
                   options={data && data?.staff ? data?.staff : []}
                   onChange={handleChangeStaff}
+                  value={staffId}
                   getOptionLabel={(rows) => rows?.fullname || ""}
                   renderInput={(params) => (
                     <TextField
@@ -421,6 +454,7 @@ export default function CreateSales() {
                   clearOnEscape
                   options={data && data?.customers ? data?.customers : []}
                   onChange={handleChangeCustomer}
+                  value={customerId}
                   getOptionLabel={(rows) =>
                     rows?.fullname + " - " + rows?.address || ""
                   }

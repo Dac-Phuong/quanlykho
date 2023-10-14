@@ -43,7 +43,10 @@ export default function ListProducts() {
   const queryKey = "list_products";
   const queryClient = useQueryClient();
   const deleteMutation = useMutation(deteteItem);
-  const { data, isLoading, isError } = useQuery(queryKey,useGetDataProducts(queryKey));
+  const { data, isLoading, isError } = useQuery(
+    queryKey,
+    useGetDataProducts(queryKey)
+  );
   const updateStatuss = useMutation(updateStatus);
 
   const handleUpdateStatus = (id) => {
@@ -111,11 +114,11 @@ export default function ListProducts() {
     { field: "buy_price", headerName: "Giá mua" },
     { field: "sell_price", headerName: "Giá bán" },
     { field: "color", headerName: "Màu sắc" },
-    { field: "Inventory", headerName: "Tồn kho" },
     { field: "guarantee", headerName: "Bảo hành", minWidth: 110 },
     { field: "product_groups_name", headerName: "Nhóm", minWidth: 130 },
-    { field: "Entered", headerName: "Đã nhập", minWidth: 70 },
-    { field: "Sold", headerName: "Đã bán", minWidth: 70 },
+    { field: "purchase_quality", headerName: "Đã nhập", minWidth: 70 },
+    { field: "sell_quality", headerName: "Đã bán", minWidth: 70 },
+    { field: "inventario", headerName: "Tồn kho" },
     {
       field: "active",
       headerName: "Thao tác",
@@ -160,14 +163,13 @@ export default function ListProducts() {
     buy_price: item.buy_price.toLocaleString("en-US"),
     sell_price: item.sell_price.toLocaleString("en-US"),
     color: item.color,
-    Inventory: "0",
     guarantee: "0",
     product_groups_name: item.product_groups_name,
-    Entered: "0",
-    Sold: "0",
+    purchase_quality: item.purchase_quality || 0,
+    sell_quality: item.sell_quality || 0,
+    inventario: item.purchase_quality - item.sell_quality || 0,
     active: item.active,
   }));
-
   return (
     <section className="pcoded-content">
       <Helmet>
@@ -193,7 +195,16 @@ export default function ListProducts() {
                   TẠI ĐÂY
                 </Link>
               </small>
-              <small>Có tất cả: -496,595 tương ứng -10,195,019,753</small>
+              <small>
+                Có tất cả: -
+                {parseFloat(Math.round(data?.totalquality)).toLocaleString(
+                  "en-US"
+                ) || 0}{" "}
+                tương ứng -
+                {parseFloat(Math.round(data?.totalPrice)).toLocaleString(
+                  "en-US"
+                ) + " VND" || 0}
+              </small>
             </div>
           </div>
           <div className="p-4 flex flex-wrap">
@@ -202,8 +213,12 @@ export default function ListProducts() {
                 <div className="icon">$</div>
               </div>
               <div className="mt-[11px] pl-3 text-[13px]">
-                <div className="text">Tổng mặt hàng</div>
-                <div className="number">-496,595</div>
+                <div className="text">Tổng số lượng mặt hàng tồn kho</div>
+                <div className="number">
+                  {parseFloat(
+                    Math.round(-data?.totalquality || 0)
+                  ).toLocaleString("en-US")}
+                </div>
               </div>
             </div>
             <div className="info-box bg-green hover-expand-effect w-[360px] mr-5">
@@ -211,8 +226,12 @@ export default function ListProducts() {
                 <div className="icon">$</div>
               </div>
               <div className="mt-[11px] pl-3 text-[13px]">
-                <div className="text">Tồn kho</div>
-                <div className="number">-10,195,019,753 VNĐ</div>
+                <div className="text">Tổng giá tiền hàng còn tồn trong kho</div>
+                <div className="number">
+                  {parseFloat(
+                    Math.round(-data?.totalPrice || 0)
+                  ).toLocaleString("en-US") + " VND"}
+                </div>
               </div>
             </div>
           </div>
@@ -271,7 +290,7 @@ export default function ListProducts() {
             </div>
             <div className="body mt-20">
               <DataGrid
-                rows={rows}
+                rows={rows?.map((row, index) => ({ ...row, id: row.id })) || []}
                 disableColumnFilter
                 disableColumnSelector
                 disableDensitySelector

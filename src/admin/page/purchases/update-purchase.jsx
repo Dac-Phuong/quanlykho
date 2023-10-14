@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import {
-  EDIT_ITEM_PURCHASES,
-  UPDATE_ITEM_PURCHASES,
-} from "../../api";
+import { EDIT_ITEM_PURCHASES, UPDATE_ITEM_PURCHASES } from "../../api";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -148,7 +145,10 @@ export default function UpdatePurchase() {
   });
 
   // get date từ useQuery
-  const { data, isLoading, isError } = useQuery(queryKey, useGetDataPurchase(queryKey));
+  const { data, isLoading, isError } = useQuery(
+    queryKey,
+    useGetDataPurchase(queryKey)
+  );
   useEffect(() => {
     if (warehouseId === "" && data?.warehouse?.length > 0) {
       setWarehouseId(data?.warehouse[0].id);
@@ -164,6 +164,13 @@ export default function UpdatePurchase() {
     if (formData.purchases_item.length === 0) {
       showToastError("Vui lòng chọn sản phẩm!");
       isValid = false;
+    }
+    for (let i = 0; i < newArray.length; i++) {
+      if (newArray[i].quality === 0) {
+        showToastError("Vui lòng nhập số lượng sản phẩm!");
+        isValid = false;
+        break;
+      }
     }
     return isValid;
   };

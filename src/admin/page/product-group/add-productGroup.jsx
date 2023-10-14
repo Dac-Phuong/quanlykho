@@ -15,14 +15,14 @@ export default function AddProductGroup() {
   const [isLoading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
   const queryKey = "productgroup_key";
-  const [selected, setSelected] = useState("0");
+  const [selected, setSelected] = useState(0);
   const [formData, setFormData] = useState({
     group_name: "",
     group_code: "",
     description: "",
     commission: "",
     commission_target: "",
-    commission_type: "",
+    commission_type: 0,
   });
   // lấy dữ liệu từ select
   const handleChange = (event) => {

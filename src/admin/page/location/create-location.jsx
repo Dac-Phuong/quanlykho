@@ -198,7 +198,7 @@ export default function CreateLcation() {
           <div className="card-block remove-label">
             <div className="body mt-16" style={{ width: "100%" }}>
               <DataGrid
-                rows={rows}
+                rows={rows || []}
                 disableColumnFilter
                 disableColumnSelector
                 disableDensitySelector

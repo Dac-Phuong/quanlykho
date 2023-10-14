@@ -6,6 +6,7 @@ import { CSVLink } from "react-csv";
 import Loading from "../../../components/loading";
 import axios from "axios";
 import { showToastError, showToastSuccess } from "../../utils/toastmessage";
+import Select from "@mui/material/Select";
 import HeaderComponents from "../../../components/header";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -24,13 +25,17 @@ export default function ImportPurchase() {
   const currentDate = new Date();
   const [date, setDate] = useState(dayjs(currentDate));
   const queryKey = "warehouse_key";
-  const csvData = [["Mã hàng", "Tên hàng", "Màu sắc", "Số lượng","giá"]];
-  const { data, error, isLoading } = useQuery( queryKey,useGetDataListWareHouse(queryKey));
+  const csvData = [["Mã hàng", "Tên hàng", "Màu sắc", "Số lượng", "giá"]];
+  const { data, error, isLoading } = useQuery(
+    queryKey,
+    useGetDataListWareHouse(queryKey)
+  );
   useEffect(() => {
     if (warehouseId === "" && data?.data?.length > 0) {
       setWarehouseId(data?.data[0].id);
     }
   }, [data, warehouseId]);
+
   const handleChange = (event) => {
     setWarehouseId(event?.target?.value);
   };
@@ -65,7 +70,7 @@ export default function ImportPurchase() {
                 <small>File mẫu nhập đơn</small>
                 <CSVLink
                   filename={"mau-file-don-nhap"}
-                  class="btn btn-button flex waves-effect waves-light ml-2 btn-danger btn-block w-[52%] h-[35px]"
+                  className="btn btn-button flex waves-effect waves-light ml-2 btn-danger btn-block w-[52%] h-[35px]"
                   data={csvData}
                 >
                   <FaCloudDownloadAlt className="mr-1 -mt-[2px]" size={20} />
@@ -88,24 +93,21 @@ export default function ImportPurchase() {
                   slotProps={{ textField: { variant: "filled" } }}
                 />
               </LocalizationProvider>
-              <div className=" text-[#555] mt-2 w-[49%]">
-                <TextField
-                  select
+              <div className=" text-[#555] mt-4 w-[49%]">
+                <Select
                   fullWidth
                   value={warehouseId}
                   onChange={handleChange}
-                  label="Chọn Kho nhập "
+                  label="Chọn Kho nhập"
                   id="standard-basic"
                   variant="standard"
                 >
-                  {data?.data?.map((item, index) => {
-                    return (
-                      <MenuItem key={item.id} value={item.id}>
-                        {item.fullname}
-                      </MenuItem>
-                    );
-                  })}
-                </TextField>
+                  {data?.data?.map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.fullname}
+                    </MenuItem>
+                  ))}
+                </Select>
               </div>
             </div>
             <div className=" mt-4">

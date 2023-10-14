@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { Helmet } from "react-helmet";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import Loading from "../../../components/loading";
@@ -63,7 +63,6 @@ export default function ListCustomers() {
   const {
     data: item_customer,
     isLoading: isLoadings,
-    isError: isErrors,
   } = useQuery(["customer_key", newId], () => handleGetItemCustomer(newId), {
     enabled: !!newId,
   });
@@ -120,10 +119,10 @@ export default function ListCustomers() {
     { field: "index", headerName: "STT" },
     { field: "fullname", headerName: "Họ và tên", minWidth: 120, flex: 1 },
     { field: "address", headerName: "Địa chỉ", minWidth: 220, flex: 1 },
-    { field: "phone", headerName: "Số điện thoại", minWidth: 140 },
-    { field: "order", headerName: "Đơn hàng", minWidth: 140 },
-    { field: "debt", headerName: "Công nợ", minWidth: 120 },
-    { field: "location", headerName: "Tuyến", minWidth: 120 },
+    { field: "phone", headerName: "Số điện thoại", minWidth: 140,flex:1 },
+    { field: "order", headerName: "Đơn hàng", minWidth: 140,flex:1 },
+    { field: "debt", headerName: "Công nợ", minWidth: 120 ,flex:1},
+    { field: "location", headerName: "Tuyến", minWidth: 120 ,flex:1},
     {
       field: "action",
       headerName: "Thao tác",
@@ -164,7 +163,7 @@ export default function ListCustomers() {
     order: "0",
     phone: item.phone,
     location: item?.location
-      ? data?.location.find((ite) => ite.id == item?.location)?.name
+      ? data?.location?.find((ite) => ite.id === item?.location)?.name
       : "Không xác định",
     to_date: item.to_date,
   }));
@@ -325,7 +324,7 @@ export default function ListCustomers() {
           <div className="card-block remove-label">
             <div className="body mt-16" style={{ width: "100%" }}>
               <DataGrid
-                rows={rows}
+                rows={rows || []}
                 disableColumnFilter
                 disableColumnSelector
                 disableDensitySelector

@@ -104,10 +104,7 @@ export default function UpdateProduct() {
     if (formData.name.trim() === "") {
       showToastError("Vui lòng nhập tên sản phẩm!");
       isValid = false;
-    } else if (regex.test(formData.name)) {
-      showToastError("Tên sản phẩm không được chứa ký tự đặc biệt!");
-      isValid = false;
-    }
+    } 
     if (formData.code.trim() === "") {
       showToastError("Vui lòng nhập mã sản phẩm!");
       isValid = false;

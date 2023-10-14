@@ -4,7 +4,6 @@ import dayjs from "dayjs";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import { startOfMonth, endOfMonth } from "date-fns";
 import Loading from "../../../components/loading";
-import axios from "axios";
 import {
   CREATE_DISCOUNT,
   DELETE_DISCOUNT,
@@ -246,8 +245,8 @@ export default function ListDiscount() {
                 multiple
                 fullWidth
                 id="tags-standard"
-                options={data?.products}
-                value={data?.products.filter((option) =>
+                options={data?.products || []}
+                value={data?.products?.filter((option) =>
                   selectedProducts.includes(option.id)
                 )}
                 onChange={handleAutocompleteChange}
@@ -372,7 +371,7 @@ export default function ListDiscount() {
             </div>
             <div className="body mt-20" style={{ width: "100%" }}>
               <DataGrid
-                rows={rows}
+                rows={rows || []}
                 disableColumnFilter
                 disableColumnSelector
                 disableDensitySelector

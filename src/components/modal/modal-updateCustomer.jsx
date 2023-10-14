@@ -41,7 +41,7 @@ export default function AlertDialogUpdateCustomer({
       phone: item_customer?.phone || "",
     });
     setValue(
-      data?.location.find((item) => item.id === item_customer?.location) || ""
+      data?.location?.find((item) => item.id === item_customer?.location) || ""
     );
   }, [item_customer]);
   

@@ -182,8 +182,11 @@ label {
 .table-responsive table thead tbody tr th {
   border-bottom: 1px solid #ddd;
 }
-
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+.modal-main{
+  max-width: 100% !important;
+  width: 900px !important;
+}
+.css-1t1j96h-MuiPaper-root-MuiDialog-paper, .MuiDialogActions-root.MuiDialogActions-spacing.css-hlj6pa-MuiDialogActions-root {
   max-width: 900px !important;
   min-width: 600px !important;
 }
@@ -211,12 +214,73 @@ label {
   height: 45px !important;
 }
 
-.col-8 h4{
+.css-v4u5dn-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before, .css-v4u5dn-MuiInputBase-root-MuiInput-root:after, .css-l4u8b9-MuiInputBase-root-MuiInput-root:after {
+  border-bottom: 1px solid #1976d2 !important;
+}
+
+.css-v4u5dn-MuiInputBase-root-MuiInput-root:before, .css-1hj5xsr-MuiInputBase-root-MuiInput-root-MuiSelect-root:before, .form-textarea, .css-l4u8b9-MuiInputBase-root-MuiInput-root:before, .css-zs07ro-MuiInputBase-root-MuiFilledInput-root:before {
+  border-bottom: 1px solid #ddd !important;
+  position: relative;
+}
+
+.form-textarea:hover:not(.Mui-disabled, .Mui-error):before, .form-textarea::after, .css-zs07ro-MuiInputBase-root-MuiFilledInput-root:after, .css-1hj5xsr-MuiInputBase-root-MuiInput-root-MuiSelect-root:after {
+  border-bottom: 1px solid #1976d2 !important;
+}
+
+.css-l4u8b9-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error)::before {
+  border-bottom: 1px solid #1976d2 !important;
+
+}
+
+.col-8 h4 {
   font-size: 1.375rem !important;
   font-weight: 500;
   padding-top: 5px;
   padding-bottom: 10px;
 }
-.col-8 h6{
+
+.col-8 h6 {
   font-weight: 500;
+}
+
+ul.MuiList-root.MuiList-padding.MuiMenu-list.css-6hp17o-MuiList-root-MuiMenu-list {
+  min-width: 127px;
+}
+
+button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-fullWidth.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-fullWidth.btn.btn-button.h-\[34px\].text-base.btn-primary.text-white.waves-effect.waves-light.w-full.css-xsqe0f-MuiButtonBase-root-MuiButton-root {
+  font-size: 12px;
+}
+
+.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-zs07ro-MuiInputBase-root-MuiFilledInput-root input {
+  padding-left: 0px;
+}
+
+.MuiFormControl-root.MuiTextField-root.w-full.max-sm\:w-2\/4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root label,.MuiFormControl-root.MuiTextField-root.w-\[49\%\].max-sm\:w-2\/4.mr-4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root label, .MuiFormControl-root.MuiTextField-root.mr-3.w-\[19\%\].css-1u3bzj6-MuiFormControl-root-MuiTextField-root label {
+  margin-left: -10px;
+}
+
+/* modal bill */
+.modal-content {
+  width: 100%;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+  border: none;
+}
+
+.modal-header {
+  border: none;
+  padding: 25px 25px 5px 25px;
+}
+
+.modal-header .modal-title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.modal-content .modal-body {
+  color: #777;
+  font-size: 14px;
+  padding: 15px;
 }

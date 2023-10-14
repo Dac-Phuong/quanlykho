@@ -62,7 +62,7 @@ export default function ProductGroupList() {
           </div>
         </div>
         <div className=" card-block remove-label">
-          <table className=" table table-bordered table-striped table-hover dataTable js-exportable">
+          <table className="table table-bordered table-striped table-hover dataTable js-exportable">
             <thead className="text-left">
               <tr>
                 <th>STT</th>

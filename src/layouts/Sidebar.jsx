@@ -14,7 +14,7 @@ import {
   AiFillTool,
 } from "react-icons/ai";
 import { FaShop } from "react-icons/fa6";
-import { showToastSuccess } from "../admin/utils/toastmessage";
+import { showToastError } from "../admin/utils/toastmessage";
 import { http } from "../admin/utils/http";
 export default function Sidebar() {
   const logout = async () => {
@@ -28,7 +28,7 @@ export default function Sidebar() {
       })
       .catch((error) => {
         console.error(" Error:", error.response);
-        showToastSuccess("Đăng xuất không thành công");
+        showToastError("Đăng xuất không thành công");
       });
   };
 

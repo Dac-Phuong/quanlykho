@@ -4,24 +4,6 @@ h2 {
     font-weight: normal;
     font-size: 16px;
 }
-
-.css-v4u5dn-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before, .css-v4u5dn-MuiInputBase-root-MuiInput-root:after, .css-l4u8b9-MuiInputBase-root-MuiInput-root:after {
-    border-bottom: 1px solid #1976d2 !important;
-}
-
-.css-v4u5dn-MuiInputBase-root-MuiInput-root:before, .form-textarea ,.css-l4u8b9-MuiInputBase-root-MuiInput-root:before ,.css-zs07ro-MuiInputBase-root-MuiFilledInput-root:before{
-    border-bottom: 1px solid #ddd !important;
-    position: relative;
-}
-
-.form-textarea:hover:not(.Mui-disabled, .Mui-error):before, .form-textarea::after ,.css-zs07ro-MuiInputBase-root-MuiFilledInput-root:after {
-    border-bottom: 1px solid #1976d2 !important;
-}
-
-.css-l4u8b9-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error)::before{
-    border-bottom: 1px solid #1976d2 !important;
-
-}
 .MuiFormControl-root.MuiTextField-root.form-control.css-1u3bzj6-MuiFormControl-root-MuiTextField-root{
     padding: 10px 0;
 }

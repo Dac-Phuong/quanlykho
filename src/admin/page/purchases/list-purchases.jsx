@@ -125,12 +125,12 @@ export default function ListParchases() {
             <button
               className="btn btn-button btn-danger waves-effect waves-light"
               fdprocessedid="k4qcck"
-              onClick={() => handleDeletePurchases(params.row.id)}
+              onClick={() => handleDeletePurchases(params?.row?.id)}
             >
               Xóa
             </button>
             <Link
-              to={`/nhap-kho/sua-don-nhap-hang/${params.row.id}`}
+              to={`/nhap-kho/sua-don-nhap-hang/${params?.row?.id}`}
               className="btn btn-button btn-primary ml-2"
             >
               sửa
@@ -138,7 +138,7 @@ export default function ListParchases() {
             <button
               className="btn btn-button btn-info waves-effect waves-light ml-2"
               onClick={() => {
-                setNewId(params.row.id);
+                setNewId(params?.row?.id);
                 setIsModalOpen(true);
               }}
             >
@@ -253,7 +253,7 @@ export default function ListParchases() {
             </div>
             <div className="body mt-24">
               <DataGrid
-                rows={rows}
+                rows={rows || []}
                 disableColumnFilter
                 disableColumnSelector
                 disableDensitySelector

@@ -3,7 +3,6 @@ import { Helmet } from "react-helmet";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import Loading from "../../../components/loading";
 import {
-  DELETE_ITEM_STAFF,
   GET_ITEM_STAFF,
   UPDATE_STAFF_STATUS,
   EDIT_STAFF,
@@ -20,23 +19,11 @@ import { useGetDataListStaff } from "../../api/useFetchData";
 import { http } from "../../utils/http";
 
 
-
-const deteteItemStaff = async (id) => {
-  try {
-    const response = await http.delete(DELETE_ITEM_STAFF + id);
-    showToastSuccess("Xóa nhân viên thành công");
-    return response.data;
-  } catch (error) {
-    showToastError("Xóa nhân viên không thành công");
-  }
-};
-
 export default function UpdateStaff() {
   const Title = "Sửa nhân viên";
   const navigate = useNavigate();
   const [loading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
-  const mutationDelete = useMutation(deteteItemStaff);
   const [newData, setNewData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [staffId, setStaffId] = useState(null);
@@ -44,26 +31,15 @@ export default function UpdateStaff() {
   const [newId, setNewId] = useState(id);
   const [item_staff, setItem_staff] = useState({});
   const queryKey = "staff_key";
+  const userData = getUserData();
   const [formData, setFormData] = useState({
-    user_id: "",
+    user_id: userData?.user?.id,
     fullname: "",
     address: "",
     phone: "",
     debt: 0,
   });
-  // lấy user_id từ localstorage
-  useEffect(() => {
-    const getData = () => {
-      const userData = getUserData();
-      if (!!userData) {
-        setFormData({
-          ...formData,
-          user_id: userData?.user?.id,
-        });
-      }
-    };
-    getData();
-  }, []);
+
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
@@ -96,7 +72,8 @@ export default function UpdateStaff() {
     });
   };
   // lấy dữ liệu về
-  const { data, error, isLoading } = useQuery(queryKey, useGetDataListStaff(queryKey));
+  const { data, isLoading } = useQuery(queryKey,useGetDataListStaff(queryKey)
+  );
 
   // hàm tạo kho từ useQuery
   const updateStaff = async (formData) => {
@@ -104,7 +81,7 @@ export default function UpdateStaff() {
       const response = await http.put(UPDATE_STAFF + id, formData);
       setIsLoading(false);
       showToastSuccess("Sửa nhân viên thành công!");
-      navigate("/nhan-vien/them-nhan-vien")
+      navigate("/nhan-vien/them-nhan-vien");
       return response?.data;
     } catch (error) {
       setIsLoading(false);
@@ -175,17 +152,7 @@ export default function UpdateStaff() {
       mutation.mutate(formData);
     }
   };
-  // hàm xóa
-  const handleDelete = (id) => {
-    const isConfirmed = window.confirm("Bạn có chắn muốn xóa không?");
-    if (isConfirmed) {
-      mutationDelete.mutate(id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: queryKey });
-        },
-      });
-    }
-  };
+
   const handleGetItem = async (id) => {
     setStaffId(id);
     setIsModalOpen(true);
@@ -221,13 +188,6 @@ export default function UpdateStaff() {
       renderCell: (params) => {
         return (
           <div>
-            {/* <button
-              className="btn btn-button btn-danger waves-effect waves-light"
-              fdprocessedid="k4qcck"
-              onClick={() => handleDelete(params?.row?.id)} 
-            >
-              Xóa
-            </button> */}
             <button
               className="btn btn-button  btn-primary ml-2"
               onClick={() => setNewId(params?.row?.id)}
@@ -275,7 +235,7 @@ export default function UpdateStaff() {
     address: item.address,
     debt: item.debt.toLocaleString("en-US"),
     phone: item.phone,
-    active: item.active == 0 ? "đang làm" : "nghỉ việc",
+    active: item.active === 0 ? "đang làm" : "nghỉ việc",
     to_date: item.to_date,
   }));
 
@@ -383,7 +343,7 @@ export default function UpdateStaff() {
           <div className="card-block remove-label">
             <div className="body mt-16" style={{ width: "100%" }}>
               <DataGrid
-                rows={rows}
+                rows={rows.map((row, index) => ({ ...row, id: index }))}
                 disableColumnFilter
                 disableColumnSelector
                 disableDensitySelector

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import { TextField } from "@mui/material";
@@ -7,34 +8,35 @@ import {
   showToastError,
   showToastSuccess,
 } from "../../admin/utils/toastmessage";
-import { UPDATE_ITEM_DISCOUNT } from "../../admin/api";
+import { CREATE_PAID } from "../../admin/api";
 import Loading from "../loading";
 import { http } from "../../admin/utils/http";
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-export default function AlertDialog({
+export default function AlertDialogSales({
   handleCloseModal,
   isModalOpen,
-  selectedId,
-  item_discount,
   isLoadings,
+  salesId,
 }) {
-  const [formData, setFormData] = useState({
-    discount: "",
-    get_more: "",
-    inv_condition: "",
-  });
   const [loading, setLoading] = useState(false);
   const queryClient = useQueryClient();
-  const queryKey = "discount_key";
-
+  const currentDate = new Date();
+  const queryKey = "sales_key";
+  const [date, setDate] = useState(dayjs(currentDate));
+  const [formData, setFormData] = useState({
+    sales_id: "",
+    date: "",
+    money: "",
+  });
   useEffect(() => {
     setFormData({
-      discount: item_discount?.item_discount?.discount || 0,
-      get_more: item_discount?.item_discount?.get_more || 0,
-      inv_condition: item_discount?.item_discount?.inv_condition|| 0,
+      ...formData,
+      sales_id: salesId,
+      date: dayjs(currentDate).format("YYYY-MM-DD"),
     });
-  }, [item_discount]);
-
+  }, [salesId, date]);
   // lấy dữ liệu từ input
   const handleInputChange = (event) => {
     const { name, value } = event?.target;
@@ -43,24 +45,33 @@ export default function AlertDialog({
       [name]: value,
     });
   };
+  // kiểm tra dữ liệu
+  const validation = () => {
+    let isValid = true;
+    if (formData.money.trim() === "" && formData.money == 0) {
+      showToastError("Vui lòng nhập số tiền cần thanh toán");
+      isValid = false;
+    }
+    return isValid;
+  };
   // Sửa dữ liệu
-  const updateDiscount = async (formData) => {
+  const CreatePaid = async (formData) => {
     try {
-      const response = await http.put(
-        UPDATE_ITEM_DISCOUNT + selectedId,
-        formData
-      );
+      const response = await http.post(CREATE_PAID, formData);
       setLoading(false);
-      showToastSuccess("Sửa mặt hàng thành công!");
+      setFormData({
+        money: "",
+      });
+      showToastSuccess("Trả trước thành công!");
       return response?.data;
     } catch (error) {
       setLoading(false);
-      showToastError("Sửa mặt hàng thất bại!");
+      showToastError("Trả trước thất bại!");
       console.log(error);
     }
   };
   // Sửa dữ liệu useQuery
-  const mutation = useMutation(updateDiscount, {
+  const mutation = useMutation(CreatePaid, {
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
     },
@@ -70,11 +81,13 @@ export default function AlertDialog({
   });
   // gửi dữ liệu useQuery
   const submitForm = () => {
-    setLoading(true);
-    handleCloseModal();
-    mutation.mutate(formData);
+    const valid = validation();
+    if (valid) {
+      setLoading(true);
+      mutation.mutate(formData);
+      handleCloseModal();
+    }
   };
-  
   return (
     <div>
       {isLoadings ? null : (
@@ -84,47 +97,35 @@ export default function AlertDialog({
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <div className="mx-4 mt-4">
-            <h2 className="text-xl font-medium">
-              Sửa sản phẩm: {item_discount?.name}
-            </h2>
+          <div className="mx-4 mt-4 ">
+            <h2 className="text-xl font-medium">Thanh toán hóa đơn</h2>
+            <span className="font-medium">Thông tin thanh toán</span>
           </div>
           <DialogActions>
-            <div className="m-3">
+            <div className="m-3 w-full">
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  className="w-full max-sm:w-2/4 max-sm:mr-1"
+                  label="Ngày thanh toán"
+                  value={date}
+                  onChange={(newValue) => setDate(newValue)}
+                  slotProps={{ textField: { variant: "filled" } }}
+                />
+              </LocalizationProvider>
               <TextField
-                className="form-control "
-                label="Chiết khấu"
-                id="standard-basic"
-                placeholder="15%"
-                variant="standard"
-                name="discount"
-                type="number"
-                value={formData.discount}
-                onChange={handleInputChange}
-              />
-              <TextField
-                className="form-control"
+                className="form-control mt-2 mb-3"
                 id="standard-basic"
                 variant="standard"
-                name="get_more"
+                name="money"
                 type="number"
-                placeholder="15 cái"
-                label="Tặng thêm"
-                value={formData.get_more}
+                fullWidth
+                placeholder="15000vnd"
+                label="Nhập số tiền"
+                value={formData.money}
                 onChange={handleInputChange}
               />
-              <TextField
-                className="form-control"
-                id="standard-basic"
-                variant="standard"
-                name="inv_condition"
-                type="number"
-                placeholder="150 cái"
-                label="Điều kiện"
-                value={formData.inv_condition}
-                onChange={handleInputChange}
-              />
-              <div className="mt-2 ml-auto flex w-[27%] ml-auto">
+              <span>Đơn hàng chưa được thanh toán</span>
+              <div className="mt-4 ml-auto">
                 <button
                   className="btn btn-button  waves-effect waves-light bg-green mr-3"
                   onClick={() => submitForm()}
@@ -143,7 +144,6 @@ export default function AlertDialog({
           </DialogActions>
         </Dialog>
       )}
-
       <>{loading ? <Loading /> : null}</>
     </div>
   );

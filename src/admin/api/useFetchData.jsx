@@ -76,7 +76,7 @@ export function useGetDataListWareHouse(queryKey) {
     return response.data;
   });
 }
-// lấy data của sales
+// lấy data của tạo sales
 export function useGetDataCreateSales(queryKey) {
   return useQuery(queryKey, async () => {
     const response = await http.get(GET_CREATE_SALES);

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import {
-  EDIT_ITEM_PURCHASES,
-  UPDATE_ITEM_PURCHASES,
-} from "../../api";
+import { EDIT_ITEM_SALES, UPDATE_SALES } from "../../api";
+import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
+import { http } from "../../utils/http";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { showToastError, showToastSuccess } from "../../utils/toastmessage";
@@ -16,48 +15,75 @@ import {
   Autocomplete,
   MenuItem,
   TextareaAutosize,
+  Select,
 } from "@mui/material/";
 import { DatePicker } from "@mui/x-date-pickers";
 import Input from "../../../components/input";
-import { useNavigate, useParams } from "react-router-dom";
-import { useGetDataPurchase } from "../../api/useFetchData";
-import { http } from "../../utils/http";
+import { useGetDataCreateSales } from "../../api/useFetchData";
+import { getUserData } from "../../utils/function";
 
-export default function UpdatePurchase() {
-  const Title = "Nhập hàng";
+export default function UpdateSales() {
+  const Title = "Sửa đơn hàng";
+  const queryKey = "update_sales_key";
   const [loading, setLoading] = useState(false);
   const queryClient = useQueryClient();
-  const [date, setDate] = useState(dayjs(""));
+  const currentDate = new Date();
+  const [date, setDate] = useState(dayjs(currentDate));
   const [warehouseId, setWarehouseId] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [staff, setStaff] = useState(null);
+  const [customer, setCustomer] = useState(null);
   const [status, setSatus] = useState(0);
   const [note, setNote] = useState("");
+  const userData = getUserData();
   const navigate = useNavigate();
-  const queryKey = "purchase_key";
   const [newArray, setNewArray] = useState([]);
   let { id } = useParams();
+  // get date từ useQuery
+  const { data, isLoading, isError } = useQuery(
+    queryKey,
+    useGetDataCreateSales(queryKey)
+  );
   //   lấy dữ liệu về
   useEffect(() => {
-    const getData = async () => {
-      setLoading(true);
-      await http
-        .get(EDIT_ITEM_PURCHASES + id)
-        .then((response) => {
-          if (response.status === 200) {
+    if (isLoading) {
+      return;
+    }
+    if (data) {
+      const getData = async () => {
+        setLoading(true);
+        await http
+          .get(EDIT_ITEM_SALES + id)
+          .then((response) => {
+            if (response.status === 200) {
+              setLoading(false);
+              setStaff(
+                data?.staff.find(
+                  (ite) => ite.id == response?.data?.Sales?.staff_id
+                ) || null
+              );
+              setCustomer(
+                data?.customers.find(
+                  (item) => item.id == response?.data?.Sales?.customer_id
+                ) || null
+              );
+              setNewArray(response?.data?.sales_items);
+              setSatus(response?.data?.Sales?.status);
+              setNote(response?.data?.Sales?.note);
+              setWarehouseId(response?.data?.Sales?.warehouse_id);
+              setDate(dayjs(response?.data?.Sales.date));
+              setDiscount(response?.data?.Sales?.discount);
+            }
+          })
+          .catch((error) => {
             setLoading(false);
-            setNewArray(response?.data?.purchases_detail);
-            setSatus(response?.data?.purchase?.status);
-            setNote(response?.data?.purchase?.note);
-            setWarehouseId(response?.data?.purchase?.warehouse_id);
-            setDate(dayjs(response?.data?.purchase.date));
-          }
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.error(error.response);
-        });
-    };
-    getData();
-  }, [id]);
+
+            console.error(error.response);
+          });
+      };
+      getData();
+    }
+  }, [id, isLoading]);
   //   thêm sản phẩm vào mảng state
   const handleAutocompleteChange = (event, newValue) => {
     if (newValue && newValue.id) {
@@ -73,6 +99,7 @@ export default function UpdatePurchase() {
           quality: 0,
           get_more: 0,
           discount: 0,
+          guarantee: 0,
         };
         setNewArray([...newArray, array]);
       } else {
@@ -83,6 +110,7 @@ export default function UpdatePurchase() {
       }
     }
   };
+
   // lấy dữ liệu từ input của các item
   const handleInputChange = (value, itemId, fieldName) => {
     const updatedItems = newArray.map((item) => {
@@ -97,7 +125,6 @@ export default function UpdatePurchase() {
 
     setNewArray(updatedItems);
   };
-
   // xóa sản phẩm khỏi mảng
   const handleDeleteItem = (item) => {
     const updatedItems = newArray.filter(
@@ -105,53 +132,72 @@ export default function UpdatePurchase() {
     );
     setNewArray(updatedItems);
   };
+  //
   const handleChange = (event) => {
     setWarehouseId(event?.target?.value);
+  };
+  const handleChangeDiscount = (event) => {
+    setDiscount(event?.target?.value);
   };
   const handleChangeStatus = (event) => {
     setSatus(event?.target?.value);
   };
+  const handleChangeStaff = (event, newValue) => {
+    setStaff(newValue);
+  };
+  const handleChangeCustomer = (event, newValue) => {
+    setCustomer(newValue);
+  };
+  // tạo fromdata
   const formData = {
-    purchases_item: newArray,
-    purchases: {
+    sales_item: newArray,
+    sales: {
+      user_id: userData.user.id,
+      customer_id: customer?.id,
+      staff_id: staff?.id,
       date: dayjs(date).format("YYYY-MM-DD"),
       warehouse_id: warehouseId,
       status: status,
       note: note,
+      discount: discount || 0,
     },
   };
-  // tạo sản phẩm bằng useQuery
-  const updatePurchase = async (formData) => {
+  // tạo bằng useQuery
+  const updateSales = async (formData) => {
     try {
-      const response = await http.put(UPDATE_ITEM_PURCHASES + id, formData);
+      const response = await http.put(UPDATE_SALES + id, formData);
       setLoading(false);
+      showToastSuccess("Sửa đơn hàng thành công!");
+      navigate("/xuat-kho/danh-sach-ban-hang");
       setNote("");
-      setSatus(0);
-      showToastSuccess("Cập nhật đơn hàng thành công!");
-      navigate("/nhap-kho/danh-sach-nhap-hang");
       return response.data;
     } catch (error) {
       setLoading(false);
-      showToastError("Cập nhật đơn hàng thất bại!");
-      console.log(error);
+      if (error?.response.status === 400) {
+        showToastError(
+          error?.response?.data?.product_name +
+            " không đủ số lượng bán. số lượng còn lại trong kho: " +
+            error?.response?.data?.quality
+        );
+      } else {
+        showToastError("Sửa đơn hàng thất bại!");
+      }
     }
   };
-  // tạo sản phẩm bằng useQuery
-  const mutation = useMutation(updatePurchase, {
+
+  // cập nhật bán hàng
+  const mutation = useMutation(updateSales, {
     onSuccess: () => {
       queryClient.invalidateQueries(queryKey);
-      setNewArray([]);
     },
     onError: (error) => {
       console.error("Lỗi khi gửi yêu cầu POST:", error);
     },
   });
 
-  // get date từ useQuery
-  const { data, isLoading, isError } = useQuery(queryKey, useGetDataPurchase(queryKey));
   useEffect(() => {
-    if (warehouseId === "" && data?.warehouse?.length > 0) {
-      setWarehouseId(data?.warehouse[0].id);
+    if (warehouseId === "" && data?.warehouses?.length > 0) {
+      setWarehouseId(data?.warehouses[0].id);
     }
   }, [data, warehouseId]);
 
@@ -161,13 +207,29 @@ export default function UpdatePurchase() {
   // kiểm tra dữ liệu đầu vào
   const validation = () => {
     let isValid = true;
-    if (formData.purchases_item.length === 0) {
-      showToastError("Vui lòng chọn sản phẩm!");
+    if (newArray?.length === 0) {
+      showToastError("Vui lòng chọn mặt hàng!");
       isValid = false;
     }
+    for (let i = 0; i < newArray?.length; i++) {
+      if (newArray[i].quality === 0) {
+        showToastError("Vui lòng nhập số lượng sản phẩm!");
+        isValid = false;
+        break;
+      }
+    }
+    if (staff === null) {
+      showToastError("Vui lòng chọn nhân viên!");
+      isValid = false;
+    }
+    if (customer === null) {
+      showToastError("Vui lòng chọn khách hàng!");
+      isValid = false;
+    }
+
     return isValid;
   };
-  // handle tạo sản phẩm bằng useQuery
+  // cập nhật bán hàng
   const submitForm = () => {
     const isValid = validation();
     if (isValid) {
@@ -181,12 +243,9 @@ export default function UpdatePurchase() {
       <Helmet>
         <title>{Title}</title>
       </Helmet>
-      <HeaderComponents
-        label={"Quản lý kho hàng"}
-        title={"Nhập hàng vào kho"}
-      />
-      <div className="row my-4 mx-2 flex flex-wrap md:max-lg:flex-col">
-        <div className="col-sm-8 md:max-lg:w-max">
+      <HeaderComponents label={"Quản lý kho hàng"} title={"Sửa đơn hàng"} />
+      <div className="row my-4 mx-2 flex flex-wrap max-lg:flex-wrap">
+        <div className="col-sm-8">
           <div className="card">
             <div className="card-header">
               <div className="card-header-left">
@@ -208,7 +267,7 @@ export default function UpdatePurchase() {
                   <TextField
                     {...params}
                     fullWidth
-                    label="Chọn nhóm hàng"
+                    label="Chọn mặt hàng"
                     variant="standard"
                     size="small"
                   />
@@ -225,6 +284,7 @@ export default function UpdatePurchase() {
                         <th>Hàng KM</th>
                         <th>Giá gốc</th>
                         <th>Chiết khấu</th>
+                        <th>Bảo hành</th>
                         <th>Giá bán</th>
                         <th>Thành tiền</th>
                         <th>Thao tác</th>
@@ -291,11 +351,28 @@ export default function UpdatePurchase() {
                                 placeholder="15%"
                               />
                             </th>
+                            <th>
+                              <Input
+                                className="pt-2"
+                                type="number"
+                                value={item.guarantee}
+                                variant="standard"
+                                name="guarantee"
+                                onChange={(e) =>
+                                  handleInputChange(
+                                    e,
+                                    item?.product_id,
+                                    "guarantee"
+                                  )
+                                }
+                                placeholder="12th"
+                              />
+                            </th>
                             <th>{item?.price.toLocaleString("en-US")}</th>
                             <th>
-                              {(subtotal - discountAmount).toLocaleString(
-                                "en-US"
-                              )}
+                              {Math.round(
+                                subtotal - discountAmount
+                              ).toLocaleString("en-US")}
                             </th>
                             <th>
                               <button
@@ -316,7 +393,7 @@ export default function UpdatePurchase() {
             </div>
           </div>
         </div>
-        <div className="col-sm-4 md:max-lg:w-full">
+        <div className="col-sm-4 ">
           <div className="card">
             <div className="card-header">
               <div className="card-header-left">
@@ -329,23 +406,22 @@ export default function UpdatePurchase() {
             </div>
             <div className="card-block remove-label">
               <div className=" text-[#555]">
-                <TextField
+                <Select
                   fullWidth
-                  select
                   value={warehouseId}
                   onChange={handleChange}
-                  label="Chọn Kho nhập "
+                  label="Chọn Kho bán "
                   id="standard-basic"
                   variant="standard"
                 >
-                  {data?.warehouse?.map((item, index) => {
+                  {data?.warehouses?.map((item, index) => {
                     return (
                       <MenuItem key={item.id} value={item.id}>
                         {item.fullname}
                       </MenuItem>
                     );
                   })}
-                </TextField>
+                </Select>
               </div>
               <div className="flex my-3">
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -357,18 +433,72 @@ export default function UpdatePurchase() {
                     slotProps={{ textField: { variant: "filled" } }}
                   />
                 </LocalizationProvider>
-                <TextField
+                <Select
                   className="w-[49%] max-sm:w-2/4 mt-2  max-sm:mr-1"
-                  select
                   value={status}
                   onChange={handleChangeStatus}
                   label="Chọn trạng thái"
                   id="standard-basic"
                   variant="standard"
                 >
-                  <MenuItem value="0">Chưa nhận hàng</MenuItem>
-                  <MenuItem value="1">Đã chưa nhận </MenuItem>
-                </TextField>
+                  <MenuItem value="0">Chưa thanh toán</MenuItem>
+                  <MenuItem value="1">Đã thanh toán </MenuItem>
+                </Select>
+              </div>
+              <div className="flex justify-between my-3">
+                <Autocomplete
+                  className="w-[49%] max-sm:w-2/4 mt-2   mr-4 max-sm:mr-1"
+                  id="disable-close-on-select"
+                  clearOnEscape
+                  value={staff}
+                  options={data && data?.staff ? data?.staff : []}
+                  onChange={handleChangeStaff}
+                  getOptionLabel={(rows) => rows?.fullname || {}}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth
+                      label="Chọn nhân viên"
+                      variant="standard"
+                      size="small"
+                    />
+                  )}
+                />
+                <Autocomplete
+                  className="w-[49%] max-sm:w-2/4 mt-2 max-sm:mr-1"
+                  id="disable-close-on-select"
+                  clearOnEscape
+                  options={data && data?.customers ? data?.customers : []}
+                  onChange={handleChangeCustomer}
+                  value={customer}
+                  getOptionLabel={(rows) =>
+                    rows?.fullname + " - " + rows?.address || {}
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      fullWidth
+                      label="Chọn khách hàng"
+                      variant="standard"
+                      size="small"
+                    />
+                  )}
+                />
+              </div>
+              <div
+                className="form-group "
+                style={{ width: "48%", marginTop: 10 }}
+              >
+                <TextField
+                  label="Chiết khấu thêm"
+                  type="number"
+                  value={discount}
+                  id="standard-basic"
+                  variant="standard"
+                  name="discount"
+                  placeholder="5%"
+                  onChange={handleChangeDiscount}
+                />
               </div>
               <div className="form-textarea">
                 <TextareaAutosize
@@ -387,7 +517,7 @@ export default function UpdatePurchase() {
                 fdprocessedid="gpxvki"
                 onClick={() => submitForm()}
               >
-                Cập nhật đơn hàng
+                Lưu đơn hàng
               </button>
             </div>
           </div>

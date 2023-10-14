@@ -45,8 +45,8 @@ export default function AlertDialogPurchase({
             <DialogActions>
               <div className="m-3 w-full">
                 <div className=" ml-auto w-full">
-                  <div class="body table-responsive ">
-                    <table class="table table-hover">
+                  <div className="body table-responsive ">
+                    <table className="table table-hover">
                       <thead>
                         <tr>
                           <th>#</th>

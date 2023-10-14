@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useQueryClient, useMutation, useQuery } from "react-query";
 import Loading from "../../../components/loading";
-import {
-  CREATE_STAFF,
-  GET_ITEM_STAFF,
-  UPDATE_STAFF_STATUS,
-} from "../../api";
+import { CREATE_STAFF, GET_ITEM_STAFF, UPDATE_STAFF_STATUS } from "../../api";
 import { showToastError, showToastSuccess } from "../../utils/toastmessage";
 import HeaderComponents from "../../../components/header";
 import { TextField } from "@mui/material";
@@ -26,26 +22,15 @@ export default function ListStaff() {
   const [staffId, setStaffId] = useState(null);
   const [newId, setNewId] = useState(null);
   const queryKey = "staff_key";
+  const userData = getUserData();
+
   const [formData, setFormData] = useState({
-    user_id: "",
+    user_id: userData?.user?.id,
     fullname: "",
     address: "",
     phone: "",
     debt: 0,
   });
-  // lấy user_id từ localstorage
-  useEffect(() => {
-    const getData = () => {
-      const userData = getUserData();
-      if (!!userData) {
-        setFormData({
-          ...formData,
-          user_id: userData?.user?.id,
-        });
-      }
-    };
-    getData();
-  }, []);
   //   lấy dữ liệu từ input
   const handleInputChange = (event) => {
     const { name, value } = event?.target;
@@ -56,23 +41,21 @@ export default function ListStaff() {
   };
   // lấy dữ liệu về
   const { data, error, isLoading } = useQuery(
-    queryKey,useGetDataListStaff(queryKey),
-    {
-      refetchOnWindowFocus: false,
-    }
+    queryKey,
+    useGetDataListStaff(queryKey)
   );
 
   const handleGetStaff = async (newId) => {
     const response = await http.get(GET_ITEM_STAFF + newId);
     return response.data;
   };
-  const {
-    data: staff_debt,
-    isLoading: isLoadings,
-    isError: isErrors,
-  } = useQuery(["purchases_detail", newId], () => handleGetStaff(newId), {
-    enabled: !!newId,
-  });
+  const { data: staff_debt, isLoading: isLoadings } = useQuery(
+    ["purchases_detail", newId],
+    () => handleGetStaff(newId),
+    {
+      enabled: !!newId,
+    }
+  );
 
   // hàm tạo kho từ useQuery
   const createStaff = async (formData) => {
@@ -138,9 +121,9 @@ export default function ListStaff() {
     { field: "index", headerName: "STT" },
     { field: "fullname", headerName: "Họ và tên", minWidth: 120, flex: 1 },
     { field: "address", headerName: "Địa chỉ", minWidth: 220, flex: 1 },
-    { field: "phone", headerName: "Số điện thoại", minWidth: 140 },
-    { field: "debt", headerName: "Công nợ", minWidth: 120 },
-    { field: "active", headerName: "Trạng thái", minWidth: 120 },
+    { field: "phone", headerName: "Số điện thoại", minWidth: 140, flex: 1 },
+    { field: "debt", headerName: "Công nợ", minWidth: 120, flex: 1 },
+    { field: "active", headerName: "Trạng thái", minWidth: 120, flex: 1 },
     {
       field: "action",
       headerName: "Thao tác",
@@ -333,7 +316,7 @@ export default function ListStaff() {
           <div className="card-block remove-label">
             <div className="body mt-16" style={{ width: "100%" }}>
               <DataGrid
-                rows={rows}
+                rows={rows || []}
                 disableColumnFilter
                 disableColumnSelector
                 disableDensitySelector

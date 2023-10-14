@@ -2,27 +2,28 @@ import { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { getUserData } from "./admin/utils/function";
-import Login from "./admin/page/auth/Login";
-import ListCustomers from "./admin/page/customer/create-customers";
-import ListDiscount from "./admin/page/discount/list-discount";
-import CreateLcation from "./admin/page/location/create-location";
-import UpdateLcation from "./admin/page/location/update-location";
-import AddProductGroup from "./admin/page/product-group/add-productGroup";
-import ProductGroupList from "./admin/page/product-group/products-groupList";
 import UpdateProductGroup from "./admin/page/product-group/update-productGroup";
-import CreateProduct from "./admin/page/products/create-products";
-import ListProducts from "./admin/page/products/list-products";
-import UpdateProduct from "./admin/page/products/update-products";
-import CreatePurchase from "./admin/page/purchases/create-purchase";
+import ProductGroupList from "./admin/page/product-group/products-groupList";
+import AddProductGroup from "./admin/page/product-group/add-productGroup";
 import ImportPurchase from "./admin/page/purchases/import-purchaseExcel";
-import ListParchases from "./admin/page/purchases/list-purchases";
+import UpdateWareHouse from "./admin/page/warehouse/UpdateWareHouse";
 import UpdatePurchase from "./admin/page/purchases/update-purchase";
+import CreatePurchase from "./admin/page/purchases/create-purchase";
+import ListCustomers from "./admin/page/customer/create-customers";
+import CreateProduct from "./admin/page/products/create-products";
+import UpdateProduct from "./admin/page/products/update-products";
+import ListParchases from "./admin/page/purchases/list-purchases";
+import UpdateLcation from "./admin/page/location/update-location";
+import CreateLcation from "./admin/page/location/create-location";
+import ListWareHouse from "./admin/page/warehouse/ListWareHouse";
+import ListProducts from "./admin/page/products/list-products";
+import ListDiscount from "./admin/page/discount/list-discount";
+import UpdateSales from "./admin/page/sales/update-purchase";
 import CreateSales from "./admin/page/sales/create-sales";
+import UpdateStaff from "./admin/page/staff/update-staff";
 import ListSales from "./admin/page/sales/list-sales";
 import ListStaff from "./admin/page/staff/list-staff";
-import UpdateStaff from "./admin/page/staff/update-staff";
-import ListWareHouse from "./admin/page/warehouse/ListWareHouse";
-import UpdateWareHouse from "./admin/page/warehouse/UpdateWareHouse";
+import Login from "./admin/page/auth/Login";
 import Header from "./layouts/Header";
 import Home from "./layouts/Home";
 import Sidebar from "./layouts/Sidebar";
@@ -34,7 +35,7 @@ function App() {
   useEffect(() => {
     const getData = () => {
       const userData = getUserData();
-      if (userData.token === null) {
+      if (userData?.token == null) {
         navigate("/login");
       }
     };
@@ -70,7 +71,6 @@ function App() {
                           path="/nhom-hang/sua-nhom-hang/:id"
                           element={<UpdateProductGroup />}
                         />
-
                         <Route
                           path="/quan-ly-kho/them-hang-moi"
                           element={<CreateProduct />}
@@ -142,6 +142,10 @@ function App() {
                         <Route
                           path="/xuat-kho/danh-sach-ban-hang"
                           element={<ListSales />}
+                        />
+                        <Route
+                          path="xuat-kho/sua-don-ban-hang/:id"
+                          element={<UpdateSales />}
                         />
                       </Routes>
                     </div>

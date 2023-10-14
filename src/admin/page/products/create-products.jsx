@@ -3,9 +3,9 @@ import { Helmet } from "react-helmet";
 import { CREATE_PRODUCTS } from "../../api";
 import { showToastError, showToastSuccess } from "../../utils/toastmessage";
 import Loading from "../../../components/loading";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import HeaderComponents from "../../../components/header";
-import { TextField, Autocomplete, Box } from "@mui/material/";
+import { TextField, Autocomplete } from "@mui/material/";
 import { useGetDataGroup } from "../../api/useFetchData";
 import { http } from "../../utils/http";
 
@@ -74,9 +74,6 @@ export default function CreateProduct() {
     const regex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/;
     if (formData.name.trim() === "") {
       showToastError("Vui lòng nhập tên sản phẩm!");
-      isValid = false;
-    } else if (regex.test(formData.name)) {
-      showToastError("Tên sản phẩm không được chứa ký tự đặc biệt!");
       isValid = false;
     }
     if (formData.code.trim() === "") {

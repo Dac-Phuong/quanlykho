@@ -39,7 +39,7 @@ export default function UpdateProductGroup() {
             setFormData({
               group_name: response.data.item.group_name,
               group_code: response.data.item.group_code,
-              description: response.data.item.description,
+              description: response.data.item.description || "",
               commission: response.data.item.commission,
               commission_target: response.data.item.commission_target,
               commission_type: response.data.item.commission_type,
