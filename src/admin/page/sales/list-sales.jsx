@@ -79,15 +79,6 @@ export default function ListSales() {
     setAnchorEl(null);
     setSelectedRowId(null);
   };
-  const handleChangeStatus = (event) => {
-    setSatus(event?.target?.value);
-  };
-  const handleChangeStaff = (event, newValue) => {
-    setStaff(newValue);
-  };
-  const handleChangeCustomer = (event, newValue) => {
-    setCustumer(newValue);
-  };
 
   // update trạng thái
   const updateStatus = async (id) => {
@@ -110,7 +101,7 @@ export default function ListSales() {
     });
   };
 
-  // hàm xóa purchases
+  // hàm xóa sales
   const handleDeleteSales = (id) => {
     handleMenuClose();
     const isConfirmed = window.confirm("Bạn có chắn muốn xóa không?");
@@ -129,14 +120,13 @@ export default function ListSales() {
     customer_id: customer?.id,
     status_id: status == 3 ? undefined : status,
   };
-  console.log(formData);
   // hàm lọc bán hàng
   const submitFilter = async () => {
     await http
       .post(FILTER_SALES, formData)
       .then((response) => {
         if (response.status === 200) {
-          console.log(response);
+          setNewData(response.data.filter_list);
         }
       })
       .catch((error) => {
@@ -144,7 +134,7 @@ export default function ListSales() {
       });
   };
 
-  // hàm get thông tin hóa đơn
+  // hàm lấy thông tin hóa đơn
   const handleGetSalesBill = async (id) => {
     handleShowModalSales(id);
     setLoading(true);
@@ -267,7 +257,7 @@ export default function ListSales() {
     paid:
       parseFloat(
         item?.status == 1
-         ? item?.total_price - item?.total_price * (item?.discount / 100)
+          ? item?.total_price - item?.total_price * (item?.discount / 100)
           : item?.paid_money || 0
       ).toLocaleString("en-US") + " đồng",
     total_price:
@@ -372,7 +362,7 @@ export default function ListSales() {
                 clearOnEscape
                 value={staff}
                 options={data && data?.staff ? data?.staff : []}
-                onChange={handleChangeStaff}
+                onChange={(event, newValue) => setStaff(newValue)}
                 getOptionLabel={(rows) => rows?.fullname || ""}
                 renderInput={(params) => (
                   <TextField
@@ -390,7 +380,7 @@ export default function ListSales() {
                 clearOnEscape
                 value={customer}
                 options={data && data?.customers ? data?.customers : []}
-                onChange={handleChangeCustomer}
+                onChange={(event, newValue) => setCustumer(newValue)}
                 getOptionLabel={(rows) =>
                   rows?.address
                     ? rows?.fullname + " - " + rows?.address
@@ -410,7 +400,7 @@ export default function ListSales() {
                 className="w-[19%] max-sm:w-2/4 mt-2  max-sm:w-[46%] max-sm:mr-1"
                 select
                 value={status}
-                onChange={handleChangeStatus}
+                onChange={(event) => setSatus(event?.target?.value)}
                 label="Chọn trạng thái"
                 id="standard-basic"
                 variant="standard"

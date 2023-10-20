@@ -49,9 +49,7 @@ export default function ListStaff() {
     const response = await http.get(GET_ITEM_STAFF + newId);
     return response.data;
   };
-  const { data: staff_debt, isLoading: isLoadings } = useQuery(
-    ["purchases_detail", newId],
-    () => handleGetStaff(newId),
+  const { data: staff_debt, isLoading: isLoadings } = useQuery(["purchases_detail", newId],() => handleGetStaff(newId),
     {
       enabled: !!newId,
     }

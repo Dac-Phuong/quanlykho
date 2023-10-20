@@ -42,7 +42,6 @@ code {
   background-color: #f9f9f9;
 }
 
-
 small {
   display: block;
   font-size: 12px;
@@ -50,8 +49,6 @@ small {
   color: #999;
   line-height: 15px;
 }
-
-
 
 label {
   display: inline-block;
@@ -72,47 +69,6 @@ label {
   background: #fff;
 }
 
-.lds-ring {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #fff;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #fff transparent transparent transparent;
-}
-
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-
-@keyframes lds-ring {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 .lds-ring {
   display: inline-block;
@@ -124,33 +80,9 @@ label {
   height: 80px;
 }
 
-.lds-ring div {
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  margin: 8px;
-  border: 3px solid #448AFF;
-  border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-  border-color: #448AFF transparent transparent transparent;
-}
-
-.lds-ring div:nth-child(1) {
-  animation-delay: -0.45s;
-}
-
-.lds-ring div:nth-child(2) {
-  animation-delay: -0.3s;
-}
-
-.lds-ring div:nth-child(3) {
-  animation-delay: -0.15s;
-}
-
-.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-zs07ro-MuiInputBase-root-MuiFilledInput-root {
+.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary {
   background-color: #fff;
+  padding-left: 0px;
 }
 
 .MuiDataGrid-virtualScrollerContent.css-1kwdphh-MuiDataGrid-virtualScrollerContent {
@@ -170,7 +102,7 @@ label {
   background-color: #FF7777 !important;
 }
 
-.MuiDataGrid-columnHeaders.MuiDataGrid-withBorderColor.css-1iyq7zh-MuiDataGrid-columnHeaders {
+.MuiDataGrid-columnHeaders {
   background-color: #619CFF !important;
   color: #fff !important;
 }
@@ -182,11 +114,13 @@ label {
 .table-responsive table thead tbody tr th {
   border-bottom: 1px solid #ddd;
 }
-.modal-main{
+
+.modal-main {
   max-width: 100% !important;
   width: 900px !important;
 }
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper, .MuiDialogActions-root.MuiDialogActions-spacing.css-hlj6pa-MuiDialogActions-root {
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24 {
   max-width: 900px !important;
   min-width: 600px !important;
 }
@@ -206,7 +140,7 @@ label {
   border-bottom: 1px solid #eee;
 }
 
-.css-5wly58-MuiDataGrid-root .MuiDataGrid-columnHeader:focus-within, .css-5wly58-MuiDataGrid-root .MuiDataGrid-cell:focus-within {
+.MuiDataGrid-cell:focus-within {
   outline: none !important;
 }
 
@@ -214,11 +148,11 @@ label {
   height: 45px !important;
 }
 
-.css-v4u5dn-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error):before, .css-v4u5dn-MuiInputBase-root-MuiInput-root:after, .css-l4u8b9-MuiInputBase-root-MuiInput-root:after {
+.MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before, .MuiInputBase-root:after, .css-l4u8b9-MuiInputBase-root-MuiInput-root:after {
   border-bottom: 1px solid #1976d2 !important;
 }
 
-.css-v4u5dn-MuiInputBase-root-MuiInput-root:before, .css-1hj5xsr-MuiInputBase-root-MuiInput-root-MuiSelect-root:before, .form-textarea, .css-l4u8b9-MuiInputBase-root-MuiInput-root:before, .css-zs07ro-MuiInputBase-root-MuiFilledInput-root:before {
+.MuiInputBase-root:before, .css-1hj5xsr-MuiInputBase-root-MuiInput-root-MuiSelect-root:before, .form-textarea, .css-l4u8b9-MuiInputBase-root-MuiInput-root:before, .css-zs07ro-MuiInputBase-root-MuiFilledInput-root:before {
   border-bottom: 1px solid #ddd !important;
   position: relative;
 }
@@ -251,11 +185,9 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPr
   font-size: 12px;
 }
 
-.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-zs07ro-MuiInputBase-root-MuiFilledInput-root input {
-  padding-left: 0px;
-}
 
-.MuiFormControl-root.MuiTextField-root.w-full.max-sm\:w-2\/4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root label,.MuiFormControl-root.MuiTextField-root.w-\[49\%\].max-sm\:w-2\/4.mr-4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root label, .MuiFormControl-root.MuiTextField-root.mr-3.w-\[19\%\].css-1u3bzj6-MuiFormControl-root-MuiTextField-root label {
+
+.MuiFormControl-root.MuiTextField-root.w-full.max-sm\:w-2\/4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root label, .MuiFormControl-root.MuiTextField-root.w-\[49\%\].max-sm\:w-2\/4.mr-4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root label, .MuiFormControl-root.MuiTextField-root.mr-3.w-\[19\%\].css-1u3bzj6-MuiFormControl-root-MuiTextField-root label {
   margin-left: -10px;
 }
 
@@ -284,3 +216,11 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPr
   font-size: 14px;
   padding: 15px;
 }
+
+.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd input {
+  padding: 17px 0;
+}
+/* 
+.MuiFormControl-root.MuiTextField-root label {
+  margin-left: -10px;
+} */

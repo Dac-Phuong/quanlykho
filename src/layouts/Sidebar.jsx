@@ -112,7 +112,9 @@ export default function Sidebar() {
               Danh sách kho
             </MenuItem>
             <MenuItem component={<Link to="#" />}>Chuyển kho</MenuItem>
-            <MenuItem component={<Link to="#" />}>Tính lương</MenuItem>
+            <MenuItem component={<Link to="quan-ly-kho/tinh-luong" />}>
+              Tính lương
+            </MenuItem>
           </SubMenu>
           <MenuItem
             icon={<AiOutlinePercentage size={18} />}
@@ -136,7 +138,7 @@ export default function Sidebar() {
             <MenuItem component={<Link to="/xuat-kho/ban-hang" />}>
               Bán hàng
             </MenuItem>
-            <MenuItem component={<Link to="#" />}>
+            <MenuItem component={<Link to="/xuat-kho/xuat-hang-bang-excel" />}>
               Xuất hàng bằng Excel
             </MenuItem>
             <MenuItem component={<Link to="/xuat-kho/danh-sach-ban-hang" />}>
@@ -154,7 +156,7 @@ export default function Sidebar() {
             <MenuItem component={<Link to="/khach-hang/them-khach-hang" />}>
               Thêm khách hàng
             </MenuItem>
-            <MenuItem component={<Link to="#" />}>
+            <MenuItem component={<Link to="/khach-hang/nhap-khach-hang" />}>
               Nhập khách bằng Excel
             </MenuItem>
             <MenuItem component={<Link to="/khach-hang/quan-ly-tuyen" />}>

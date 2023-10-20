@@ -280,10 +280,10 @@ export default function ListProducts() {
             </div>
             <div className="form-inline">
               <button
-                className="btn btn-button btn-success waves-effect waves-light  w-full"
+                className="btn btn-button btn-danger waves-effect waves-light w-full"
                 fdprocessedid="svu45"
                 onClick={() => submit()}
-                style={{ width: "20%" }}
+                style={{ width: "30%" }}
               >
                 Lọc
               </button>

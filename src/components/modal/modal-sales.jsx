@@ -23,7 +23,7 @@ export default function AlertDialogSales({
   const [loading, setLoading] = useState(false);
   const queryClient = useQueryClient();
   const currentDate = new Date();
-  const queryKey = "sales_key";
+  const queryKey = "listsales_key";
   const [date, setDate] = useState(dayjs(currentDate));
   const [formData, setFormData] = useState({
     sales_id: "",

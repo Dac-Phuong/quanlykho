@@ -17,7 +17,10 @@ import {
 } from "@mui/material/";
 import { DatePicker } from "@mui/x-date-pickers";
 import Input from "../../../components/input";
-import { useGetDataCreateSales } from "../../api/useFetchData";
+import {
+  useGetDataCreateSales,
+  useGetDataDiscount,
+} from "../../api/useFetchData";
 import { getUserData } from "../../utils/function";
 
 export default function CreateSales() {
@@ -33,9 +36,11 @@ export default function CreateSales() {
   const [status, setSatus] = useState(0);
   const [note, setNote] = useState("");
   const queryKey = "sales_key";
+  const queryKeydiscount = "discount_key";
   const [newArray, setNewArray] = useState([]);
   const [newData, setNewData] = useState(null);
   const userData = getUserData();
+
   //   thêm sản phẩm vào mảng state
   const handleAutocompleteChange = (event, newValue) => {
     if (newValue && newValue.id) {
@@ -50,7 +55,12 @@ export default function CreateSales() {
           price: newValue.buy_price,
           quality: 0,
           get_more: 0,
-          discount: 0,
+          discount:
+            dataDiscount?.list_discount?.find((item) => {
+              return (
+                item.product_id == newValue.id && new Date(item.to_date) >= date
+              );
+            })?.discount || 0,
           guarantee: 0,
         };
         setNewArray([...newArray, array]);
@@ -149,10 +159,11 @@ export default function CreateSales() {
   });
 
   // get date từ useQuery
-  const { data, isLoading, isError } = useQuery(
-    queryKey,
-    useGetDataCreateSales(queryKey)
-  );
+  const { data, isLoading, isError } = useQuery( queryKey,useGetDataCreateSales(queryKey));
+
+  // get date từ useQuery
+  const {data: dataDiscount,isLoading: loadings, isError: error} = useQuery(queryKeydiscount, useGetDataDiscount(queryKeydiscount));
+
   useEffect(() => {
     if (warehouseId === "" && data?.warehouses?.length > 0) {
       setWarehouseId(data?.warehouses[0].id);
@@ -272,7 +283,8 @@ export default function CreateSales() {
                     <tbody className="text-left">
                       {newArray?.map((item) => {
                         const subtotal = item?.quality * item?.price;
-                        const discountAmount = subtotal * (item?.discount / 100);
+                        const discountAmount =
+                          subtotal * (item?.discount / 100);
                         return (
                           <tr key={item?.product_id} className="">
                             <th>{item?.code}</th>

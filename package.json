@@ -19,6 +19,7 @@
     "datatables.net-buttons-dt": "^2.4.2",
     "datatables.net-dt": "^1.13.6",
     "date-fns": "^2.30.0",
+    "papaparse": "^5.4.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
     "react-confirm-alert": "^3.0.6",
@@ -67,5 +68,10 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.3"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "tailwind.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

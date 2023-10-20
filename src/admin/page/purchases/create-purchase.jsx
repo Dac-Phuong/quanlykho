@@ -123,6 +123,7 @@ export default function CreatePurchase() {
 
   // get date từ useQuery
   const { data, isLoading, isError } = useQuery(queryKey, useGetDataPurchase(queryKey));
+  
   useEffect(() => {
     if (warehouseId === "" && data?.warehouse?.length > 0) {
       setWarehouseId(data?.warehouse[0].id);

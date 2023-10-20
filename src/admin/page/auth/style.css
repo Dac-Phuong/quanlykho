@@ -1,16 +1,41 @@
-button.btn.btn-primary.btn-md.btn-block.waves-effect.waves-light.text-center.m-b-20{
+button.btn.btn-primary.btn-md.btn-block.waves-effect.waves-light.text-center.m-b-20 {
     background-color: #448aff !important;
 }
-button.btn.btn-danger.waves-effect.waves-light.w-full{
+
+button.btn.btn-danger.waves-effect.waves-light.w-full {
     background-color: #ff5252 !important;
 }
+
 h3 {
     font-size: 1.75rem;
     color: #455A64;
 }
+
 hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: 0;
-    border-top: 1px solid rgba(0,0,0,.1);
+    border-top: 1px solid rgba(0, 0, 0, .1);
+}
+
+.icofont-ui-check:before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px; 
+    margin-top: -7px;
+    background-image: url('https://clipart-library.com/images_k/blue-check-mark-transparent-background/blue-check-mark-transparent-background-16.png');
+    background-size: cover;
+}
+
+.icofont {
+    font-family: 'IcoFont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }

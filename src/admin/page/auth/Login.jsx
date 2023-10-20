@@ -9,6 +9,7 @@ import { RotatingLines } from "react-loader-spinner";
 export default function Login() {
   const Title = "Phần mềm quản lý bán hàng";
   const [loading, setLoading] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -49,7 +50,6 @@ export default function Login() {
         .post(LOGIN, formData)
         .then((response) => {
           if (response.status === 200) {
-            showToastSuccess("Đăng nhập thành công");
             window.location.href = "/";
             setLoading(false);
             setUserData(response.data);
@@ -64,7 +64,7 @@ export default function Login() {
         });
     }
   };
-
+console.log(isChecked);
   return (
     <section className="login-block">
       <Helmet>
@@ -123,11 +123,12 @@ export default function Login() {
                             id="vehicle1"
                             name="vehicle1"
                             value="Bike"
+                            onChange={() => setIsChecked(!isChecked)}
                           />
                           <span className="cr">
                             <i className="cr-icon icofont icofont-ui-check txt-primary" />
                           </span>
-                          <span className="text-inverse">Remember me</span>
+                          <span className="text-inverse cursor-pointer">Remember me</span>
                         </label>
                       </div>
                     </div>
@@ -158,11 +159,13 @@ export default function Login() {
                   <hr />
                   <div className="row">
                     <div className="col-md-10">
-                      <p className="text-inverse text-left m-b-0">Wellcome.</p>
+                      <p className="text-inverse text-left m-b-0">
+                        Chào mừng đến với
+                      </p>
                       <p className="text-inverse text-left">
-                        <a href="index.html">
-                          <b>Back to website</b>
-                        </a>
+                        <div>
+                          <b>Website quản lý kho</b>
+                        </div>
                       </p>
                     </div>
                     <div className="col-md-2">

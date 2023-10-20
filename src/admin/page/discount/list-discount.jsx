@@ -8,7 +8,6 @@ import {
   CREATE_DISCOUNT,
   DELETE_DISCOUNT,
   FILTER_DISCOUNT,
-  LIST_DISCOUNT,
   GET_ITEM_DISCOUNT,
 } from "../../api";
 import { showToastError, showToastSuccess } from "../../utils/toastmessage";

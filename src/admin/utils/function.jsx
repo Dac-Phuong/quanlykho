@@ -8,6 +8,10 @@ export function setArrayId(data) {
   data = JSON.stringify(data);
   return localStorage.setItem("checked", data);
 }
+export function setRemember(data) {
+  data = JSON.stringify(data);
+  return localStorage.setItem("remember", data);
+}
 
 // get data
 export function getArrayId() {
@@ -27,3 +31,11 @@ export function getUserData() {
   }
 }
 
+export function getRemember() {
+  const data = localStorage.getItem("remember");
+  if (data !== null) {
+    return JSON.parse(data);
+  } else {
+    return null;
+  }
+}

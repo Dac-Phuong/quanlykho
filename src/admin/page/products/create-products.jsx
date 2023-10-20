@@ -26,7 +26,7 @@ export default function CreateProduct() {
   // get date từ useQuery
 
   const { data, isLoading, error } = useGetDataGroup(queryKey1);
-  // lấy dữ liệu từ ianput
+  // lấy dữ liệu từ input
   const handleInputChange = (event) => {
     const { name, value } = event?.target;
     setFormData({

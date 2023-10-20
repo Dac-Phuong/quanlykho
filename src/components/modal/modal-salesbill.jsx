@@ -175,7 +175,7 @@ export default function AlertDialogSalesBill({
                             <td className="border">{item.code}</td>
                             <td className="border">{item.name}</td>
                             <td className="border">{item.quality}</td>
-                            <td className="border">0</td>
+                            <td className="border">{item.get_more}</td>
                             <td className="border">
                               {item.price.toLocaleString("en-US")}
                             </td>

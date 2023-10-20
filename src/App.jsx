@@ -29,6 +29,12 @@ import Home from "./layouts/Home";
 import Sidebar from "./layouts/Sidebar";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import OrderCustomer from "./admin/page/customer/order-customer";
+import ListproductOrder from "./admin/page/customer/list-productOrder";
+import CalculateWage from "./admin/page/calculate-wage/calculate-wage";
+import Page404 from "./admin/page/404";
+import ImportSales from "./admin/page/sales/import-SalesExcel";
+import ImportCustomers from "./admin/page/customer/import-CustomerExcel";
 
 function App() {
   const navigate = useNavigate();
@@ -58,7 +64,7 @@ function App() {
                   <div className="pcoded-main-container">
                     <div className="pcoded-wrapper">
                       <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route index path="/" element={<Home />} />
                         <Route
                           path="/nhom-hang/them-nhom-hang"
                           element={<AddProductGroup />}
@@ -94,6 +100,10 @@ function App() {
                         <Route
                           path="/quan-ly-kho/sua-kho-hang/:id"
                           element={<UpdateWareHouse />}
+                        />
+                        <Route
+                          path="quan-ly-kho/tinh-luong"
+                          element={<CalculateWage />}
                         />
                         <Route
                           path="/chiet-khau/them-chiet-khau"
@@ -144,9 +154,28 @@ function App() {
                           element={<ListSales />}
                         />
                         <Route
+                          path="xuat-kho/xuat-hang-bang-excel"
+                          element={<ImportSales />}
+                        />
+                        <Route
                           path="xuat-kho/sua-don-ban-hang/:id"
                           element={<UpdateSales />}
                         />
+                        <Route
+                          path="khach-hang/don-hang/:id"
+                          element={<OrderCustomer />}
+                        />
+                        <Route
+                          path="khach-hang/hang-da-lay/:id"
+                          element={<ListproductOrder />}
+                        />
+                        <Route
+                          path="khach-hang/nhap-khach-hang"
+                          element={<ImportCustomers />}
+                        />
+
+                        {/* link 404 */}
+                        <Route path="*" element={<Page404 />} />
                       </Routes>
                     </div>
                   </div>

@@ -156,8 +156,10 @@ export default function ListParchases() {
     status: item?.status === 0 ? "Chưa nhận hàng" : "Đã nhận hàng",
     note: item?.note,
     warehouse_name: item?.warehouse_name,
-    total_quality: parseFloat(item?.total_quality).toLocaleString("en-US"),
-    total_price: parseFloat(Math.round(item?.total_price)).toLocaleString("en-US"),
+    total_quality: parseFloat(item?.total_quality || 0).toLocaleString("en-US"),
+    total_price:
+      parseFloat(Math.round(item?.total_price || 0)).toLocaleString("en-US") +
+      " đồng",
   }));
 
   return (
@@ -195,8 +197,9 @@ export default function ListParchases() {
               <div className="mt-[11px] pl-3 text-[13px]">
                 <div className="text">Tổng số tiền nhập</div>
                 <div className="number">
-                  {parseFloat(Math.round(data?.totalPrice || 0)).toLocaleString("en-US") +
-                    " VNĐ"}
+                  {parseFloat(Math.round(data?.totalPrice || 0)).toLocaleString(
+                    "en-US"
+                  ) + " VNĐ"}
                 </div>
               </div>
             </div>
@@ -261,9 +264,9 @@ export default function ListParchases() {
                 showColumnVerticalBorder
                 initialState={{
                   ...data?.initialState,
-                  pagination: { paginationModel: { pageSize: 20 } },
+                  pagination: { paginationModel: { pageSize: 15 } },
                 }}
-                pageSizeOptions={[20, 50, 100]}
+                pageSizeOptions={[15, 50, 100]}
                 columns={columns}
                 slots={{ toolbar: GridToolbar }}
                 slotProps={{

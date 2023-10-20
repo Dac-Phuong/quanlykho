@@ -21,6 +21,7 @@ import { http } from "../../utils/http";
 
 export default function ListCustomers() {
   const Title = "Khách hàng";
+  const queryKey = "customer_key";
   const [loading, setIsLoading] = useState(false);
   const queryClient = useQueryClient();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +29,6 @@ export default function ListCustomers() {
   const [customerId, setCustomerId] = useState(null);
   const [value, setValue] = useState(null); 
   const [newId, setNewId] = useState(null);
-  const queryKey = "customer_key";
   const [formData, setFormData] = useState({
     fullname: "",
     address: "",
@@ -143,12 +143,13 @@ export default function ListCustomers() {
             >
               <AiFillDollarCircle size={20} />
             </button>
-            <button className="btn btn-info btn-button waves-effect waves-light ml-2">
+            <Link to={`/khach-hang/don-hang/${params?.row?.id}`} className="btn btn-info btn-button waves-effect waves-light ml-2">
               <MdShoppingCart size={20} />
-            </button>
-            <button className="btn btn-primary btn-button waves-effect waves-light ml-2">
+            </Link>
+            
+            <Link to={`/khach-hang/hang-da-lay/${params?.row?.id}`} className="btn btn-primary btn-button waves-effect waves-light ml-2">
               <MdAddShoppingCart size={20} />
-            </button>
+            </Link>
           </div>
         );
       },
@@ -160,7 +161,7 @@ export default function ListCustomers() {
     fullname: item.fullname,
     address: item.address,
     debt: item.debt.toLocaleString("en-US"),
-    order: "0",
+    order: item.total_orders,
     phone: item.phone,
     location: item?.location
       ? data?.location?.find((ite) => ite.id === item?.location)?.name

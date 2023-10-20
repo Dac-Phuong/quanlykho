@@ -1,16 +1,19 @@
 import React from "react";
+import { RotatingLines, Triangle } from "react-loader-spinner";
 
 function Loading() {
   return (
     <div className="loading">
       <div className="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <span className="text-[#817f7f]  font-normal text-lg mt-20 ml-2 absolute">
-          Loading...
-        </span>
+        <Triangle
+          height="80"
+          width="80"
+          color="#448AFF"
+          ariaLabel="triangle-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
+        />
       </div>
     </div>
   );

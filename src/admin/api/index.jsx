@@ -58,6 +58,9 @@ export const GET_DEBT_CUSTOMER = "/customers/get/debt/";
 export const UPDATE_DEBT_CUSTOMER = "/customers/update/debt/";
 export const EDIT_CUSTOMER = "/customers/edit/";
 export const UPDATE_CUSTOMER = "/customers/update/";
+export const ORDER_CUSTOMER = "/customers/order/";
+export const LIST_PRODUCTS_ORDER = "/customers/products/order/";
+
 // sales
 export const GET_CREATE_SALES = "/sales/get/create";
 export const CREATE_SALES = "/sales/create";
