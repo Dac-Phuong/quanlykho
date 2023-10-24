@@ -1,5 +1,7 @@
 export const LOGIN = "/login";
 export const LOGOUT = "/logout";
+// home
+export const LIST_HOME = "/home/list";
 // productgroup
 export const LIST_PRODUCT_GROUP = "/productgroup/list";
 export const CREATE_PRODUCT_GROUP = "/productgroup/create";

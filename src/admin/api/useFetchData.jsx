@@ -12,8 +12,16 @@ import {
   LIST_STAFF,
   LIST_WAREHOUSE,
   List_SALES,
-  ORDER_CUSTOMER,
+  LIST_HOME,
 } from ".";
+
+// lấy data của trang chủ
+export function useGetDataHome(queryKey) {
+  return useQuery(queryKey, async () => {
+    const response = await http.get(LIST_HOME);
+    return response.data;
+  });
+}
 // lấy data của nhóm hàng
 export function useGetDataGroup(queryKey) {
   return useQuery(queryKey, async () => {

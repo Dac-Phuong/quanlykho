@@ -287,7 +287,7 @@ export default function ListSales() {
                 Các đơn hàng đã bán! Thêm đơn hàng mới
                 <Link
                   className="pl-2 text-[#777] font-bold"
-                  to={"/quan-ly-kho/them-hang-moi"}
+                  to={"/xuat-kho/ban-hang"}
                 >
                   TẠI ĐÂY
                 </Link>

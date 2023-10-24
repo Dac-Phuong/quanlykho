@@ -182,7 +182,7 @@ export default function ListParchases() {
                 Các đơn hàng đã nhập! Thêm đơn hàng mới
                 <Link
                   className="pl-2 text-[#777] font-bold"
-                  to={"/quan-ly-kho/them-hang-moi"}
+                  to={"/nhap-kho/nhap-hang"}
                 >
                   TẠI ĐÂY
                 </Link>
@@ -218,7 +218,7 @@ export default function ListParchases() {
               </div>
               <div className="mt-[11px] pl-3 text-[13px]">
                 <div className="text">Hoàn thành</div>
-                <div className="number">34%</div>
+                <div className="number">0%</div>
               </div>
             </div>
           </div>
