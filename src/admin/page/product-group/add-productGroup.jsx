@@ -59,6 +59,22 @@ export default function AddProductGroup() {
             showToastError('Mã nhóm hàng không được chứa ký tự đặc biệt!')
             isValid = false
         }
+        if (formData.commission.trim() === '') {
+            showToastError('Vui lòng nhập công thức!')
+            isValid = false
+        } else if (regex.test(formData.commission)) {
+            showToastError('Công thức không được chứa ký tự đặc biệt!')
+            isValid = false
+        }
+        if (formData.commission_type === '1') {
+            if (formData.commission_target.trim() === '') {
+                showToastError('Vui lòng nhập số đơn vị')
+                isValid = false
+            } else if (regex.test(formData.commission_target)) {
+                showToastError('Số đơn vị không được chứa ký tự đặc biệt!')
+                isValid = false
+            }
+        }
         return isValid
     }
     // hàm tạo product group từ useQuery
