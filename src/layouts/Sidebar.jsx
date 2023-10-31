@@ -1,14 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { LOGOUT } from '../admin/api'
 import { Menu, MenuItem, SubMenu } from 'react-pro-sidebar'
 import { BsFillBarChartFill, BsArrowLeftRight, BsStarFill } from 'react-icons/bs'
 import { FaUsers } from 'react-icons/fa'
 import { AiOutlinePercentage, AiOutlineLineChart, AiFillTool } from 'react-icons/ai'
 import { FaShop } from 'react-icons/fa6'
+
+// React router
+import { useLocation } from 'react-router-dom'
+
+import { LOGOUT } from '../admin/api'
 import { showToastError } from '../admin/utils/toastmessage'
 import { http } from '../admin/utils/http'
 export default function Sidebar() {
+    const { pathname } = useLocation()
+
     const logout = async () => {
         await http
             .post(LOGOUT)
@@ -43,7 +49,7 @@ export default function Sidebar() {
                     </div>
                     <div className='main-menu-content'>
                         <ul>
-                            <li className='more-details'>
+                            <li className='more-details hover:text-red-500'>
                                 <button className=' ml-16 pt-3' onClick={() => logout()}>
                                     <i className='ti-layout-sidebar-left pr-2' />
                                     Logout
@@ -58,7 +64,6 @@ export default function Sidebar() {
                         <Link to={'/'}>
                             <span className='pcoded-micon'>
                                 <i className='ti-home' />
-                                <b>D</b>
                             </span>
                             <span className='pcoded-mtext' data-i18n='nav.dash.main'>
                                 Trang chủ
@@ -82,62 +87,192 @@ export default function Sidebar() {
                         Quản nhóm hàng
                     </div>
                     <SubMenu label='Nhóm hàng' icon={<BsFillBarChartFill size={18} />}>
-                        <MenuItem component={<Link to='/nhom-hang/them-nhom-hang' />}>Thêm nhóm hàng</MenuItem>
-                        <MenuItem component={<Link to='/nhom-hang/danh-sach-nhom-hang' />}>
+                        <MenuItem
+                            className={pathname === '/nhom-hang/them-nhom-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/nhom-hang/them-nhom-hang' />}
+                        >
+                            Thêm nhóm hàng
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '/nhom-hang/danh-sach-nhom-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/nhom-hang/danh-sach-nhom-hang' />}
+                        >
                             Danh sách nhóm hàng
                         </MenuItem>
                     </SubMenu>
                     <div className='pcoded-navigation-label'>Quản lý kho</div>
                     <SubMenu label='Kho' icon={<FaShop size={18} />}>
-                        <MenuItem component={<Link to='/quan-ly-kho/them-hang-moi' />}>Thêm hàng mới</MenuItem>
-                        <MenuItem component={<Link to='/quan-ly-kho/danh-sach-hang' />}>Danh sách hàng</MenuItem>
-                        <MenuItem component={<Link to='/quan-ly-kho/them-kho-hang' />}>Danh sách kho</MenuItem>
-                        <MenuItem component={<Link to='#' />}>Chuyển kho</MenuItem>
-                        <MenuItem component={<Link to='quan-ly-kho/tinh-luong' />}>Tính lương</MenuItem>
+                        <MenuItem
+                            className={pathname === '/quan-ly-kho/them-hang-moi' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/quan-ly-kho/them-hang-moi' />}
+                        >
+                            Thêm hàng mới
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '/quan-ly-kho/danh-sach-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/quan-ly-kho/danh-sach-hang' />}
+                        >
+                            Danh sách hàng
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '/quan-ly-kho/them-kho-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/quan-ly-kho/them-kho-hang' />}
+                        >
+                            Danh sách kho
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Chuyển kho
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '/quan-ly-kho/tinh-luong' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/quan-ly-kho/tinh-luong' />}
+                        >
+                            Tính lương
+                        </MenuItem>
                     </SubMenu>
-                    <MenuItem
-                        icon={<AiOutlinePercentage size={18} />}
-                        component={<Link to='/chiet-khau/them-chiet-khau' />}
-                    >
-                        Chiết khấu
+                    <MenuItem component={<Link to='/chiet-khau/them-chiet-khau' />}>
+                        <span
+                            className={`flex pl-1.5 gap-x-5 ${
+                                pathname === '/chiet-khau/them-chiet-khau' ? 'text-blue-600 font-medium' : ''
+                            }`}
+                        >
+                            <AiOutlinePercentage size={18} />
+                            Chiết khấu
+                        </span>
                     </MenuItem>
                     <div className='pcoded-navigation-label'>Quản lý hàng</div>
                     <SubMenu label=' Nhập hàng' icon={<BsArrowLeftRight size={18} />}>
-                        <MenuItem component={<Link to='/nhap-kho/nhap-hang' />}>Nhập hàng</MenuItem>
-                        <MenuItem component={<Link to='/nhap-kho/nhap-hang-bang-excel' />}>
+                        <MenuItem
+                            className={pathname === '/nhap-kho/nhap-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/nhap-kho/nhap-hang' />}
+                        >
+                            Nhập hàng
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '/nhap-kho/nhap-hang-bang-excel' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/nhap-kho/nhap-hang-bang-excel' />}
+                        >
                             Nhập hàng bằng Excel
                         </MenuItem>
-                        <MenuItem component={<Link to='/nhap-kho/danh-sach-nhap-hang' />}>Đơn nhập</MenuItem>
+                        <MenuItem
+                            className={pathname === '/nhap-kho/danh-sach-nhap-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/nhap-kho/danh-sach-nhap-hang' />}
+                        >
+                            Đơn nhập
+                        </MenuItem>
                     </SubMenu>
                     <SubMenu label=' Bán hàng' icon={<BsArrowLeftRight size={18} />}>
-                        <MenuItem component={<Link to='/xuat-kho/ban-hang' />}>Bán hàng</MenuItem>
-                        <MenuItem component={<Link to='/xuat-kho/xuat-hang-bang-excel' />}>
+                        <MenuItem
+                            className={pathname === '/xuat-kho/ban-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/xuat-kho/ban-hang' />}
+                        >
+                            Bán hàng
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '/xuat-kho/xuat-hang-bang-excel' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/xuat-kho/xuat-hang-bang-excel' />}
+                        >
                             Xuất hàng bằng Excel
                         </MenuItem>
-                        <MenuItem component={<Link to='/xuat-kho/danh-sach-ban-hang' />}>Đơn bán</MenuItem>
+                        <MenuItem
+                            className={pathname === '/xuat-kho/danh-sach-ban-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/xuat-kho/danh-sach-ban-hang' />}
+                        >
+                            Đơn bán
+                        </MenuItem>
                     </SubMenu>
                     <div className='pcoded-navigation-label'>Quản lý nhân viên</div>
-                    <MenuItem icon={<BsStarFill size={18} />} component={<Link to='/nhan-vien/them-nhan-vien' />}>
-                        Nhân viên
+                    <MenuItem component={<Link to='/nhan-vien/them-nhan-vien' />}>
+                        <span
+                            className={`flex pl-1.5 gap-x-5 ${
+                                pathname === '/nhan-vien/them-nhan-vien' ? 'text-blue-600 font-medium' : ''
+                            }`}
+                        >
+                            <BsStarFill size={18} />
+                            Nhân viên
+                        </span>
                     </MenuItem>
                     <SubMenu label='Khách hàng' icon={<FaUsers size={18} />}>
-                        <MenuItem component={<Link to='/khach-hang/them-khach-hang' />}>Thêm khách hàng</MenuItem>
-                        <MenuItem component={<Link to='/khach-hang/nhap-khach-hang' />}>Nhập khách bằng Excel</MenuItem>
-                        <MenuItem component={<Link to='/khach-hang/quan-ly-tuyen' />}>Quản lý tuyến</MenuItem>
+                        <MenuItem
+                            className={pathname === '/khach-hang/them-khach-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/khach-hang/them-khach-hang' />}
+                        >
+                            Thêm khách hàng
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '/khach-hang/nhap-khach-hang' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/khach-hang/nhap-khach-hang' />}
+                        >
+                            Nhập khách bằng Excel
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '/khach-hang/quan-ly-tuyen' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/khach-hang/quan-ly-tuyen' />}
+                        >
+                            Quản lý tuyến
+                        </MenuItem>
                     </SubMenu>
                     <div className='pcoded-navigation-label'>Quản lý thống kê</div>
                     <SubMenu label='Thống kê' icon={<AiOutlineLineChart size={18} />}>
-                        <MenuItem component={<Link to='#' />}>Báo cáo chiết khấu</MenuItem>
-                        <MenuItem component={<Link to='#' />}>Doanh số thực</MenuItem>
-                        <MenuItem component={<Link to='#' />}>Doanh số nhập</MenuItem>
-                        <MenuItem component={<Link to='#' />}>Hàng bảo hàng</MenuItem>
-                        <MenuItem component={<Link to='#' />}>Đề nghị thanh toán</MenuItem>
-                        <MenuItem component={<Link to='#' />}>Lương NVBH</MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Báo cáo chiết khấu
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Doanh số thực
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Doanh số nhập
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Hàng bảo hàng
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Đề nghị thanh toán
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Lương NVBH
+                        </MenuItem>
                     </SubMenu>
                     <SubMenu label='Cấu hình' icon={<AiFillTool size={18} />}>
-                        <MenuItem component={<Link to='#' />}>Chỉ tiêu bán</MenuItem>
-                        <MenuItem component={<Link to='#' />}>Chỉ tiêu nhập</MenuItem>
-                        <MenuItem component={<Link to='#' />}>Đơn bán</MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Chỉ tiêu bán
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Chỉ tiêu nhập
+                        </MenuItem>
+                        <MenuItem
+                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='#' />}
+                        >
+                            Đơn bán
+                        </MenuItem>
                     </SubMenu>
                 </Menu>
             </div>
