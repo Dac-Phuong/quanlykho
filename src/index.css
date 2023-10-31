@@ -3,224 +3,250 @@
 @tailwind utilities;
 
 body {
-  margin: 0;
-  padding: 0;
-  color: #9e9ea4;
-  font-family: 'Roboto', Arial, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #9e9ea4;
+    font-family: 'Roboto', Arial, Tahoma, sans-serif;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .pcoded .pcoded-navbar .pcoded-item {
-  padding: 0 0 11px 0;
+    padding: 0 0 11px 0;
 }
 
 .main-menu .main-menu-header img {
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
-.page-header:before, .main-menu .main-menu-header:before {
-  content: "";
-  background-color: rgba(68, 138, 255, 0.5);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+.page-header:before,
+.main-menu .main-menu-header:before {
+    content: '';
+    background-color: rgba(68, 138, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-
-.table-bordered tbody tr td, .table-bordered tbody tr th, .table-bordered thead tr th {
-  padding: 10px;
-  border: 1px solid #eee;
+.table-bordered tbody tr td,
+.table-bordered tbody tr th,
+.table-bordered thead tr th {
+    padding: 10px;
+    border: 1px solid #eee;
 }
 
-.table-bordered>tbody>tr:nth-of-type(odd) {
-  background-color: #f9f9f9;
+.table-bordered > tbody > tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
 }
 
 small {
-  display: block;
-  font-size: 12px;
-  margin-top: 5px;
-  color: #999;
-  line-height: 15px;
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+    color: #999;
+    line-height: 15px;
 }
 
 label {
-  display: inline-block;
-  max-width: 100%;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
 }
-
 
 .loading {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1400;
-  background: #fff;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1400;
+    background: #fff;
 }
 
-
 .lds-ring {
-  display: inline-block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -70%);
-  width: 80px;
-  height: 80px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    width: 80px;
+    height: 80px;
 }
 
 .MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary {
-  background-color: #fff;
-  padding-left: 0px;
+    background-color: #fff;
+    padding-left: 0px;
 }
 
 .MuiDataGrid-virtualScrollerContent.css-1kwdphh-MuiDataGrid-virtualScrollerContent {
-  min-height: 50px !important;
+    min-height: 50px !important;
 }
 
 .btn-button {
-  padding: 7px 15px !important;
-  border-radius: 2px !important;
+    padding: 7px 15px !important;
+    border-radius: 2px !important;
 }
 
 .btn-primary:hover {
-  background-color: #619CFF !important;
+    background-color: #619cff !important;
 }
 
 .btn-danger:hover {
-  background-color: #FF7777 !important;
+    background-color: #ff7777 !important;
 }
 
 .MuiDataGrid-columnHeaders {
-  background-color: #619CFF !important;
-  color: #fff !important;
+    background-color: #619cff !important;
+    color: #fff !important;
 }
 
 .table-responsive table thead tr th {
-  border-top: none;
+    border-top: none;
 }
 
 .table-responsive table thead tbody tr th {
-  border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 .modal-main {
-  max-width: 100% !important;
-  width: 900px !important;
+    max-width: 100% !important;
+    width: 900px !important;
 }
 
 .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24 {
-  max-width: 900px !important;
-  min-width: 600px !important;
+    max-width: 900px !important;
+    min-width: 600px !important;
 }
 
 .bg-red {
-  background: #ec4a4a !important;
-  color: #fff;
+    background: #ec4a4a !important;
+    color: #fff;
 }
 
 .alert-info {
-  background-color: #00b0e4;
-  padding: 12px;
-  color: #fff;
+    background-color: #00b0e4;
+    padding: 12px;
+    color: #fff;
 }
 
 .table-hover tbody tr {
-  border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #eee;
 }
 
 .MuiDataGrid-cell:focus-within {
-  outline: none !important;
+    outline: none !important;
 }
 
-.css-1tqrhto>.ps-menu-button, .css-lg1vuy>.ps-menu-button {
-  height: 45px !important;
+.css-1tqrhto > .ps-menu-button,
+.css-lg1vuy > .ps-menu-button {
+    height: 45px !important;
 }
 
-.MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before, .MuiInputBase-root:after, .css-l4u8b9-MuiInputBase-root-MuiInput-root:after {
-  border-bottom: 1px solid #1976d2 !important;
+.MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before,
+.MuiInputBase-root:after,
+.css-l4u8b9-MuiInputBase-root-MuiInput-root:after {
+    border-bottom: 1px solid #1976d2 !important;
 }
 
-.MuiInputBase-root:before, .css-1hj5xsr-MuiInputBase-root-MuiInput-root-MuiSelect-root:before, .form-textarea, .css-l4u8b9-MuiInputBase-root-MuiInput-root:before, .css-zs07ro-MuiInputBase-root-MuiFilledInput-root:before {
-  border-bottom: 1px solid #ddd !important;
-  position: relative;
+.MuiInputBase-root:before,
+.css-1hj5xsr-MuiInputBase-root-MuiInput-root-MuiSelect-root:before,
+.form-textarea,
+.css-l4u8b9-MuiInputBase-root-MuiInput-root:before,
+.css-zs07ro-MuiInputBase-root-MuiFilledInput-root:before {
+    border-bottom: 1px solid #ddd !important;
+    position: relative;
 }
 
-.form-textarea:hover:not(.Mui-disabled, .Mui-error):before, .form-textarea::after, .css-zs07ro-MuiInputBase-root-MuiFilledInput-root:after, .css-1hj5xsr-MuiInputBase-root-MuiInput-root-MuiSelect-root:after {
-  border-bottom: 1px solid #1976d2 !important;
+.form-textarea:hover:not(.Mui-disabled, .Mui-error):before,
+.form-textarea::after,
+.css-zs07ro-MuiInputBase-root-MuiFilledInput-root:after,
+.css-1hj5xsr-MuiInputBase-root-MuiInput-root-MuiSelect-root:after {
+    border-bottom: 1px solid #1976d2 !important;
 }
 
 .css-l4u8b9-MuiInputBase-root-MuiInput-root:hover:not(.Mui-disabled, .Mui-error)::before {
-  border-bottom: 1px solid #1976d2 !important;
-
+    border-bottom: 1px solid #1976d2 !important;
 }
 
 .col-8 h4 {
-  font-size: 1.375rem !important;
-  font-weight: 500;
-  padding-top: 5px;
-  padding-bottom: 10px;
+    font-size: 1.375rem !important;
+    font-weight: 500;
+    padding-top: 5px;
+    padding-bottom: 10px;
 }
 
 .col-8 h6 {
-  font-weight: 500;
+    font-weight: 500;
 }
 
 ul.MuiList-root.MuiList-padding.MuiMenu-list.css-6hp17o-MuiList-root-MuiMenu-list {
-  min-width: 127px;
+    min-width: 127px;
 }
 
 button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-fullWidth.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-fullWidth.btn.btn-button.h-\[34px\].text-base.btn-primary.text-white.waves-effect.waves-light.w-full.css-xsqe0f-MuiButtonBase-root-MuiButton-root {
-  font-size: 12px;
+    font-size: 12px;
 }
 
-
-
-.MuiFormControl-root.MuiTextField-root.w-full.max-sm\:w-2\/4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root label, .MuiFormControl-root.MuiTextField-root.w-\[49\%\].max-sm\:w-2\/4.mr-4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root label, .MuiFormControl-root.MuiTextField-root.mr-3.w-\[19\%\].css-1u3bzj6-MuiFormControl-root-MuiTextField-root label {
-  margin-left: -10px;
+.MuiFormControl-root.MuiTextField-root.w-full.max-sm\:w-2\/4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root
+    label,
+.MuiFormControl-root.MuiTextField-root.w-\[49\%\].max-sm\:w-2\/4.mr-4.max-sm\:mr-1.css-1u3bzj6-MuiFormControl-root-MuiTextField-root
+    label,
+.MuiFormControl-root.MuiTextField-root.mr-3.w-\[19\%\].css-1u3bzj6-MuiFormControl-root-MuiTextField-root label {
+    margin-left: -10px;
 }
 
 /* modal bill */
 .modal-content {
-  width: 100%;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  border-radius: 0;
-  border: none;
+    width: 100%;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+    border: none;
 }
 
 .modal-header {
-  border: none;
-  padding: 25px 25px 5px 25px;
+    border: none;
+    padding: 25px 25px 5px 25px;
 }
 
 .modal-header .modal-title {
-  font-weight: bold;
-  font-size: 16px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .modal-content .modal-body {
-  color: #777;
-  font-size: 14px;
-  padding: 15px;
+    color: #777;
+    font-size: 14px;
+    padding: 15px;
 }
 
-.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd input {
-  padding: 17px 0;
+.MuiInputBase-root.MuiFilledInput-root.MuiFilledInput-underline.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd
+    input {
+    padding: 17px 0;
 }
 
 .css-o943dk-MuiFormLabel-root-MuiInputLabel-root {
-  margin-left: -10px;
+    margin-left: -10px;
+}
+
+/* fix UI ô search và ô xuất file ở bảng */
+.MuiDataGrid-root {
+    border: none !important;
+}
+.MuiDataGrid-toolbarContainer {
+    padding: 0 0 0 0 !important;
+}
+.MuiDataGrid-main {
+    border: 1px solid rgba(224, 224, 224, 1);
+}
+
+.MuiDataGrid-columnHeaders {
+    border-radius: 0 !important;
 }
