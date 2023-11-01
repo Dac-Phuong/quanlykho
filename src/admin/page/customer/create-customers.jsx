@@ -43,6 +43,25 @@ export default function ListCustomers() {
     //   lấy dữ liệu từ input
     const handleInputChange = (event) => {
         const { name, value } = event?.target
+        if (name === 'debt') {
+            if (value === '') {
+                setFormData({
+                    ...formData,
+                    [name]: 0
+                })
+            } else if (value[0] === '0' && value.length > 1) {
+                setFormData({
+                    ...formData,
+                    [name]: value.slice(1)
+                })
+            } else {
+                setFormData({
+                    ...formData,
+                    [name]: value
+                })
+            }
+            return
+        }
         setFormData({
             ...formData,
             [name]: value
@@ -174,7 +193,7 @@ export default function ListCustomers() {
     // kiểm tra dữ liệu
     const validation = () => {
         let isValid = true
-        const regex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/
+        const regex = /[!@#$%^&*()_+{}[\]:;<>,.?~\\]/
         const regexNumber = /[1-9]/
         if (formData.fullname.trim() === '') {
             showToastError('Vui nhập tên khách hàng!')
@@ -297,11 +316,7 @@ export default function ListCustomers() {
                                     placeholder='500000'
                                     label='Công nợ'
                                     value={formData.debt}
-                                    onChange={(e) => {
-                                        if (e.target.value === '') e.target.value = '0'
-                                        else if (e.target.value[0] === '0') e.target.value = e.target.value.slice(1)
-                                        handleInputChange(e)
-                                    }}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
