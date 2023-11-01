@@ -39,6 +39,7 @@ export default function ListSales() {
     const [to_date, setTo_Date] = useState(dayjs(lastDayOfMonth))
     const [loading, setLoading] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalRetailBillOpen, setIsModalRetailBillOpen] = useState(false)
     const [showModalSales, setShowModalSales] = useState(false)
     const [dataBill, setDataBill] = useState([])
     const [newdata, setNewData] = useState([])
@@ -54,6 +55,11 @@ export default function ListSales() {
 
     const handleCloseModal = () => {
         setIsModalOpen(false)
+        setShowModalSales(false)
+        SetSalesId(null)
+    }
+    const handleCloseModalRetailBill = () => {
+        setIsModalRetailBillOpen(false)
         setShowModalSales(false)
         SetSalesId(null)
     }
@@ -427,6 +433,10 @@ export default function ListSales() {
                 <AlertDialogSalesBill
                     handleCloseModal={handleCloseModal}
                     isModalOpen={showModalSales}
+                    setIsModalOpen={setShowModalSales}
+                    isModalRetailBillOpen={isModalRetailBillOpen}
+                    handleCloseModalRetailBill={handleCloseModalRetailBill}
+                    setIsModalRetailBillOpen={setIsModalRetailBillOpen}
                     loading={loading}
                     dataBill={dataBill}
                 />

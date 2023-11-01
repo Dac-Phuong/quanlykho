@@ -1,19 +1,21 @@
 import React, { useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQueryClient, useMutation, useQuery } from 'react-query'
-import Loading from '../../../components/loading'
-import { CREATE_CUSTOMER, GET_DEBT_CUSTOMER } from '../../api'
-import { showToastError, showToastSuccess } from '../../utils/toastmessage'
-import HeaderComponents from '../../../components/header'
 import { Autocomplete, TextField } from '@mui/material'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import { FaEdit } from 'react-icons/fa'
 import { AiFillDollarCircle } from 'react-icons/ai'
 import { MdAddShoppingCart, MdShoppingCart } from 'react-icons/md'
 import { Link } from 'react-router-dom'
+import Tooltip from '@mui/material/Tooltip'
+
+import HeaderComponents from '../../../components/header'
+import { showToastError, showToastSuccess } from '../../utils/toastmessage'
 import AlertDialogCustomer from '../../../components/modal/modal-customer'
 import { useGetDataCustomers } from '../../api/useFetchData'
 import AlertDialogUpdateCustomer from '../../../components/modal/modal-updateCustomer'
+import Loading from '../../../components/loading'
+import { CREATE_CUSTOMER, GET_DEBT_CUSTOMER } from '../../api'
 import { http } from '../../utils/http'
 
 export default function ListCustomers() {
@@ -145,31 +147,38 @@ export default function ListCustomers() {
             renderCell: (params) => {
                 return (
                     <div>
-                        <Link
-                            className='btn btn-button btn-danger btn-edit  ml-2'
-                            onClick={() => handleOpenModal(params?.row?.id)}
-                        >
-                            <FaEdit size={20} />
-                        </Link>
-                        <button
-                            className='btn btn-button  btn-warning waves-effect waves-light ml-2'
-                            onClick={() => handleGetItem(params?.row?.id)}
-                        >
-                            <AiFillDollarCircle size={20} />
-                        </button>
-                        <Link
-                            to={`/khach-hang/don-hang/${params?.row?.id}`}
-                            className='btn btn-info btn-button waves-effect waves-light ml-2'
-                        >
-                            <MdShoppingCart size={20} />
-                        </Link>
-
-                        <Link
-                            to={`/khach-hang/hang-da-lay/${params?.row?.id}`}
-                            className='btn btn-primary btn-button waves-effect waves-light ml-2'
-                        >
-                            <MdAddShoppingCart size={20} />
-                        </Link>
+                        <Tooltip title='Sửa'>
+                            <button
+                                className='btn btn-button btn-danger btn-edit  ml-2'
+                                onClick={() => handleOpenModal(params?.row?.id)}
+                            >
+                                <FaEdit size={20} />
+                            </button>
+                        </Tooltip>
+                        <Tooltip title='Công nợ'>
+                            <button
+                                className='btn btn-button  btn-warning waves-effect waves-light ml-2'
+                                onClick={() => handleGetItem(params?.row?.id)}
+                            >
+                                <AiFillDollarCircle size={20} />
+                            </button>
+                        </Tooltip>
+                        <Tooltip title='Danh sách đơn hàng'>
+                            <Link
+                                to={`/khach-hang/don-hang/${params?.row?.id}`}
+                                className='btn btn-info btn-button waves-effect waves-light ml-2'
+                            >
+                                <MdShoppingCart size={20} />
+                            </Link>
+                        </Tooltip>
+                        <Tooltip title='Danh sách đơn hàng đã lấy'>
+                            <Link
+                                to={`/khach-hang/hang-da-lay/${params?.row?.id}`}
+                                className='btn btn-primary btn-button waves-effect waves-light ml-2'
+                            >
+                                <MdAddShoppingCart size={20} />
+                            </Link>
+                        </Tooltip>
                     </div>
                 )
             }

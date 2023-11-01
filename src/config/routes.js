@@ -25,6 +25,7 @@ import ListStaff from '../admin/page/staff/list-staff'
 import UpdateStaff from '../admin/page/staff/update-staff'
 import ListWareHouse from '../admin/page/warehouse/ListWareHouse'
 import UpdateWareHouse from '../admin/page/warehouse/UpdateWareHouse'
+import { warehouseTransfer } from '../admin/page/warehouse_transfer/warehouseTransfer'
 import Home from '../layouts/Home'
 
 export const groupGoods = [
@@ -33,12 +34,16 @@ export const groupGoods = [
     { path: '/nhom-hang/sua-nhom-hang/:id', Component: UpdateProductGroup }
 ]
 
+export const discount = [{ path: '/chiet-khau/them-chiet-khau', Component: ListDiscount }]
+
+export const manage = [{ path: '/quan-ly/ban-le/:id', Component: CreateProduct }]
+
 export const inventoryManagement = [
     { path: '/quan-ly-kho/them-hang-moi', Component: CreateProduct },
     { path: '/quan-ly-kho/danh-sach-hang', Component: ListProducts },
     { path: '/quan-ly-kho/them-kho-hang', Component: ListWareHouse },
+    { path: '/quan-ly-kho/chuyen-kho', Component: warehouseTransfer },
     { path: '/quan-ly-kho/tinh-luong', Component: CalculateWage },
-    { path: '/chiet-khau/them-chiet-khau', Component: ListDiscount },
     { path: '/quan-ly-kho/sua-mat-hang/:id', Component: UpdateProduct },
     { path: '/quan-ly-kho/sua-kho-hang/:id', Component: UpdateWareHouse }
 ]
@@ -74,6 +79,8 @@ export const customersManagement = [
 const appRoutes = [
     { path: '/', Component: Home },
     ...groupGoods,
+    ...discount,
+    ...manage,
     ...inventoryManagement,
     ...goodsManagement,
     ...sellManagement,

@@ -121,8 +121,8 @@ export default function Sidebar() {
                             Danh sách kho
                         </MenuItem>
                         <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
+                            className={pathname === '/quan-ly-kho/chuyen-kho' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/quan-ly-kho/chuyen-kho' />}
                         >
                             Chuyển kho
                         </MenuItem>
