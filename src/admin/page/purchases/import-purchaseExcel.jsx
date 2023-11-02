@@ -5,7 +5,6 @@ import { useQuery } from 'react-query'
 import { CSVLink } from 'react-csv'
 import Loading from '../../../components/loading'
 import { showToastError, showToastSuccess } from '../../utils/toastmessage'
-import Select from '@mui/material/Select'
 import HeaderComponents from '../../../components/header'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -16,6 +15,8 @@ import Form from 'react-bootstrap/Form'
 import { useGetDataListWareHouse } from '../../api/useFetchData'
 import { http } from '../../utils/http'
 import { UPLOAD_FILE_PURCHASES } from '../../api'
+import { maxSizeInBytes } from '../../../services/constants'
+import { WAREHOUSE_KEY } from '../../../services/constants/keyQuery'
 
 export default function ImportPurchase() {
     const Title = 'Nhập hàng bằng excecl'
@@ -24,10 +25,8 @@ export default function ImportPurchase() {
     const [date, setDate] = useState(dayjs(currentDate))
     const [file, setSelectedFile] = useState(null)
     const [warehouseId, setWarehouseId] = useState('')
-    const queryKey = 'warehouse_key'
-    const maxSizeInBytes = 52428800
     const csvData = [['Mã hàng', 'Tên hàng', 'Màu sắc', 'Số lượng']]
-    const { data, error, isLoading } = useQuery(queryKey, useGetDataListWareHouse(queryKey))
+    const { data } = useQuery(WAREHOUSE_KEY, useGetDataListWareHouse(WAREHOUSE_KEY))
     useEffect(() => {
         if (warehouseId === '' && data?.data?.length > 0) {
             setWarehouseId(data?.data[0].id)
@@ -146,7 +145,7 @@ export default function ImportPurchase() {
                             </div>
                         </div>
                         <div className='mt-10'>
-                            <Form.Group controlId='formFile' className='mb-3 w-full sm:w-[48%]'>
+                            <Form.Group controlId='formFile' className='mb-3 w-full md:w-[48%]'>
                                 <Form.Control onChange={handleFileSelect} type='file' />
                             </Form.Group>
                         </div>

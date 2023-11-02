@@ -10,7 +10,6 @@ export default function CalculateWage() {
     const Title = 'Danh sách nhóm hàng'
     const queryKey = 'productgroup_key'
     const { data, isLoading, error } = useGetDataGroup(queryKey)
-    console.log(data)
 
     if (isLoading) {
         return <Loading />

@@ -25,7 +25,7 @@ import ListStaff from '../admin/page/staff/list-staff'
 import UpdateStaff from '../admin/page/staff/update-staff'
 import ListWareHouse from '../admin/page/warehouse/ListWareHouse'
 import UpdateWareHouse from '../admin/page/warehouse/UpdateWareHouse'
-import { warehouseTransfer } from '../admin/page/warehouse_transfer/warehouseTransfer'
+import WarehouseTransfer from '../admin/page/warehouse_transfer/warehouseTransfer'
 import Home from '../layouts/Home'
 
 export const groupGoods = [
@@ -42,7 +42,7 @@ export const inventoryManagement = [
     { path: '/quan-ly-kho/them-hang-moi', Component: CreateProduct },
     { path: '/quan-ly-kho/danh-sach-hang', Component: ListProducts },
     { path: '/quan-ly-kho/them-kho-hang', Component: ListWareHouse },
-    { path: '/quan-ly-kho/chuyen-kho', Component: warehouseTransfer },
+    { path: '/quan-ly-kho/chuyen-kho', Component: WarehouseTransfer },
     { path: '/quan-ly-kho/tinh-luong', Component: CalculateWage },
     { path: '/quan-ly-kho/sua-mat-hang/:id', Component: UpdateProduct },
     { path: '/quan-ly-kho/sua-kho-hang/:id', Component: UpdateWareHouse }
@@ -51,8 +51,8 @@ export const inventoryManagement = [
 export const goodsManagement = [
     { path: '/nhap-kho/nhap-hang', Component: CreatePurchase },
     { path: '/nhap-kho/danh-sach-nhap-hang', Component: ListParchases },
-    { path: '/nhap-kho/sua-don-nhap-hang/:id', Component: UpdatePurchase },
-    { path: '/nhap-kho/nhap-hang-bang-excel', Component: ImportPurchase }
+    { path: '/nhap-kho/nhap-hang-bang-excel', Component: ImportPurchase },
+    { path: '/nhap-kho/sua-don-nhap-hang/:id', Component: UpdatePurchase }
 ]
 
 export const sellManagement = [

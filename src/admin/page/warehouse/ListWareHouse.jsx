@@ -9,6 +9,7 @@ import HeaderComponents from '../../../components/header'
 import { TextField } from '@mui/material'
 import { useGetDataListWareHouse } from '../../api/useFetchData'
 import { http } from '../../utils/http'
+import { WAREHOUSE_KEY } from '../../../services/constants/keyQuery'
 
 const deteteItem = async (id) => {
     try {
@@ -24,7 +25,6 @@ export default function ListWareHouse() {
     const Title = 'Thêm kho hàng mới'
     const [loading, setIsLoading] = useState(false)
     const queryClient = useQueryClient()
-    const queryKey = 'warehouse_key'
     const mutationDelete = useMutation(deteteItem)
 
     const [formData, setFormData] = useState({
@@ -32,7 +32,7 @@ export default function ListWareHouse() {
         phone: '',
         address: ''
     })
-    const { data, error, isLoading } = useQuery(queryKey, useGetDataListWareHouse(queryKey))
+    const { data, error, isLoading } = useQuery(WAREHOUSE_KEY, useGetDataListWareHouse(WAREHOUSE_KEY))
     // hàm tạo kho từ useQuery
     const createWareHouse = async (formData) => {
         try {
@@ -57,7 +57,7 @@ export default function ListWareHouse() {
         if (isConfirmed) {
             mutationDelete.mutate(id, {
                 onSuccess: () => {
-                    queryClient.invalidateQueries({ queryKey: queryKey })
+                    queryClient.invalidateQueries({ queryKey: WAREHOUSE_KEY })
                 }
             })
         }
@@ -66,7 +66,7 @@ export default function ListWareHouse() {
     // hàm tạo kho từ useQuery
     const mutation = useMutation(createWareHouse, {
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKey })
+            queryClient.invalidateQueries({ queryKey: WAREHOUSE_KEY })
         },
         onError: (error) => {
             console.error('Lỗi khi gửi yêu cầu POST:', error)
@@ -87,7 +87,7 @@ export default function ListWareHouse() {
     // kiểm tra dữ liệu đầu vào
     const validation = () => {
         let isValid = true
-        const regex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/
+        const regex = /[!@#$%^&*()_+{}[\]:;<>,.?~\\]/
         if (formData.fullname.trim() === '') {
             showToastError('Vui lòng nhập tên kho!')
             isValid = false
