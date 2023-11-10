@@ -23,6 +23,8 @@ import ListSales from '../admin/page/sales/list-sales'
 import UpdateSales from '../admin/page/sales/update-purchase'
 import ListStaff from '../admin/page/staff/list-staff'
 import UpdateStaff from '../admin/page/staff/update-staff'
+import DiscountReport from '../admin/page/statistical/discount-report'
+import RealSales from '../admin/page/statistical/real-sales'
 import ListWareHouse from '../admin/page/warehouse/ListWareHouse'
 import UpdateWareHouse from '../admin/page/warehouse/UpdateWareHouse'
 import WarehouseTransfer from '../admin/page/warehouse_transfer/warehouseTransfer'
@@ -75,6 +77,13 @@ export const customersManagement = [
     { path: 'khach-hang/hang-da-lay/:id', Component: ListproductOrder },
     { path: 'khach-hang/nhap-khach-hang', Component: ImportCustomers }
 ]
+export const statisticalManagement = [
+    { path: '/thong-ke/bao-cao-chiet-khau', Component: DiscountReport },
+    {
+        path: '/thong-ke/doanh-so-thuc',
+        Component: RealSales
+    }
+]
 
 const appRoutes = [
     { path: '/', Component: Home },
@@ -86,6 +95,7 @@ const appRoutes = [
     ...sellManagement,
     ...staffManagement,
     ...customersManagement,
+    ...statisticalManagement,
     { path: '*', Component: Page404 }
 ]
 

@@ -93,6 +93,13 @@ const WarehouseTransfer = () => {
             </Helmet>
             <HeaderComponents label={'Quản lý kho hàng'} title={'Chuyển kho'} />
             <div className='card m-4'>
+                <div className='card-header'>
+                    <div className='card-header-left'>
+                        <div className='header_title'>
+                            <h5>Chuyển kho</h5>
+                        </div>
+                    </div>
+                </div>
                 <div className='card-block remove-label'>
                     <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-3'>

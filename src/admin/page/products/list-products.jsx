@@ -176,7 +176,7 @@ export default function ListProducts() {
                             </div>
                             <small>
                                 Các mặt hàng trong kho! Thêm mặt hàng mới
-                                <Link className='pl-2 text-[#777] font-bold' to={'/quan-ly-kho/them-hang-moi'}>
+                                <Link className='px-2 text-[#777] font-bold' to={'/quan-ly-kho/them-hang-moi'}>
                                     TẠI ĐÂY
                                 </Link>
                             </small>
@@ -265,7 +265,7 @@ export default function ListProducts() {
                         </div>
                         <div className='body mt-20'>
                             <DataGrid
-                                rows={rows?.map((row) => ({ ...row, id: row.id })) || []}
+                                rows={rows}
                                 disableColumnFilter
                                 disableColumnSelector
                                 disableDensitySelector

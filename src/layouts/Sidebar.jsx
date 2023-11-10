@@ -218,14 +218,14 @@ export default function Sidebar() {
                     <div className='pcoded-navigation-label'>Quản lý thống kê</div>
                     <SubMenu label='Thống kê' icon={<AiOutlineLineChart size={18} />}>
                         <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
+                            className={pathname === '/thong-ke/bao-cao-chiet-khau' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/thong-ke/bao-cao-chiet-khau' />}
                         >
                             Báo cáo chiết khấu
                         </MenuItem>
                         <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
+                            className={pathname === '/thong-ke/doanh-so-thuc' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/thong-ke/doanh-so-thuc' />}
                         >
                             Doanh số thực
                         </MenuItem>
