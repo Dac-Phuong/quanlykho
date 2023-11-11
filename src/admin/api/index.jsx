@@ -79,3 +79,6 @@ export const FILTER_SALES = '/sales/filter'
 // statistic
 export const DISCOUNT_REPORT = '/statistical/discount-report'
 export const REAL_SALES = '/statistical/real-sales'
+export const IMPORT_SALES = '/statistical/import-sales'
+export const GUARANTEE_PRODUCT = '/statistical/guarantee-product'
+export const STAFF_SALARY = '/statistical/staff-salary'

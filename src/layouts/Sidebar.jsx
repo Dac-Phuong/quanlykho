@@ -230,26 +230,22 @@ export default function Sidebar() {
                             Doanh số thực
                         </MenuItem>
                         <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
+                            className={pathname === '/thong-ke/doanh-so-nhap' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/thong-ke/doanh-so-nhap' />}
                         >
                             Doanh số nhập
                         </MenuItem>
                         <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
+                            className={pathname === '/thong-ke/hang-bao-hanh' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/thong-ke/hang-bao-hanh' />}
                         >
-                            Hàng bảo hàng
+                            Hàng bảo hành
                         </MenuItem>
                         <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
-                        >
-                            Đề nghị thanh toán
-                        </MenuItem>
-                        <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
+                            className={
+                                pathname === '/thong-ke/chiet-khauluong-hang-ngoai' ? 'text-blue-600 font-medium' : ''
+                            }
+                            component={<Link to='/thong-ke/chiet-khauluong-hang-ngoai' />}
                         >
                             Lương NVBH
                         </MenuItem>

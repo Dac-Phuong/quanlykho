@@ -16,7 +16,7 @@ import { useGetDataCreateSales } from '../../api/useFetchData'
 import { http } from '../../utils/http'
 import { UPLOAD_FILE_PURCHASES } from '../../api'
 
-export default function ImportSales() {
+export default function ImportSalesExcel() {
     const Title = 'Xuất hàng bằng excecl'
     const [loading, setIsLoading] = useState(false)
     const currentDate = new Date()

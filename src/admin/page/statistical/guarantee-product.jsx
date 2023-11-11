@@ -4,7 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 
-import { FormControl, FormHelperText } from '@mui/material'
+import { FormControl, FormHelperText, MenuItem, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid'
@@ -17,12 +17,8 @@ import dayjs from 'dayjs'
 
 import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
-import { useGetDataListDiscountReport } from '../../api/useFetchData'
-import { DISCOUNT_REPORT_KEY } from '../../../services/constants/keyQuery'
-import { BsFillCartPlusFill } from 'react-icons/bs'
-import { http } from '../../utils/http'
-import { DISCOUNT_REPORT } from '../../api'
-import BoxInformation from '../../../components/boxInformation'
+import { useGetDataListGuaranteeProduct } from '../../api/useFetchData'
+import { GUARANTEE_PRODUCT_KEY } from '../../../services/constants/keyQuery'
 const schema = yup
     .object({
         dayBegin: yup
@@ -50,11 +46,14 @@ const schema = yup
 
 const defaultValues = {
     dayBegin: dayjs(new Date()).subtract(1, 'day'),
-    dayEnd: dayjs(new Date())
+    dayEnd: dayjs(new Date()),
+    customer: 'all',
+    product: 'all'
 }
 
-const DiscountReport = () => {
-    const [selectedIds, setSelectedIds] = useState([])
+const GuaranteeProduct = () => {
+    const [selectedStaff, setSelectedStaff] = useState([])
+    const [selectGroup, setSelectGroup] = useState([])
     const [page, setPage] = useState(0)
     const [pageSize, setPageSize] = useState(15)
 
@@ -69,20 +68,16 @@ const DiscountReport = () => {
         resolver: yupResolver(schema)
     })
 
-    const { data, isLoading } = useQuery(DISCOUNT_REPORT_KEY, useGetDataListDiscountReport(DISCOUNT_REPORT_KEY))
+    const { data, isLoading } = useQuery(GUARANTEE_PRODUCT_KEY, useGetDataListGuaranteeProduct(GUARANTEE_PRODUCT_KEY))
 
     const columns = [
         { field: 'index', headerName: 'STT', minWidth: 70, flex: 0.5 },
-        { field: 'day_sell', headerName: 'Ngày bán', minWidth: 110, flex: 1 },
-        { field: 'staff', headerName: 'Nhân viên', minWidth: 210, flex: 1 },
-        { field: 'customer', headerName: 'Khách hàng', flex: 1 },
-        { field: 'price', headerName: 'Đơn giá gốc', flex: 1 },
-        { field: 'quantity', headerName: 'Số lượng', flex: 1 },
-        { field: 'cpn_discount', headerName: 'CK Cty', minWidth: 110, flex: 1 },
-        { field: 'cpn_discount_price', headerName: 'Giá CK Cty', minWidth: 130, flex: 1 },
-        { field: 'real_discount', headerName: 'CK thực', minWidth: 70, flex: 1 },
-        { field: 'real_discount_price', headerName: 'Giá CK thực', minWidth: 70, flex: 1 },
-        { field: 'disparity', headerName: 'Chênh lệch', minWidth: 70, flex: 1 },
+        { field: 'date', headerName: 'Ngày', minWidth: 110, flex: 1 },
+        { field: 'sale_code', headerName: 'Mã ĐH', minWidth: 210, flex: 1 },
+        { field: 'staffname', headerName: 'Nhân viên', flex: 1 },
+        { field: 'customername', headerName: 'Khách hàng', flex: 1 },
+        { field: 'code', headerName: 'Mã hàng', flex: 1 },
+        { field: 'quantity', headerName: 'Số lượng', minWidth: 110, flex: 1 },
         {
             field: 'active',
             headerName: 'Thao tác',
@@ -91,7 +86,7 @@ const DiscountReport = () => {
                 return (
                     <div>
                         <Link
-                            to={`/quan-ly-kho/sua-mat-hang/${params.row.id}`}
+                            // to={`/quan-ly-kho/sua-mat-hang/${params.row.id}`}
                             className='btn btn-button btn-primary ml-2'
                         >
                             sửa
@@ -102,52 +97,48 @@ const DiscountReport = () => {
         }
     ]
 
-    const rows = data?.data.map((item, index) => ({
+    const rows = data?.data?.map((item, index) => ({
         index: index + 1,
         id: index + 1,
-        day_sell: item.sale_date,
-        staff: item.staff,
-        customer: item.customer,
-        price: item.buy_price,
-        quantity: item.quantity,
-        cpn_discount: item.cpn_discount,
-        cpn_discount_price: item.cpn_discount_price,
-        real_discount: item.real_discount,
-        real_discount_price: item.real_discount_price,
-        disparity: item.disparity
+        date: item.date,
+        sale_code: item.sale_code,
+        staffname: item.staffname,
+        customername: item.customername,
+        code: item.code,
+        quantity: item.quantity
     }))
 
-    const onSubmit = async (data) => {
-        let bodyFormData = new FormData()
-        bodyFormData.append('dayBegin', data.dayBegin)
-        bodyFormData.append('dayEnd', data.dayEnd)
-        bodyFormData.append('staff', selectedIds)
-        const { data: newData } = await http.post(DISCOUNT_REPORT, bodyFormData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        })
-        reset(newData)
-    }
-    const handleCheckboxChange = (event) => {
+    const onSubmit = async (data) => {}
+    const handleCheckboxChangeStaff = (event) => {
         const id = event.target.id
         const isChecked = event.target.checked
         if (isChecked) {
-            setSelectedIds((prevSelectedIds) => [...prevSelectedIds, id])
+            setSelectedStaff((prevSelectedIds) => [...prevSelectedIds, id])
         } else {
-            setSelectedIds((prevSelectedIds) => prevSelectedIds.filter((selectedId) => selectedId !== id))
+            setSelectedStaff((prevSelectedIds) => prevSelectedIds.filter((selectedId) => selectedId !== id))
+        }
+    }
+    const handleCheckboxChangeGrProduct = (event) => {
+        const id = event.target.id
+        const isChecked = event.target.checked
+        if (isChecked) {
+            setSelectGroup((prevSelectedIds) => [...prevSelectedIds, id])
+        } else {
+            setSelectGroup((prevSelectedIds) => prevSelectedIds.filter((selectedId) => selectedId !== id))
         }
     }
     return (
         <div className='pcoded-content'>
             <div className=''>
                 <Helmet>
-                    <title>{'Báo cáo chiết khấu'}</title>
+                    <title>{'Hàng bảo hành '}</title>
                 </Helmet>
-                <HeaderComponents label={'Thống kê'} title={'Báo cáo chiết khấu'} />
+                <HeaderComponents label={'Thống kê'} title={'Hàng bảo hành '} />
                 <div className='card m-4'>
                     <div className='card-header'>
                         <div className='card-header-left'>
                             <div className='header_title'>
-                                <h5>Báo cáo chiết khấu</h5>
+                                <h5>Hàng bảo hành</h5>
                             </div>
                         </div>
                     </div>
@@ -202,6 +193,56 @@ const DiscountReport = () => {
                                         )}
                                     />
                                 </FormControl>
+                                <FormControl fullWidth sx={{ mb: 4 }}>
+                                    <Controller
+                                        name='customer'
+                                        control={control}
+                                        rules={{ required: true }}
+                                        render={({ field: { value, onChange } }) => (
+                                            <TextField
+                                                fullWidth
+                                                select
+                                                value={value}
+                                                onChange={onChange}
+                                                label='Khách hàng'
+                                                id='standard-basic'
+                                                variant='standard'
+                                            >
+                                                <MenuItem value='all'>Tất cả</MenuItem>
+                                                {data?.customers.map((item) => (
+                                                    <MenuItem key={item.id} value={item.id}>
+                                                        {item.fullname}
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        )}
+                                    />
+                                </FormControl>
+                                <FormControl fullWidth sx={{ mb: 4 }}>
+                                    <Controller
+                                        name='product'
+                                        control={control}
+                                        rules={{ required: true }}
+                                        render={({ field: { value, onChange } }) => (
+                                            <TextField
+                                                fullWidth
+                                                select
+                                                value={value}
+                                                onChange={onChange}
+                                                label='Sản phẩm'
+                                                id='standard-basic'
+                                                variant='standard'
+                                            >
+                                                <MenuItem value='all'>Tất cả</MenuItem>
+                                                {data?.products.map((item) => (
+                                                    <MenuItem key={item.id} value={item.id}>
+                                                        {item.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </TextField>
+                                        )}
+                                    />
+                                </FormControl>
                             </div>
                             <div className='col-md-12 p-0'>
                                 <div className='input-group flex '>
@@ -214,10 +255,31 @@ const DiscountReport = () => {
                                                         type='checkbox'
                                                         name='staff[]'
                                                         value={item.id}
-                                                        onChange={handleCheckboxChange}
+                                                        onChange={handleCheckboxChangeStaff}
                                                         id={item.id}
                                                     />
                                                     <label htmlFor={item.id}>{item.fullname}</label>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='col-md-12 p-0'>
+                                <div className='input-group flex '>
+                                    <span className='input-group-span min-w-[38px] text-sm'>Nhóm</span>
+                                    <div className='flex flex-wrap'>
+                                        {data?.productGroups.map((item) => {
+                                            return (
+                                                <div key={item.id} className='pr-3'>
+                                                    <input
+                                                        type='checkbox'
+                                                        name='group[]'
+                                                        value={item.id}
+                                                        onChange={handleCheckboxChangeGrProduct}
+                                                        id={item.id}
+                                                    />
+                                                    <label htmlFor={item.id}>{item.group_name}</label>
                                                 </div>
                                             )
                                         })}
@@ -229,7 +291,7 @@ const DiscountReport = () => {
                                 className='btn btn-primary waves-effect waves-light w-full mt-4'
                                 fdprocessedid='88fg6k'
                             >
-                                Báo cáo
+                                Lọc
                             </button>
                         </form>
                         <div className='w-full pt-4'>
@@ -257,9 +319,6 @@ const DiscountReport = () => {
                                 }}
                             />
                         </div>
-                        <div className='w-1/3'>
-                            <BoxInformation data={data?.totalDisparity} textData={'VNĐ'} title={'Chênh lệch'} />
-                        </div>
                     </div>
                 </div>
             </div>
@@ -267,4 +326,4 @@ const DiscountReport = () => {
         </div>
     )
 }
-export default DiscountReport
+export default GuaranteeProduct

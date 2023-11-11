@@ -18,13 +18,16 @@ import ImportPurchase from '../admin/page/purchases/import-purchaseExcel'
 import ListParchases from '../admin/page/purchases/list-purchases'
 import UpdatePurchase from '../admin/page/purchases/update-purchase'
 import CreateSales from '../admin/page/sales/create-sales'
-import ImportSales from '../admin/page/sales/import-SalesExcel'
+import ImportSalesExcel from '../admin/page/sales/import-SalesExcel'
 import ListSales from '../admin/page/sales/list-sales'
 import UpdateSales from '../admin/page/sales/update-purchase'
 import ListStaff from '../admin/page/staff/list-staff'
 import UpdateStaff from '../admin/page/staff/update-staff'
 import DiscountReport from '../admin/page/statistical/discount-report'
+import GuaranteeProduct from '../admin/page/statistical/guarantee-product'
+import ImportSales from '../admin/page/statistical/import-sales'
 import RealSales from '../admin/page/statistical/real-sales'
+import StaffSalary from '../admin/page/statistical/staff-salary'
 import ListWareHouse from '../admin/page/warehouse/ListWareHouse'
 import UpdateWareHouse from '../admin/page/warehouse/UpdateWareHouse'
 import WarehouseTransfer from '../admin/page/warehouse_transfer/warehouseTransfer'
@@ -60,7 +63,7 @@ export const goodsManagement = [
 export const sellManagement = [
     { path: '/xuat-kho/ban-hang', Component: CreateSales },
     { path: '/xuat-kho/danh-sach-ban-hang', Component: ListSales },
-    { path: 'xuat-kho/xuat-hang-bang-excel', Component: ImportSales },
+    { path: 'xuat-kho/xuat-hang-bang-excel', Component: ImportSalesExcel },
     { path: 'xuat-kho/sua-don-ban-hang/:id', Component: UpdateSales }
 ]
 
@@ -82,6 +85,18 @@ export const statisticalManagement = [
     {
         path: '/thong-ke/doanh-so-thuc',
         Component: RealSales
+    },
+    {
+        path: '/thong-ke/doanh-so-nhap',
+        Component: ImportSales
+    },
+    {
+        path: '/thong-ke/hang-bao-hanh',
+        Component: GuaranteeProduct
+    },
+    {
+        path: '/thong-ke/chiet-khauluong-hang-ngoai',
+        Component: StaffSalary
     }
 ]
 

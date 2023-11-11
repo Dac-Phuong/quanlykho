@@ -14,7 +14,10 @@ import {
     List_SALES,
     LIST_HOME,
     DISCOUNT_REPORT,
-    REAL_SALES
+    REAL_SALES,
+    IMPORT_SALES,
+    GUARANTEE_PRODUCT,
+    STAFF_SALARY
 } from '.'
 
 // lấy data của trang chủ
@@ -114,6 +117,27 @@ export function useGetDataListDiscountReport(queryKey) {
 export function useGetDataListRealSales(queryKey) {
     return useQuery(queryKey, async () => {
         const response = await http.get(REAL_SALES)
+        return response.data
+    })
+}
+
+export function useGetDataListImportSales(queryKey) {
+    return useQuery(queryKey, async () => {
+        const response = await http.get(IMPORT_SALES)
+        return response.data
+    })
+}
+
+export function useGetDataListGuaranteeProduct(queryKey) {
+    return useQuery(queryKey, async () => {
+        const response = await http.get(GUARANTEE_PRODUCT)
+        return response.data
+    })
+}
+
+export function useGetDataListStaffSalary(queryKey) {
+    return useQuery(queryKey, async () => {
+        const response = await http.get(STAFF_SALARY)
         return response.data
     })
 }

@@ -74,18 +74,18 @@ const RealSales = () => {
     const { data, isLoading } = useQuery(REAL_SALES_KEY, useGetDataListRealSales(REAL_SALES_KEY))
 
     const columns = [
-        { field: 'index', headerName: 'STT', minWidth: 70 },
-        { field: 'sale_date', headerName: 'Ngày bán', minWidth: 110 },
-        { field: 'staff', headerName: 'Nhân viên', minWidth: 210 },
-        { field: 'customer', headerName: 'Khách hàng' },
-        { field: 'product', headerName: 'Mã hàng' },
-        { field: 'original_sale_price', headerName: 'Đơn giá' },
-        { field: 'quantity', headerName: 'Số lượng', minWidth: 110 },
-        { field: 'bonus', headerName: 'KM', minWidth: 130 },
-        { field: 'discount', headerName: 'CK', minWidth: 70 },
-        { field: 'final_price', headerName: 'GC', minWidth: 70 },
-        { field: 'thisTTPriceWithBN', headerName: 'Thành tiền(+KM)', minWidth: 70 },
-        { field: 'thisTTPriceWithoutBN', headerName: 'Thành tiền', minWidth: 70 },
+        { field: 'index', headerName: 'STT', minWidth: 70, flex: 0.5 },
+        { field: 'sale_date', headerName: 'Ngày bán', minWidth: 110, flex: 1 },
+        { field: 'staff', headerName: 'Nhân viên', minWidth: 210, flex: 1 },
+        { field: 'customer', headerName: 'Khách hàng', flex: 1 },
+        { field: 'product', headerName: 'Mã hàng', flex: 1 },
+        { field: 'original_sale_price', headerName: 'Đơn giá', flex: 1 },
+        { field: 'quantity', headerName: 'Số lượng', minWidth: 110, flex: 1 },
+        { field: 'bonus', headerName: 'KM', minWidth: 130, flex: 1 },
+        { field: 'discount', headerName: 'CK', minWidth: 70, flex: 1 },
+        { field: 'final_price', headerName: 'GC', minWidth: 70, flex: 1 },
+        { field: 'thisTTPriceWithBN', headerName: 'Thành tiền(+KM)', minWidth: 70, flex: 1 },
+        { field: 'thisTTPriceWithoutBN', headerName: 'Thành tiền', minWidth: 70, flex: 1 },
         {
             field: 'active',
             headerName: 'Thao tác',
@@ -208,7 +208,7 @@ const RealSales = () => {
                                 </FormControl>
                                 <FormControl fullWidth sx={{ mb: 4 }}>
                                     <Controller
-                                        name='product'
+                                        name='customer'
                                         control={control}
                                         rules={{ required: true }}
                                         render={({ field: { value, onChange } }) => (
