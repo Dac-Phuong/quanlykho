@@ -80,6 +80,7 @@ const GuaranteeProduct = () => {
         { field: 'quantity', headerName: 'Số lượng', minWidth: 110, flex: 1 },
         {
             field: 'active',
+            minWidth: 100,
             headerName: 'Thao tác',
             flex: 1,
             renderCell: (params) => {

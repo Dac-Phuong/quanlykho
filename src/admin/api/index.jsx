@@ -82,3 +82,6 @@ export const REAL_SALES = '/statistical/real-sales'
 export const IMPORT_SALES = '/statistical/import-sales'
 export const GUARANTEE_PRODUCT = '/statistical/guarantee-product'
 export const STAFF_SALARY = '/statistical/staff-salary'
+
+// config
+export const IMPORT_TARGET = '/target/target-purchase'

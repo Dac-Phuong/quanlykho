@@ -88,6 +88,7 @@ const RealSales = () => {
         { field: 'thisTTPriceWithoutBN', headerName: 'Thành tiền', minWidth: 70, flex: 1 },
         {
             field: 'active',
+            minWidth: 100,
             headerName: 'Thao tác',
             flex: 1,
             renderCell: (params) => {

@@ -258,8 +258,8 @@ export default function Sidebar() {
                             Chỉ tiêu bán
                         </MenuItem>
                         <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
+                            className={pathname === '/cau-hinh/chi-tieu-nhap' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/cau-hinh/chi-tieu-nhap' />}
                         >
                             Chỉ tiêu nhập
                         </MenuItem>

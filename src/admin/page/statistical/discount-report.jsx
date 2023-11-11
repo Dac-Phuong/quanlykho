@@ -19,7 +19,6 @@ import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
 import { useGetDataListDiscountReport } from '../../api/useFetchData'
 import { DISCOUNT_REPORT_KEY } from '../../../services/constants/keyQuery'
-import { BsFillCartPlusFill } from 'react-icons/bs'
 import { http } from '../../utils/http'
 import { DISCOUNT_REPORT } from '../../api'
 import BoxInformation from '../../../components/boxInformation'
@@ -86,6 +85,7 @@ const DiscountReport = () => {
         {
             field: 'active',
             headerName: 'Thao tác',
+            minWidth: 100,
             flex: 1,
             renderCell: (params) => {
                 return (
@@ -257,7 +257,7 @@ const DiscountReport = () => {
                                 }}
                             />
                         </div>
-                        <div className='w-1/3'>
+                        <div className='w-full md:w-1/3'>
                             <BoxInformation data={data?.totalDisparity} textData={'VNĐ'} title={'Chênh lệch'} />
                         </div>
                     </div>
