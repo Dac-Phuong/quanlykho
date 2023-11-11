@@ -36,6 +36,8 @@ export default function ListProducts() {
     const Title = 'Danh sách sản phẩm'
     const [newdata, setNewData] = useState([])
     const [selectedIds, setSelectedIds] = useState([])
+    const [page, setPage] = useState(0)
+    const [pageSize, setPageSize] = useState(15)
     const queryKey = 'list_products'
     const queryClient = useQueryClient()
     const deleteMutation = useMutation(deteteItem)
@@ -105,7 +107,7 @@ export default function ListProducts() {
         { field: 'buy_price', headerName: 'Giá mua' },
         { field: 'sale_price', headerName: 'Giá bán' },
         { field: 'color', headerName: 'Màu sắc' },
-        { field: 'guarantee', headerName: 'Bảo hành', minWidth: 110 },
+        { field: 'guarantee', headerName: 'Bảo hành', minWidth: 90 },
         { field: 'product_groups_name', headerName: 'Nhóm', minWidth: 130 },
         { field: 'purchase_quality', headerName: 'Đã nhập', minWidth: 70 },
         { field: 'sell_quality', headerName: 'Đã bán', minWidth: 70 },
@@ -263,29 +265,27 @@ export default function ListProducts() {
                                 Lọc
                             </button>
                         </div>
-                        <div className='body mt-20'>
+                        <div className='w-full pt-4'>
                             <DataGrid
-                                rows={rows}
+                                rows={rows || []}
                                 disableColumnFilter
                                 disableColumnSelector
                                 disableDensitySelector
                                 showCellVerticalBorder
                                 showColumnVerticalBorder
-                                initialState={{
-                                    ...data?.initialState,
-                                    pagination: { paginationModel: { pageSize: 15 } }
+                                autoHeight
+                                page={page}
+                                pageSize={pageSize}
+                                onPageChange={(page) => {
+                                    setPage(page)
                                 }}
-                                pageSizeOptions={[15, 50, 100]}
+                                rowsPerPageOptions={[5, 15, 30, 50]}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                                 columns={columns}
                                 slots={{ toolbar: GridToolbar }}
                                 slotProps={{
                                     toolbar: {
                                         showQuickFilter: true
-                                    }
-                                }}
-                                sx={{
-                                    '.MuiDataGrid-toolbarContainer': {
-                                        p: 0
                                     }
                                 }}
                             />
