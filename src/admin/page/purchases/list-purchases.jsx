@@ -33,6 +33,8 @@ export default function ListParchases() {
     const lastDayOfMonth = dayjs().endOf('month')
     const [from_date, setFrom_Date] = useState(dayjs(firstDayOfMonth))
     const [to_date, setTo_Date] = useState(dayjs(lastDayOfMonth))
+    const [page, setPage] = useState(0)
+    const [pageSize, setPageSize] = useState(15)
     const queryClient = useQueryClient()
     const [isModalOpen, setIsModalOpen] = useState(false)
     const deleteMutation = useMutation(deteteItemPurchases)
@@ -234,7 +236,7 @@ export default function ListParchases() {
                                 </button>
                             </div>
                         </div>
-                        <div className='body mt-24'>
+                        <div className='w-full pt-4'>
                             <DataGrid
                                 rows={rows || []}
                                 disableColumnFilter
@@ -242,11 +244,14 @@ export default function ListParchases() {
                                 disableDensitySelector
                                 showCellVerticalBorder
                                 showColumnVerticalBorder
-                                initialState={{
-                                    ...data?.initialState,
-                                    pagination: { paginationModel: { pageSize: 15 } }
+                                autoHeight
+                                page={page}
+                                pageSize={pageSize}
+                                onPageChange={(page) => {
+                                    setPage(page)
                                 }}
-                                pageSizeOptions={[15, 50, 100]}
+                                rowsPerPageOptions={[5, 15, 30, 50]}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                                 columns={columns}
                                 slots={{ toolbar: GridToolbar }}
                                 slotProps={{

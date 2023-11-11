@@ -50,6 +50,8 @@ export default function ListSales() {
     const [customer, setCustumer] = useState(null)
     const [status, setSatus] = useState(3)
     const [anchorEl, setAnchorEl] = useState(null)
+    const [page, setPage] = useState(0)
+    const [pageSize, setPageSize] = useState(15)
     // lấy data về
     const { data, isLoading } = useQuery(queryKey, useGetListDataSales(queryKey))
 
@@ -400,7 +402,7 @@ export default function ListSales() {
                                 Lọc đơn hàng
                             </button>
                         </div>
-                        <div className='body mt-24'>
+                        <div className='w-full pt-4'>
                             <DataGrid
                                 rows={rows || []}
                                 disableColumnFilter
@@ -408,11 +410,14 @@ export default function ListSales() {
                                 disableDensitySelector
                                 showCellVerticalBorder
                                 showColumnVerticalBorder
-                                initialState={{
-                                    ...data?.initialState,
-                                    pagination: { paginationModel: { pageSize: 20 } }
+                                autoHeight
+                                page={page}
+                                pageSize={pageSize}
+                                onPageChange={(page) => {
+                                    setPage(page)
                                 }}
-                                pageSizeOptions={[20, 50, 100]}
+                                rowsPerPageOptions={[5, 15, 30, 50]}
+                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
                                 columns={columns}
                                 slots={{ toolbar: GridToolbar }}
                                 slotProps={{
