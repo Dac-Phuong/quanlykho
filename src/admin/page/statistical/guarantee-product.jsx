@@ -247,7 +247,7 @@ const GuaranteeProduct = () => {
                             </div>
                             <div className='col-md-12 p-0'>
                                 <div className='input-group flex '>
-                                    <span className='input-group-span min-w-[38px] text-sm'>Nhân viên</span>
+                                    <span className='input-group-span text-sm pr-3'>Nhân viên</span>
                                     <div className='flex flex-wrap'>
                                         {data?.staffs.map((item) => {
                                             return (
@@ -268,7 +268,7 @@ const GuaranteeProduct = () => {
                             </div>
                             <div className='col-md-12 p-0'>
                                 <div className='input-group flex '>
-                                    <span className='input-group-span min-w-[38px] text-sm'>Nhóm</span>
+                                    <span className='input-group-span text-sm pr-3'>Nhóm</span>
                                     <div className='flex flex-wrap'>
                                         {data?.productGroups.map((item) => {
                                             return (

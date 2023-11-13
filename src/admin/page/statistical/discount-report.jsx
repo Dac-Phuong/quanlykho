@@ -151,7 +151,11 @@ const DiscountReport = () => {
                             </div>
                         </div>
                     </div>
+
                     <div className='card-block remove-label'>
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
+                            <BoxInformation data={data?.totalDisparity} textData={'VNĐ'} title={'Chênh lệch'} />
+                        </div>
                         <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-3'>
                                 <FormControl fullWidth>
@@ -205,7 +209,7 @@ const DiscountReport = () => {
                             </div>
                             <div className='col-md-12 p-0'>
                                 <div className='input-group flex '>
-                                    <span className='input-group-span min-w-[38px] text-sm'>Nhân viên</span>
+                                    <span className='input-group-span text-sm pr-3'>Nhân viên</span>
                                     <div className='flex flex-wrap'>
                                         {data?.staffs.map((item) => {
                                             return (
@@ -256,9 +260,6 @@ const DiscountReport = () => {
                                     }
                                 }}
                             />
-                        </div>
-                        <div className='w-full md:w-1/3'>
-                            <BoxInformation data={data?.totalDisparity} textData={'VNĐ'} title={'Chênh lệch'} />
                         </div>
                     </div>
                 </div>

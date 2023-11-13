@@ -216,7 +216,7 @@ export default function ListProducts() {
                     <div className='p-4'>
                         <div className='col-md-12 p-0'>
                             <div className='input-group flex '>
-                                <span className='input-group-span min-w-[38px]'>Nhóm</span>
+                                <span className='input-group-span text-sm pr-3'>Nhóm</span>
                                 <div className='flex flex-wrap'>
                                     {data?.ProductGroup?.map((item, index) => {
                                         return (
@@ -238,7 +238,7 @@ export default function ListProducts() {
                         </div>
                         <div className='col-md-12 p-0'>
                             <div className='input-group flex '>
-                                <span className='input-group-span min-w-[38px]'>Kho</span>
+                                <span className='input-group-span text-sm pr-3'>Kho</span>
                                 <div className='flex flex-wrap'>
                                     {data?.Warehouse?.map((item) => {
                                         return (

@@ -119,6 +119,13 @@ const ImportSales = () => {
                         </div>
                     </div>
                     <div className='card-block remove-label'>
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
+                            <BoxInformation data={data?.salesWithBN} textData={'VNĐ'} title={'Doanh số'} />
+                            <BoxInformation data={data?.salesWithoutBN} textData={'VNĐ'} title={'Doanh số không KM'} />
+                            <BoxInformation data={data?.totalProduct} textData={''} title={'Sản phẩm'} icon={true} />
+                            <BoxInformation data={data?.finaltarget} textData={'VNĐ'} title={'Chỉ tiêu'} />
+                            <BoxInformation data={data?.reached} textData={'%'} title={'Đạt'} />
+                        </div>
                         <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-3'>
                                 <FormControl fullWidth>
@@ -197,7 +204,7 @@ const ImportSales = () => {
                             </div>
                             <div className='col-md-12 p-0'>
                                 <div className='input-group flex '>
-                                    <span className='input-group-span min-w-[38px] text-sm'>Nhóm</span>
+                                    <span className='input-group-span text-sm pr-3'>Nhóm</span>
                                     <div className='flex flex-wrap'>
                                         {data?.productGroup.map((item) => {
                                             return (
@@ -248,13 +255,6 @@ const ImportSales = () => {
                                     }
                                 }}
                             />
-                        </div>
-                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
-                            <BoxInformation data={data?.salesWithBN} textData={'VNĐ'} title={'Doanh số'} />
-                            <BoxInformation data={data?.salesWithoutBN} textData={'VNĐ'} title={'Doanh số không KM'} />
-                            <BoxInformation data={data?.totalProduct} textData={''} title={'Sản phẩm'} icon={true} />
-                            <BoxInformation data={data?.finaltarget} textData={'VNĐ'} title={'Chỉ tiêu'} />
-                            <BoxInformation data={data?.reached} textData={'%'} title={'Đạt'} />
                         </div>
                     </div>
                 </div>
