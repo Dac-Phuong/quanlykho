@@ -18,7 +18,7 @@ import dayjs from 'dayjs'
 import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
 import { useGetDataListDiscountReport } from '../../api/useFetchData'
-import { DISCOUNT_REPORT_KEY } from '../../../services/constants/keyQuery'
+import { DISCOUNT_REPORT_KEY } from '../../../constants/keyQuery'
 import { http } from '../../utils/http'
 import { DISCOUNT_REPORT } from '../../api'
 import BoxInformation from '../../../components/boxInformation'
@@ -54,6 +54,7 @@ const defaultValues = {
 
 const DiscountReport = () => {
     const [selectedIds, setSelectedIds] = useState([])
+    const [newData, setNewData] = useState([])
     const [page, setPage] = useState(0)
     const [pageSize, setPageSize] = useState(15)
 
@@ -102,7 +103,7 @@ const DiscountReport = () => {
         }
     ]
 
-    const rows = data?.data.map((item, index) => ({
+    const rows = newData?.data?.map((item, index) => ({
         index: index + 1,
         id: index + 1,
         day_sell: item.sale_date,
@@ -119,13 +120,13 @@ const DiscountReport = () => {
 
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
-        bodyFormData.append('dayBegin', data.dayBegin)
-        bodyFormData.append('dayEnd', data.dayEnd)
-        bodyFormData.append('staff', selectedIds)
+        bodyFormData.append('from_date', dayjs(data.dayBegin).format('DD-MM-YYYY'))
+        bodyFormData.append('to_date', dayjs(data.dayEnd).format('DD-MM-YYYY'))
+        bodyFormData.append('staff_id', selectedIds)
         const { data: newData } = await http.post(DISCOUNT_REPORT, bodyFormData, {
             headers: { 'Content-Type': 'multipart/form-data' }
         })
-        reset(newData)
+        setNewData(newData)
     }
     const handleCheckboxChange = (event) => {
         const id = event.target.id
@@ -136,6 +137,13 @@ const DiscountReport = () => {
             setSelectedIds((prevSelectedIds) => prevSelectedIds.filter((selectedId) => selectedId !== id))
         }
     }
+
+    useEffect(() => {
+        if (data) {
+            setNewData(data)
+        }
+    }, [data])
+
     return (
         <div className='pcoded-content'>
             <div className=''>
@@ -154,7 +162,7 @@ const DiscountReport = () => {
 
                     <div className='card-block remove-label'>
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
-                            <BoxInformation data={data?.totalDisparity} textData={'VNĐ'} title={'Chênh lệch'} />
+                            <BoxInformation data={newData?.totalDisparity} textData={'VNĐ'} title={'Chênh lệch'} />
                         </div>
                         <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-3'>
@@ -211,7 +219,7 @@ const DiscountReport = () => {
                                 <div className='input-group flex '>
                                     <span className='input-group-span text-sm pr-3'>Nhân viên</span>
                                     <div className='flex flex-wrap'>
-                                        {data?.staffs.map((item) => {
+                                        {newData?.staffs?.map((item) => {
                                             return (
                                                 <div key={item.id} className='pr-3'>
                                                     <input

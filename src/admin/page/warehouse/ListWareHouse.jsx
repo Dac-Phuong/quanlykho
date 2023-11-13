@@ -9,7 +9,7 @@ import HeaderComponents from '../../../components/header'
 import { TextField } from '@mui/material'
 import { useGetDataListWareHouse } from '../../api/useFetchData'
 import { http } from '../../utils/http'
-import { WAREHOUSE_KEY } from '../../../services/constants/keyQuery'
+import { WAREHOUSE_KEY } from '../../../constants/keyQuery'
 
 const deteteItem = async (id) => {
     try {

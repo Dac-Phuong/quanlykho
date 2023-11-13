@@ -1,9 +1,9 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useQueryClient, useMutation, useQuery } from 'react-query'
 import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
-import { IMPORT_TARGET_KEY } from '../../../services/constants/keyQuery'
+import { IMPORT_TARGET_KEY } from '../../../constants/keyQuery'
 import { useGetDataListImportTarget } from '../../api/useFetchData'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 
@@ -15,6 +15,8 @@ import dayjs from 'dayjs'
 import { FormControl, FormHelperText, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { TARGET } from '../../api'
+import { http } from '../../utils/http'
 
 const schema = yup
     .object({
@@ -25,8 +27,7 @@ const schema = yup
             .test({
                 name: 'hoten',
                 test(value, ctx) {
-                    if (/[-!#$%^*()/+":;{[\]}'\.,<>=~`?@&_\\|]/.test(value))
-                        return ctx.createError({ message: 'Chỉ tiêu không đúng định dạng' })
+                    if (!/[0-9]/.test(value)) return ctx.createError({ message: 'Chỉ tiêu không đúng định dạng' })
 
                     return true
                 }
@@ -51,6 +52,7 @@ export default function ImportTarget() {
         resolver: yupResolver(schema)
     })
 
+    const [newData, setNewData] = useState([])
     const [page, setPage] = useState(0)
     const [pageSize, setPageSize] = useState(15)
 
@@ -62,17 +64,27 @@ export default function ImportTarget() {
         { field: 'target', headerName: 'Mục tiêu', flex: 1.5 }
     ]
 
-    const rows = data?.data.map((item, index) => ({
+    const rows = newData?.data?.map((item, index) => ({
         index: index + 1,
         id: item.id || index + 1,
         date: item.date,
         target: item.target
     }))
 
-    const onSubmit = (data) => {
-        console.log(data)
+    const onSubmit = async (data) => {
+        let bodyFormData = new FormData()
+        bodyFormData.append('day', dayjs(data.day).format('YYYY-MM-DD'))
+        bodyFormData.append('target', data.target)
+        const { data: newData } = await http.post(TARGET, bodyFormData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        setNewData(newData)
     }
-
+    useEffect(() => {
+        if (data) {
+            setNewData(data)
+        }
+    }, [data])
     return (
         <div className='pcoded-content'>
             <div className=''>

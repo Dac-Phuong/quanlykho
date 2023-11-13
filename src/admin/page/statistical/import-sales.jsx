@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -17,9 +17,11 @@ import dayjs from 'dayjs'
 
 import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
-import { useGetDataListImportSales, useGetDataListRealSales } from '../../api/useFetchData'
-import { IMPORT_SALES_KEY } from '../../../services/constants/keyQuery'
+import { useGetDataListImportSales } from '../../api/useFetchData'
+import { IMPORT_SALES_KEY } from '../../../constants/keyQuery'
 import BoxInformation from '../../../components/boxInformation'
+import { http } from '../../utils/http'
+import { IMPORT_SALES } from '../../api'
 const schema = yup
     .object({
         dayBegin: yup
@@ -53,6 +55,7 @@ const defaultValues = {
 
 const ImportSales = () => {
     const [selectGroup, setSelectGroup] = useState([])
+    const [newData, setNewData] = useState([])
     const [page, setPage] = useState(0)
     const [pageSize, setPageSize] = useState(15)
 
@@ -80,7 +83,7 @@ const ImportSales = () => {
         { field: 'thisTTPrice', headerName: 'TT', minWidth: 130, flex: 1 }
     ]
 
-    const rows = data?.data?.map((item, index) => ({
+    const rows = newData?.data?.map((item, index) => ({
         index: index + 1,
         id: index + 1,
         date: item.date,
@@ -93,7 +96,17 @@ const ImportSales = () => {
         thisTTPrice: item.thisTTPrice
     }))
 
-    const onSubmit = async (data) => {}
+    const onSubmit = async (data) => {
+        let bodyFormData = new FormData()
+        bodyFormData.append('from_date', dayjs(data.dayBegin).format('DD-MM-YYYY'))
+        bodyFormData.append('to_date', dayjs(data.dayEnd).format('DD-MM-YYYY'))
+        bodyFormData.append('product_group_id', selectGroup)
+        bodyFormData.append('product_id', data.product === 'all' ? '' : data.product)
+        const { data: newData } = await http.post(IMPORT_SALES, bodyFormData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        setNewData(newData)
+    }
     const handleCheckboxChangeGrProduct = (event) => {
         const id = event.target.id
         const isChecked = event.target.checked
@@ -103,6 +116,13 @@ const ImportSales = () => {
             setSelectGroup((prevSelectedIds) => prevSelectedIds.filter((selectedId) => selectedId !== id))
         }
     }
+
+    useEffect(() => {
+        if (data) {
+            setNewData(data)
+        }
+    }, [data])
+
     return (
         <div className='pcoded-content'>
             <div className=''>
@@ -120,11 +140,15 @@ const ImportSales = () => {
                     </div>
                     <div className='card-block remove-label'>
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
-                            <BoxInformation data={data?.salesWithBN} textData={'VNĐ'} title={'Doanh số'} />
-                            <BoxInformation data={data?.salesWithoutBN} textData={'VNĐ'} title={'Doanh số không KM'} />
-                            <BoxInformation data={data?.totalProduct} textData={''} title={'Sản phẩm'} icon={true} />
-                            <BoxInformation data={data?.finaltarget} textData={'VNĐ'} title={'Chỉ tiêu'} />
-                            <BoxInformation data={data?.reached} textData={'%'} title={'Đạt'} />
+                            <BoxInformation data={newData?.salesWithBN} textData={'VNĐ'} title={'Doanh số'} />
+                            <BoxInformation
+                                data={newData?.salesWithoutBN}
+                                textData={'VNĐ'}
+                                title={'Doanh số không KM'}
+                            />
+                            <BoxInformation data={newData?.totalProduct} textData={''} title={'Sản phẩm'} icon={true} />
+                            <BoxInformation data={newData?.finaltarget} textData={'VNĐ'} title={'Chỉ tiêu'} />
+                            <BoxInformation data={newData?.reached} textData={'%'} title={'Đạt'} />
                         </div>
                         <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-3'>
@@ -206,7 +230,7 @@ const ImportSales = () => {
                                 <div className='input-group flex '>
                                     <span className='input-group-span text-sm pr-3'>Nhóm</span>
                                     <div className='flex flex-wrap'>
-                                        {data?.productGroup.map((item) => {
+                                        {newData?.productGroup?.map((item) => {
                                             return (
                                                 <div key={item.id} className='pr-3'>
                                                     <input

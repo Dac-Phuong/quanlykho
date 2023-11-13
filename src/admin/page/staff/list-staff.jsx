@@ -12,7 +12,7 @@ import AlertDialogStaff from '../../../components/modal/modal-staff'
 import { Link } from 'react-router-dom'
 import { useGetDataListStaff } from '../../api/useFetchData'
 import { http } from '../../utils/http'
-import { STAFF_KEY } from '../../../services/constants/keyQuery'
+import { STAFF_KEY } from '../../../constants/keyQuery'
 
 export default function ListStaff() {
     const Title = 'Nhân viên'

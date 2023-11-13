@@ -15,8 +15,8 @@ import Form from 'react-bootstrap/Form'
 import { useGetDataListWareHouse } from '../../api/useFetchData'
 import { http } from '../../utils/http'
 import { UPLOAD_FILE_PURCHASES } from '../../api'
-import { maxSizeInBytes } from '../../../services/constants'
-import { WAREHOUSE_KEY } from '../../../services/constants/keyQuery'
+import { maxSizeInBytes } from '../../../constants'
+import { WAREHOUSE_KEY } from '../../../constants/keyQuery'
 
 export default function ImportPurchase() {
     const Title = 'Nhập hàng bằng excecl'

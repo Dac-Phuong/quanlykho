@@ -18,8 +18,10 @@ import dayjs from 'dayjs'
 import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
 import { useGetDataListStaffSalary } from '../../api/useFetchData'
-import { STAFF_SALARY_KEY } from '../../../services/constants/keyQuery'
+import { STAFF_SALARY_KEY } from '../../../constants/keyQuery'
 import BoxInformation from '../../../components/boxInformation'
+import { http } from '../../utils/http'
+import { STAFF_SALARY } from '../../api'
 const schema = yup
     .object({
         dayBegin: yup
@@ -53,6 +55,7 @@ const defaultValues = {
 const StaffSalary = () => {
     const [selectedStaff, setSelectedStaff] = useState([])
     const [selectGroup, setSelectGroup] = useState([])
+    const [newData, setNewData] = useState([])
     const [page, setPage] = useState(0)
     const [pageSize, setPageSize] = useState(15)
 
@@ -100,7 +103,7 @@ const StaffSalary = () => {
         }
     ]
 
-    const rows = data?.data?.map((item, index) => ({
+    const rows = newData?.data?.map((item, index) => ({
         index: index + 1,
         id: index + 1,
         sale_date: item.sale_date,
@@ -114,7 +117,24 @@ const StaffSalary = () => {
         salary: item.salary
     }))
 
-    const onSubmit = async (data) => {}
+    const onSubmit = async (data) => {
+        let bodyFormData = new FormData()
+        bodyFormData.append('from_date', dayjs(data.dayBegin).format('DD-MM-YYYY'))
+        bodyFormData.append('to_date', dayjs(data.dayEnd).format('DD-MM-YYYY'))
+        bodyFormData.append(
+            'product_group_id',
+            selectGroup.map((item) => Number(item.replace('group', '')))
+        )
+        bodyFormData.append(
+            'staff_id',
+            selectedStaff.map((item) => Number(item.replace('staff', '')))
+        )
+        const { data: newData } = await http.post(STAFF_SALARY, bodyFormData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        setNewData(newData)
+    }
+
     const handleCheckboxChangeStaff = (event) => {
         const id = event.target.id
         const isChecked = event.target.checked
@@ -133,6 +153,13 @@ const StaffSalary = () => {
             setSelectGroup((prevSelectedIds) => prevSelectedIds.filter((selectedId) => selectedId !== id))
         }
     }
+
+    useEffect(() => {
+        if (data) {
+            setNewData(data)
+        }
+    }, [data])
+
     return (
         <div className='pcoded-content'>
             <div className=''>
@@ -150,7 +177,7 @@ const StaffSalary = () => {
                     </div>
                     <div className='card-block remove-label'>
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
-                            <BoxInformation data={data?.totalSalary} textData={'VNĐ'} title={'Tổng lương'} />
+                            <BoxInformation data={newData?.totalSalary} textData={'VNĐ'} title={'Tổng lương'} />
                         </div>
                         <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-3'>
@@ -207,7 +234,7 @@ const StaffSalary = () => {
                                 <div className='input-group flex '>
                                     <span className='input-group-span text-sm pr-3'>Nhân viên</span>
                                     <div className='flex flex-wrap'>
-                                        {data?.staffs.map((item) => {
+                                        {newData?.staffs?.map((item) => {
                                             return (
                                                 <div key={item.id} className='pr-3'>
                                                     <input
@@ -215,9 +242,9 @@ const StaffSalary = () => {
                                                         name='staff[]'
                                                         value={item.id}
                                                         onChange={handleCheckboxChangeStaff}
-                                                        id={item.id}
+                                                        id={item.id + 'staff'}
                                                     />
-                                                    <label htmlFor={item.id}>{item.fullname}</label>
+                                                    <label htmlFor={item.id + 'staff'}>{item.fullname}</label>
                                                 </div>
                                             )
                                         })}
@@ -228,7 +255,7 @@ const StaffSalary = () => {
                                 <div className='input-group flex '>
                                     <span className='input-group-span text-sm pr-3'>Nhóm</span>
                                     <div className='flex flex-wrap'>
-                                        {data?.productGroups.map((item) => {
+                                        {newData?.productGroups?.map((item) => {
                                             return (
                                                 <div key={item.id} className='pr-3'>
                                                     <input
@@ -236,9 +263,9 @@ const StaffSalary = () => {
                                                         name='group[]'
                                                         value={item.id}
                                                         onChange={handleCheckboxChangeGrProduct}
-                                                        id={item.id}
+                                                        id={item.id + 'group'}
                                                     />
-                                                    <label htmlFor={item.id}>{item.group_name}</label>
+                                                    <label htmlFor={item.id + 'group'}>{item.group_name}</label>
                                                 </div>
                                             )
                                         })}

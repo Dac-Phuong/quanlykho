@@ -18,9 +18,9 @@ import dayjs from 'dayjs'
 import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
 import { useGetDataListRealSales } from '../../api/useFetchData'
-import { REAL_SALES_KEY } from '../../../services/constants/keyQuery'
+import { REAL_SALES_KEY } from '../../../constants/keyQuery'
 import { http } from '../../utils/http'
-import { DISCOUNT_REPORT } from '../../api'
+import { REAL_SALES } from '../../api'
 import BoxInformation from '../../../components/boxInformation'
 const schema = yup
     .object({
@@ -57,6 +57,7 @@ const defaultValues = {
 const RealSales = () => {
     const [selectedStaff, setSelectedStaff] = useState([])
     const [selectGroup, setSelectGroup] = useState([])
+    const [newData, setNewData] = useState([])
     const [page, setPage] = useState(0)
     const [pageSize, setPageSize] = useState(15)
 
@@ -106,7 +107,7 @@ const RealSales = () => {
         }
     ]
 
-    const rows = data?.data?.map((item, index) => ({
+    const rows = newData?.data?.map((item, index) => ({
         index: index + 1,
         id: index + 1,
         sale_date: item.sale_date,
@@ -122,7 +123,26 @@ const RealSales = () => {
         thisTTPriceWithoutBN: item.thisTTPriceWithoutBN
     }))
 
-    const onSubmit = async (data) => {}
+    const onSubmit = async (data) => {
+        let bodyFormData = new FormData()
+        bodyFormData.append('from_date', dayjs(data.dayBegin).format('DD-MM-YYYY'))
+        bodyFormData.append('to_date', dayjs(data.dayEnd).format('DD-MM-YYYY'))
+        bodyFormData.append(
+            'product_group_id',
+            selectGroup.map((item) => Number(item.replace('group', '')))
+        )
+        bodyFormData.append(
+            'staff_id',
+            selectedStaff.map((item) => Number(item.replace('staff', '')))
+        )
+        bodyFormData.append('customer_id', data.customer === 'all' ? '' : data.customer)
+        bodyFormData.append('product_id', data.product === 'all' ? '' : data.product)
+        const { data: newData } = await http.post(REAL_SALES, bodyFormData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        setNewData(newData)
+    }
+
     const handleCheckboxChangeStaff = (event) => {
         const id = event.target.id
         const isChecked = event.target.checked
@@ -141,6 +161,13 @@ const RealSales = () => {
             setSelectGroup((prevSelectedIds) => prevSelectedIds.filter((selectedId) => selectedId !== id))
         }
     }
+
+    useEffect(() => {
+        if (data) {
+            setNewData(data)
+        }
+    }, [data])
+
     return (
         <div className='pcoded-content'>
             <div className=''>
@@ -158,16 +185,20 @@ const RealSales = () => {
                     </div>
                     <div className='card-block remove-label'>
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
-                            <BoxInformation data={data?.salesWithBN} textData={'VNĐ'} title={'Doanh số'} />
-                            <BoxInformation data={data?.salesWithoutBN} textData={'VNĐ'} title={'Doanh số không KM'} />
+                            <BoxInformation data={newData?.salesWithBN} textData={'VNĐ'} title={'Doanh số'} />
+                            <BoxInformation
+                                data={newData?.salesWithoutBN}
+                                textData={'VNĐ'}
+                                title={'Doanh số không KM'}
+                            />
                             <BoxInformation
                                 data={data?.salesWithoutDiscount}
                                 textData={'VNĐ'}
                                 title={'Doanh số đã trừ CK'}
                             />
-                            <BoxInformation data={data?.totalTarget} textData={'VNĐ'} title={'Chỉ tiêu'} />
-                            <BoxInformation data={data?.reachTargetPercent} textData={'%'} title={'Đạt'} />
-                            <BoxInformation data={data?.totalProduct} textData={''} title={'Sản phẩm'} icon={true} />
+                            <BoxInformation data={newData?.totalTarget} textData={'VNĐ'} title={'Chỉ tiêu'} />
+                            <BoxInformation data={newData?.reachTargetPercent} textData={'%'} title={'Đạt'} />
+                            <BoxInformation data={newData?.totalProduct} textData={''} title={'Sản phẩm'} icon={true} />
                         </div>
                         <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-3'>
@@ -274,7 +305,7 @@ const RealSales = () => {
                                 <div className='input-group flex '>
                                     <span className='input-group-span text-sm pr-3'>Nhân viên</span>
                                     <div className='flex flex-wrap'>
-                                        {data?.staffs.map((item) => {
+                                        {newData?.staffs?.map((item) => {
                                             return (
                                                 <div key={item.id} className='pr-3'>
                                                     <input
@@ -282,9 +313,9 @@ const RealSales = () => {
                                                         name='staff[]'
                                                         value={item.id}
                                                         onChange={handleCheckboxChangeStaff}
-                                                        id={item.id}
+                                                        id={item.id + 'staff'}
                                                     />
-                                                    <label htmlFor={item.id}>{item.fullname}</label>
+                                                    <label htmlFor={item.id + 'staff'}>{item.fullname}</label>
                                                 </div>
                                             )
                                         })}
@@ -295,7 +326,7 @@ const RealSales = () => {
                                 <div className='input-group flex '>
                                     <span className='input-group-span text-sm pr-3'>Nhóm</span>
                                     <div className='flex flex-wrap'>
-                                        {data?.product_groups.map((item) => {
+                                        {newData?.product_groups?.map((item) => {
                                             return (
                                                 <div key={item.id} className='pr-3'>
                                                     <input
@@ -303,20 +334,20 @@ const RealSales = () => {
                                                         name='group[]'
                                                         value={item.id}
                                                         onChange={handleCheckboxChangeGrProduct}
-                                                        id={item.id}
+                                                        id={item.id + 'group'}
                                                     />
-                                                    <label htmlFor={item.id}>{item.group_name}</label>
+                                                    <label htmlFor={item.id + 'group'}>{item.group_name}</label>
                                                 </div>
                                             )
                                         })}
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-md-12 p-0'>
+                            {/* <div className='col-md-12 p-0'>
                                 <div className='input-group flex '>
                                     <span className='input-group-span text-sm pr-3'>Phân loại</span>
                                     <div className='flex flex-wrap'>
-                                        {data?.product_groups.map((item) => {
+                                        {newData?.product_groups?.map((item) => {
                                             return (
                                                 <div key={item.id} className='pr-3'>
                                                     <input
@@ -332,7 +363,7 @@ const RealSales = () => {
                                         })}
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             <button
                                 type='submit'
                                 className='btn btn-primary waves-effect waves-light w-full mt-4'

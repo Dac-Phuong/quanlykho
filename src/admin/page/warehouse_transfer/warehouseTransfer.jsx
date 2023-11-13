@@ -14,11 +14,11 @@ import HeaderComponents from '../../../components/header'
 import Loading from '../../../components/loading'
 import { useQuery } from 'react-query'
 import { useGetDataListWareHouse } from '../../api/useFetchData'
-import { WAREHOUSE_TRANSFER_KEY } from '../../../services/constants/keyQuery'
+import { WAREHOUSE_TRANSFER_KEY } from '../../../constants/keyQuery'
 import dayjs from 'dayjs'
 import { MenuItem, TextField } from '@mui/material'
 import { showToastError } from '../../utils/toastmessage'
-import { maxSizeInBytes } from '../../../services/constants'
+import { maxSizeInBytes } from '../../../constants'
 
 const schema = yup
     .object({
