@@ -252,8 +252,8 @@ export default function Sidebar() {
                     </SubMenu>
                     <SubMenu label='Cấu hình' icon={<AiFillTool size={18} />}>
                         <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
+                            className={pathname === '/cau-hinh/chi-tieu-ban' ? 'text-blue-600 font-medium' : ''}
+                            component={<Link to='/cau-hinh/chi-tieu-ban' />}
                         >
                             Chỉ tiêu bán
                         </MenuItem>

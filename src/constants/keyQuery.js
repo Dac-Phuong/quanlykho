@@ -18,3 +18,5 @@ export const STAFF_SALARY_KEY = 'STAFF_SALARY_KEY'
 
 // CONFIG
 export const IMPORT_TARGET_KEY = 'IMPORT_TARGET_KEY'
+
+export const TARGET_KEY = 'TARGET_KEY'

@@ -85,4 +85,6 @@ export const STAFF_SALARY = '/statistical/staff-salary'
 
 // config
 export const IMPORT_TARGET = '/target/target-purchase'
+export const IMPORT_TARGET_CREATE = '/target/target-purchase-create'
 export const TARGET = '/target/target'
+export const TARGET_CREATE = '/target/target-create'

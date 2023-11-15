@@ -15,8 +15,10 @@ import dayjs from 'dayjs'
 import { FormControl, FormHelperText, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { TARGET } from '../../api'
+import { IMPORT_TARGET_CREATE } from '../../api'
 import { http } from '../../utils/http'
+import { useMutationCustom } from '../../../hooks/useReactQuery'
+import { toast } from 'react-toastify'
 
 const schema = yup
     .object({
@@ -27,7 +29,7 @@ const schema = yup
             .test({
                 name: 'hoten',
                 test(value, ctx) {
-                    if (!/[0-9]/.test(value)) return ctx.createError({ message: 'Chỉ tiêu không đúng định dạng' })
+                    if (!/^[0-9]+$/.test(value)) return ctx.createError({ message: 'Chỉ tiêu không đúng định dạng' })
 
                     return true
                 }
@@ -37,7 +39,7 @@ const schema = yup
 
 const defaultValues = {
     day: dayjs(new Date()),
-    target: ''
+    target: 0
 }
 
 export default function ImportTarget() {
@@ -58,6 +60,14 @@ export default function ImportTarget() {
 
     const { data, isLoading } = useQuery(IMPORT_TARGET_KEY, useGetDataListImportTarget(IMPORT_TARGET_KEY))
 
+    const addTargetPurchase = (data) => {
+        return http.post(IMPORT_TARGET_CREATE, data, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
+    }
+
+    const { mutate, isError, isSuccess } = useMutationCustom(addTargetPurchase, IMPORT_TARGET_KEY)
+
     const columns = [
         { field: 'id', headerName: 'STT', flex: 0.5 },
         { field: 'date', headerName: 'Ngày', flex: 1 },
@@ -73,18 +83,27 @@ export default function ImportTarget() {
 
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
-        bodyFormData.append('day', dayjs(data.day).format('YYYY-MM-DD'))
+        bodyFormData.append('date', dayjs(data.day).format('YYYY-MM-DD'))
         bodyFormData.append('target', data.target)
-        const { data: newData } = await http.post(TARGET, bodyFormData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
-        })
-        setNewData(newData)
+        mutate(bodyFormData)
     }
     useEffect(() => {
         if (data) {
             setNewData(data)
         }
     }, [data])
+    useEffect(() => {
+        if (isSuccess) {
+            reset({
+                day: dayjs(new Date()),
+                target: 0
+            })
+            toast.success('Thêm chỉ tiêu thành công')
+        }
+        if (isError) {
+            toast.error('Thêm chỉ tiêu thất bại')
+        }
+    }, [isSuccess, isError])
     return (
         <div className='pcoded-content'>
             <div className=''>
@@ -140,7 +159,12 @@ export default function ImportTarget() {
                                                     label='Chỉ tiêu'
                                                     variant='standard'
                                                     value={value}
-                                                    onChange={onChange}
+                                                    onChange={(e) => {
+                                                        if (e.target.value === '') onChange(0)
+                                                        else if (e.target.value[0] === '0') {
+                                                            onChange(e.target.value.slice(1))
+                                                        } else onChange(e.target.value)
+                                                    }}
                                                     sx={{
                                                         '& .MuiInputBase-root': {
                                                             marginTop: '25px'

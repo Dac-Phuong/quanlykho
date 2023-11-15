@@ -18,7 +18,8 @@ import {
     IMPORT_SALES,
     GUARANTEE_PRODUCT,
     STAFF_SALARY,
-    IMPORT_TARGET
+    IMPORT_TARGET,
+    TARGET
 } from '.'
 
 // lấy data của trang chủ
@@ -146,6 +147,13 @@ export function useGetDataListStaffSalary(queryKey) {
 export function useGetDataListImportTarget(...queryKey) {
     return useQuery(...queryKey, async () => {
         const response = await http.get(IMPORT_TARGET)
+        return response.data
+    })
+}
+
+export function useGetDataListTarget(...queryKey) {
+    return useQuery(...queryKey, async () => {
+        const response = await http.get(TARGET)
         return response.data
     })
 }

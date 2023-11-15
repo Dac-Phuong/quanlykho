@@ -1,6 +1,7 @@
 import Page404 from '../admin/page/404'
 import CalculateWage from '../admin/page/calculate-wage/calculate-wage'
 import ImportTarget from '../admin/page/config/import-target'
+import Target from '../admin/page/config/target'
 import ListCustomers from '../admin/page/customer/create-customers'
 import ImportCustomers from '../admin/page/customer/import-CustomerExcel'
 import ListproductOrder from '../admin/page/customer/list-productOrder'
@@ -102,6 +103,10 @@ export const statisticalManagement = [
 ]
 
 export const configManagement = [
+    {
+        path: '/cau-hinh/chi-tieu-ban',
+        Component: Target
+    },
     {
         path: '/cau-hinh/chi-tieu-nhap',
         Component: ImportTarget
