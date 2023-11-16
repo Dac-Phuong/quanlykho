@@ -18,8 +18,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { TARGET, TARGET_CREATE } from '../../api'
 import { http } from '../../utils/http'
 import { useMutationCustom } from '../../../hooks/useReactQuery'
-import { toast } from 'react-toastify'
 import DataGridCustom from '../../../components/dataGridCustom'
+import { showToastError, showToastSuccess } from '../../utils/toastmessage'
 
 const schema = yup
     .object({
@@ -43,8 +43,8 @@ const schema = yup
                 }
             })
             .required(),
-        staff_id: yup.string().required('Nhân viên không được để trống'),
-        group_product_id: yup.string().required('Nhóm hàng không được để trống'),
+        staff_id: yup.string(),
+        group_product_id: yup.string(),
         target: yup
             .string()
             .required('Chỉ tiêu không được để trống')
@@ -115,9 +115,10 @@ export default function Target() {
         })) || []
     const searchTarget = async () => {
         if (selectFromDate.isAfter(selectToDate)) {
-            toast.error('Ngày bắt đầu không được lớn hơn ngày kết thúc')
+            showToastError('Ngày bắt đầu không được lớn hơn ngày kết thúc')
             return
         }
+
         const formData = new FormData()
         formData.append('from_date', dayjs(selectFromDate).format('DD-MM-YYYY'))
         formData.append('to_date', dayjs(selectToDate).format('DD-MM-YYYY'))
@@ -128,11 +129,19 @@ export default function Target() {
         if (data.status === 200) {
             setNewData(data.data)
         } else {
-            toast.error('Không tìm thấy chỉ tiêu')
+            showToastError('Tìm kiếm bị lỗi')
         }
     }
 
     const onSubmit = (data) => {
+        if (data.staff_id === '') {
+            showToastError('Vui lòng chọn nhân viên')
+            return
+        }
+        if (data.group_product_id === '') {
+            showToastError('Vui lòng chọn nhóm hàng')
+            return
+        }
         let bodyFormData = new FormData()
         bodyFormData.append('from_date', dayjs(data.from_date).format('YYYY-MM-DD'))
         bodyFormData.append('to_date', dayjs(data.to_date).format('YYYY-MM-DD'))
@@ -140,19 +149,6 @@ export default function Target() {
         bodyFormData.append('group_product_id', data.group_product_id)
         bodyFormData.append('target', data.target)
         mutate(bodyFormData)
-        if (isSuccess) {
-            reset({
-                from_date: dayjs(new Date()).subtract(1, 'day'),
-                to_date: dayjs(new Date()),
-                staff_id: '',
-                group_product_id: '',
-                target: '0'
-            })
-            toast.success('Thêm chỉ tiêu thành công')
-        }
-        if (isError) {
-            toast.error('Thêm chỉ tiêu thất bại')
-        }
     }
     useEffect(() => {
         if (data) {
@@ -168,12 +164,12 @@ export default function Target() {
                 group_product_id: '',
                 target: '0'
             })
-            toast.success('Thêm chỉ tiêu thành công')
+            showToastSuccess('Thêm chỉ tiêu thành công')
         }
         if (isError) {
-            toast.error('Thêm chỉ tiêu thất bại')
+            showToastError('Thêm chỉ tiêu thất bại')
         }
-    }, [isSuccess, isError])
+    }, [isSuccess, isError, reset])
     return (
         <div className='pcoded-content'>
             <div className=''>

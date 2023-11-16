@@ -93,7 +93,7 @@ const StaffSalary = () => {
                 return (
                     <div>
                         <Link
-                            // to={`/quan-ly-kho/sua-mat-hang/${params.row.id}`}
+                            to={`/xuat-kho/sua-don-ban-hang/${params.row.sales_id}`}
                             className='btn btn-button btn-primary ml-2'
                         >
                             sửa
@@ -116,7 +116,8 @@ const StaffSalary = () => {
             quantity: item.quantity,
             allPrice: item.allPrice,
             bonus: item.bonus,
-            salary: item.salary
+            salary: item.salary,
+            sales_id: item.sales_id
         })) || []
 
     const onSubmit = async (data) => {

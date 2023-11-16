@@ -52,7 +52,7 @@ const DataGridCustom = ({ columns, rows, nameItem }) => {
                         placeholder='Tìm kiếm'
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className='p-2 border border-solid rounded w-full'
+                        className='p-2 border border-solid !border-[#322f2f] text-[#322f2f] rounded w-full'
                     />
                 </div>
             </div>

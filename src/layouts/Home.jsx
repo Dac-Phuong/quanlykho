@@ -32,6 +32,7 @@ export default function Home() {
                                                 data={data?.totalSales}
                                                 textData='VNĐ'
                                                 title='Doanh số tháng (cả hàng ngoài)'
+                                                color={1}
                                             />
                                         </div>
                                         <div className='col-xl-3 col-md-6'>
@@ -43,13 +44,14 @@ export default function Home() {
                                             />
                                         </div>
                                         <div className='col-xl-3 col-md-6'>
-                                            <BoxInformation textData='VNĐ' title='Doanh số tháng (Sopoka)' />
+                                            <BoxInformation textData='VNĐ' title='Doanh số tháng (Sopoka)' color={5} />
                                         </div>
                                         <div className='col-xl-3 col-md-6'>
                                             <BoxInformation
                                                 data={data?.totalPrice}
                                                 textData='VNĐ'
                                                 title='Tổng số tiền nhập trong tháng'
+                                                color={4}
                                             />
                                         </div>
                                         <div className='col-xl-3 col-md-6'>
@@ -57,6 +59,7 @@ export default function Home() {
                                                 data={data?.totalStaffDebt}
                                                 textData='VNĐ'
                                                 title='Công nợ nhân viên'
+                                                color={3}
                                             />
                                         </div>
                                         <div className='col-xl-3 col-md-6'>
@@ -64,6 +67,7 @@ export default function Home() {
                                                 data={data?.totalCustomerDebt}
                                                 textData='VNĐ'
                                                 title='Công nợ khách hàng'
+                                                color={2}
                                             />
                                         </div>
                                     </div>

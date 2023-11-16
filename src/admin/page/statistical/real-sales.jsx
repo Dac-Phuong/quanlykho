@@ -94,7 +94,7 @@ const RealSales = () => {
                 return (
                     <div>
                         <Link
-                            // to={`/quan-ly-kho/sua-mat-hang/${params.row.id}`}
+                            to={`/xuat-kho/sua-don-ban-hang/${params.row.sales_id}`}
                             className='btn btn-button btn-primary ml-2'
                         >
                             sửa
@@ -119,7 +119,8 @@ const RealSales = () => {
             discount: item.discount,
             final_price: item.final_price,
             thisTTPriceWithBN: item.thisTTPriceWithBN,
-            thisTTPriceWithoutBN: item.thisTTPriceWithoutBN
+            thisTTPriceWithoutBN: item.thisTTPriceWithoutBN,
+            sales_id: item.sales_id
         })) || []
 
     const onSubmit = async (data) => {
@@ -189,15 +190,23 @@ const RealSales = () => {
                                 data={newData?.salesWithoutBN}
                                 textData={'VNĐ'}
                                 title={'Doanh số không KM'}
+                                color={2}
                             />
                             <BoxInformation
                                 data={data?.salesWithoutDiscount}
                                 textData={'VNĐ'}
                                 title={'Doanh số đã trừ CK'}
+                                color={2}
                             />
-                            <BoxInformation data={newData?.totalTarget} textData={'VNĐ'} title={'Chỉ tiêu'} />
-                            <BoxInformation data={newData?.reachTargetPercent} textData={'%'} title={'Đạt'} />
-                            <BoxInformation data={newData?.totalProduct} textData={''} title={'Sản phẩm'} icon={true} />
+                            <BoxInformation data={newData?.totalTarget} textData={'VNĐ'} title={'Chỉ tiêu'} color={1} />
+                            <BoxInformation data={newData?.reachTargetPercent} textData={'%'} title={'Đạt'} color={3} />
+                            <BoxInformation
+                                data={newData?.totalProduct}
+                                textData={''}
+                                title={'Sản phẩm'}
+                                color={5}
+                                icon={true}
+                            />
                         </div>
                         <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-3'>

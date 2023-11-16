@@ -71,7 +71,7 @@ const DiscountReport = () => {
     const { data, isLoading } = useQuery(DISCOUNT_REPORT_KEY, useGetDataListDiscountReport(DISCOUNT_REPORT_KEY))
 
     const columns = [
-        { field: 'index', headerName: 'STT', minWidth: 70, flex: 0.5 },
+        { field: 'STT', headerName: 'STT', minWidth: 70, flex: 0.5 },
         { field: 'day_sell', headerName: 'Ngày bán', minWidth: 110, flex: 1 },
         { field: 'staff', headerName: 'Nhân viên', minWidth: 210, flex: 1 },
         { field: 'customer', headerName: 'Khách hàng', flex: 1 },
@@ -91,7 +91,7 @@ const DiscountReport = () => {
                 return (
                     <div>
                         <Link
-                            to={`/quan-ly-kho/sua-mat-hang/${params.row.id}`}
+                            to={`/xuat-kho/sua-don-ban-hang/${params.row.sales_id}`}
                             className='btn btn-button btn-primary ml-2'
                         >
                             sửa
@@ -104,7 +104,7 @@ const DiscountReport = () => {
 
     const rows =
         newData?.data?.map((item, index) => ({
-            index: index + 1,
+            STT: index + 1,
             id: index + 1,
             day_sell: item.sale_date,
             staff: item.staff,
@@ -115,9 +115,10 @@ const DiscountReport = () => {
             cpn_discount_price: item.cpn_discount_price,
             real_discount: item.real_discount,
             real_discount_price: item.real_discount_price,
-            disparity: item.disparity
+            disparity: item.disparity,
+            sales_id: item.sales_id
         })) || []
-
+    console.log(rows, newData?.data)
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
         bodyFormData.append('from_date', dayjs(data.dayBegin).format('DD-MM-YYYY'))

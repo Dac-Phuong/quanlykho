@@ -17,8 +17,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { IMPORT_TARGET_CREATE } from '../../api'
 import { http } from '../../utils/http'
 import { useMutationCustom } from '../../../hooks/useReactQuery'
-import { toast } from 'react-toastify'
 import DataGridCustom from '../../../components/dataGridCustom'
+import { showToastError, showToastSuccess } from '../../utils/toastmessage'
 
 const schema = yup
     .object({
@@ -97,12 +97,12 @@ export default function ImportTarget() {
                 day: dayjs(new Date()),
                 target: 0
             })
-            toast.success('Thêm chỉ tiêu thành công')
+            showToastSuccess('Thêm chỉ tiêu thành công')
         }
         if (isError) {
-            toast.error('Thêm chỉ tiêu thất bại')
+            showToastError('Thêm chỉ tiêu thất bại')
         }
-    }, [isSuccess, isError])
+    }, [isSuccess, isError, reset])
     return (
         <div className='pcoded-content'>
             <div className=''>

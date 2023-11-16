@@ -1,13 +1,25 @@
 import { BsFillCartPlusFill } from 'react-icons/bs'
 
 const BoxInformation = (props) => {
-    const { data, textData, title, hiddenFooter = true, icon = false } = props
+    const { data, textData, title, color = 0, hiddenFooter = true, icon = false } = props
+
+    const arrBgColor = ['bg-blue-600', 'bg-red-600', 'bg-green-600', 'bg-yellow-600', 'bg-purple-600', 'bg-gray-600']
+
+    const arrTextColor = [
+        'text-blue-600',
+        'text-red-600',
+        'text-green-600',
+        'text-yellow-600',
+        'text-purple-600',
+        'text-gray-600'
+    ]
+
     return (
         <div className='card w-full drop-shadow-2xl'>
             <div className='card-block min-h-[135px]'>
                 <div className='row align-items-center'>
                     <div className='col-8'>
-                        <h4 className='text-blue-600'>{(data ? data : 0) + ' ' + textData}</h4>
+                        <h4 className={`${arrTextColor[color]}`}>{(data ? data : 0) + ' ' + textData}</h4>
                         <h6 className='text-muted m-b-0'>{title}</h6>
                     </div>
                     <div className='col-4 text-right'>
@@ -17,7 +29,7 @@ const BoxInformation = (props) => {
                 </div>
             </div>
             {hiddenFooter && (
-                <div className={`card-footer bg-blue-600`}>
+                <div className={`card-footer ${arrBgColor[color]}`}>
                     <div className='row align-items-center'>
                         <div className='col-9'>
                             <p className='text-white m-b-0'>% change</p>

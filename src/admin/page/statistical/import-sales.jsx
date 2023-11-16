@@ -147,10 +147,17 @@ const ImportSales = () => {
                                 data={newData?.salesWithoutBN}
                                 textData={'VNĐ'}
                                 title={'Doanh số không KM'}
+                                color={2}
                             />
-                            <BoxInformation data={newData?.totalProduct} textData={''} title={'Sản phẩm'} icon={true} />
-                            <BoxInformation data={newData?.finaltarget} textData={'VNĐ'} title={'Chỉ tiêu'} />
-                            <BoxInformation data={newData?.reached} textData={'%'} title={'Đạt'} />
+                            <BoxInformation
+                                data={newData?.totalProduct}
+                                textData={''}
+                                title={'Sản phẩm'}
+                                icon={true}
+                                color={5}
+                            />
+                            <BoxInformation data={newData?.finaltarget} textData={'VNĐ'} title={'Chỉ tiêu'} color={1} />
+                            <BoxInformation data={newData?.reached} textData={'%'} title={'Đạt'} color={3} />
                         </div>
                         <form autoComplete='off' fullWidth onSubmit={handleSubmit(onSubmit)}>
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-x-3'>

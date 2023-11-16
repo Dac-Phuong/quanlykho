@@ -65,8 +65,8 @@ export const goodsManagement = [
 export const sellManagement = [
     { path: '/xuat-kho/ban-hang', Component: CreateSales },
     { path: '/xuat-kho/danh-sach-ban-hang', Component: ListSales },
-    { path: 'xuat-kho/xuat-hang-bang-excel', Component: ImportSalesExcel },
-    { path: 'xuat-kho/sua-don-ban-hang/:id', Component: UpdateSales }
+    { path: '/xuat-kho/xuat-hang-bang-excel', Component: ImportSalesExcel },
+    { path: '/xuat-kho/sua-don-ban-hang/:id', Component: UpdateSales }
 ]
 
 export const staffManagement = [
@@ -78,9 +78,9 @@ export const customersManagement = [
     { path: '/khach-hang/quan-ly-tuyen', Component: CreateLcation },
     { path: '/khach-hang/quan-ly-tuyen/sua-tuyen/:id', Component: UpdateLcation },
     { path: '/khach-hang/them-khach-hang', Component: ListCustomers },
-    { path: 'khach-hang/don-hang/:id', Component: OrderCustomer },
-    { path: 'khach-hang/hang-da-lay/:id', Component: ListproductOrder },
-    { path: 'khach-hang/nhap-khach-hang', Component: ImportCustomers }
+    { path: '/khach-hang/don-hang/:id', Component: OrderCustomer },
+    { path: '/khach-hang/hang-da-lay/:id', Component: ListproductOrder },
+    { path: '/khach-hang/nhap-khach-hang', Component: ImportCustomers }
 ]
 export const statisticalManagement = [
     { path: '/thong-ke/bao-cao-chiet-khau', Component: DiscountReport },

@@ -91,7 +91,7 @@ const GuaranteeProduct = () => {
                 return (
                     <div>
                         <Link
-                            // to={`/quan-ly-kho/sua-mat-hang/${params.row.id}`}
+                            to={`/xuat-kho/sua-don-ban-hang/${params.row.sales_id}`}
                             className='btn btn-button btn-primary ml-2'
                         >
                             sửa
@@ -111,7 +111,8 @@ const GuaranteeProduct = () => {
             staffname: item.staffname,
             customername: item.customername,
             code: item.code,
-            quantity: item.quantity
+            quantity: item.quantity,
+            sales_id: item.sales_id
         })) || []
 
     const onSubmit = async (data) => {

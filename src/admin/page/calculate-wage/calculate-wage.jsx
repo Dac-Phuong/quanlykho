@@ -48,9 +48,7 @@ export default function CalculateWage() {
                     </div>
                 </div>
                 <div className='p-4'>
-                    <div className='pt-5'>
-                        <DataGridCustom rows={rows} columns={columns} nameItem={'báo cáo chiết khấu'} />
-                    </div>
+                    <DataGridCustom rows={rows} columns={columns} nameItem={'báo cáo chiết khấu'} />
                 </div>
             </div>
         </div>
