@@ -223,8 +223,8 @@ export default function UpdateSales() {
                 <title>{Title}</title>
             </Helmet>
             <HeaderComponents label={'Quản lý kho hàng'} title={'Sửa đơn hàng'} />
-            <div className='row my-4 mx-2 flex flex-wrap max-lg:flex-wrap'>
-                <div className='col-sm-8'>
+            <div className='row my-4 mx-2 flex flex-wrap max-lg:flex-wrap lg:grid lg:grid-cols-12 gap-5 p-4'>
+                <div className='w-full lg:col-span-8'>
                     <div className='card'>
                         <div className='card-header'>
                             <div className='card-header-left'>
@@ -355,7 +355,7 @@ export default function UpdateSales() {
                         </div>
                     </div>
                 </div>
-                <div className='col-sm-4 '>
+                <div className='w-full lg:col-span-4'>
                     <div className='card'>
                         <div className='card-header'>
                             <div className='card-header-left'>
@@ -410,9 +410,9 @@ export default function UpdateSales() {
                                     <MenuItem value='1'>Đã thanh toán </MenuItem>
                                 </Select>
                             </div>
-                            <div className='flex justify-between my-3'>
+                            <div className='grid grid-cols-2 gap-x-3 max-sm:grid-cols-1'>
                                 <Autocomplete
-                                    className='w-[49%] max-sm:w-2/4 mt-2   mr-4 max-sm:mr-1'
+                                    className=''
                                     id='disable-close-on-select'
                                     clearOnEscape
                                     value={staff}
@@ -430,7 +430,7 @@ export default function UpdateSales() {
                                     )}
                                 />
                                 <Autocomplete
-                                    className='w-[49%] max-sm:w-2/4 mt-2 max-sm:mr-1'
+                                    className=''
                                     id='disable-close-on-select'
                                     clearOnEscape
                                     options={data && data?.customers ? data?.customers : []}
