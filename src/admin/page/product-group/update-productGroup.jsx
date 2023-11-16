@@ -126,8 +126,8 @@ export default function UpdateProductGroup() {
                 <title>{Title}</title>
             </Helmet>
             <HeaderComponents label={'Quản lý nhóm hàng'} title={'Sửa nhóm hàng '} />
-            <div className='row my-4 mx-2'>
-                <div className='col-sm-6'>
+            <div className='row my-4 mx-2 grid grid-cols-12 gap-x-3'>
+                <div className='col-span-6 max-2xl:col-span-12'>
                     <div className='card'>
                         <div className='card-header'>
                             <div className='card-header-left'>
@@ -231,7 +231,7 @@ export default function UpdateProductGroup() {
                         </div>
                     </div>
                 </div>
-                <div className='col-sm-6'>
+                <div className='col-span-6 max-2xl:hidden'>
                     <div className='card'>
                         <div className='card-header'>
                             <div className='card-header-left'>
@@ -243,8 +243,8 @@ export default function UpdateProductGroup() {
                             <div className='card-header-right'></div>
                         </div>
                         <div className='card-block remove-label'>
-                            <div className='m-4 text-[#555] w-full overflow-auto'>
-                                <table className='table  w-full'>
+                            <div className='m-4 text-[#555] w-full'>
+                                <table className='table'>
                                     <thead className='text-left'>
                                         <tr>
                                             <th>Mã nhóm</th>
