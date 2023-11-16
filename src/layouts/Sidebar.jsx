@@ -243,9 +243,9 @@ export default function Sidebar() {
                         </MenuItem>
                         <MenuItem
                             className={
-                                pathname === '/thong-ke/chiet-khauluong-hang-ngoai' ? 'text-blue-600 font-medium' : ''
+                                pathname === '/thong-ke/chiet-khau-luong-hang-ngoai' ? 'text-blue-600 font-medium' : ''
                             }
-                            component={<Link to='/thong-ke/chiet-khauluong-hang-ngoai' />}
+                            component={<Link to='/thong-ke/chiet-khau-luong-hang-ngoai' />}
                         >
                             Lương NVBH
                         </MenuItem>

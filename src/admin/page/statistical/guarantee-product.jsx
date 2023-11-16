@@ -21,6 +21,7 @@ import { useGetDataListGuaranteeProduct } from '../../api/useFetchData'
 import { GUARANTEE_PRODUCT_KEY } from '../../../constants/keyQuery'
 import { http } from '../../utils/http'
 import { GUARANTEE_PRODUCT } from '../../api'
+import DataGridCustom from '../../../components/dataGridCustom'
 const schema = yup
     .object({
         dayBegin: yup
@@ -101,16 +102,17 @@ const GuaranteeProduct = () => {
         }
     ]
 
-    const rows = newData?.data?.map((item, index) => ({
-        index: index + 1,
-        id: index + 1,
-        date: item.date,
-        sale_code: item.sale_code,
-        staffname: item.staffname,
-        customername: item.customername,
-        code: item.code,
-        quantity: item.quantity
-    }))
+    const rows =
+        newData?.data?.map((item, index) => ({
+            index: index + 1,
+            id: index + 1,
+            date: item.date,
+            sale_code: item.sale_code,
+            staffname: item.staffname,
+            customername: item.customername,
+            code: item.code,
+            quantity: item.quantity
+        })) || []
 
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
@@ -324,30 +326,8 @@ const GuaranteeProduct = () => {
                                 Lọc
                             </button>
                         </form>
-                        <div className='w-full pt-4'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
+                        <div className='pt-5'>
+                            <DataGridCustom rows={rows} columns={columns} nameItem={'hàng bảo hành'} />
                         </div>
                     </div>
                 </div>

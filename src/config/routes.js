@@ -97,7 +97,7 @@ export const statisticalManagement = [
         Component: GuaranteeProduct
     },
     {
-        path: '/thong-ke/chiet-khauluong-hang-ngoai',
+        path: '/thong-ke/chiet-khau-luong-hang-ngoai',
         Component: StaffSalary
     }
 ]

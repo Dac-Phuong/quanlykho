@@ -4,10 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { FormControl, FormHelperText, MenuItem, Select, TextField } from '@mui/material'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 
 import { useQuery } from 'react-query'
 import { Link } from 'react-router-dom'
@@ -22,6 +21,7 @@ import { REAL_SALES_KEY } from '../../../constants/keyQuery'
 import { http } from '../../utils/http'
 import { REAL_SALES } from '../../api'
 import BoxInformation from '../../../components/boxInformation'
+import DataGridCustom from '../../../components/dataGridCustom'
 const schema = yup
     .object({
         dayBegin: yup
@@ -58,8 +58,6 @@ const RealSales = () => {
     const [selectedStaff, setSelectedStaff] = useState([])
     const [selectGroup, setSelectGroup] = useState([])
     const [newData, setNewData] = useState([])
-    const [page, setPage] = useState(0)
-    const [pageSize, setPageSize] = useState(15)
 
     const {
         handleSubmit,
@@ -107,21 +105,22 @@ const RealSales = () => {
         }
     ]
 
-    const rows = newData?.data?.map((item, index) => ({
-        index: index + 1,
-        id: index + 1,
-        sale_date: item.sale_date,
-        staff: item.staff,
-        customer: item.customer,
-        product: item.product,
-        original_sale_price: item.original_sale_price,
-        quantity: item.quantity,
-        bonus: item.bonus,
-        discount: item.discount,
-        final_price: item.final_price,
-        thisTTPriceWithBN: item.thisTTPriceWithBN,
-        thisTTPriceWithoutBN: item.thisTTPriceWithoutBN
-    }))
+    const rows =
+        newData?.data?.map((item, index) => ({
+            index: index + 1,
+            id: index + 1,
+            sale_date: item.sale_date,
+            staff: item.staff,
+            customer: item.customer,
+            product: item.product,
+            original_sale_price: item.original_sale_price,
+            quantity: item.quantity,
+            bonus: item.bonus,
+            discount: item.discount,
+            final_price: item.final_price,
+            thisTTPriceWithBN: item.thisTTPriceWithBN,
+            thisTTPriceWithoutBN: item.thisTTPriceWithoutBN
+        })) || []
 
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
@@ -372,30 +371,8 @@ const RealSales = () => {
                                 Lọc
                             </button>
                         </form>
-                        <div className='w-full pt-4'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
+                        <div className='pt-5'>
+                            <DataGridCustom rows={rows} columns={columns} nameItem={'doanh số thực'} />
                         </div>
                     </div>
                 </div>

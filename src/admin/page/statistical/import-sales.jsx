@@ -22,6 +22,7 @@ import { IMPORT_SALES_KEY } from '../../../constants/keyQuery'
 import BoxInformation from '../../../components/boxInformation'
 import { http } from '../../utils/http'
 import { IMPORT_SALES } from '../../api'
+import DataGridCustom from '../../../components/dataGridCustom'
 const schema = yup
     .object({
         dayBegin: yup
@@ -83,18 +84,19 @@ const ImportSales = () => {
         { field: 'thisTTPrice', headerName: 'TT', minWidth: 130, flex: 1 }
     ]
 
-    const rows = newData?.data?.map((item, index) => ({
-        index: index + 1,
-        id: index + 1,
-        date: item.date,
-        code: item.code,
-        quantity: item.quantity,
-        bonus: item.bonus,
-        price: item.price,
-        discount: item.discount,
-        product_group_id: item.product_group_id,
-        thisTTPrice: item.thisTTPrice
-    }))
+    const rows =
+        newData?.data?.map((item, index) => ({
+            index: index + 1,
+            id: index + 1,
+            date: item.date,
+            code: item.code,
+            quantity: item.quantity,
+            bonus: item.bonus,
+            price: item.price,
+            discount: item.discount,
+            product_group_id: item.product_group_id,
+            thisTTPrice: item.thisTTPrice
+        })) || []
 
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
@@ -255,30 +257,8 @@ const ImportSales = () => {
                                 Lọc
                             </button>
                         </form>
-                        <div className='w-full pt-4'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
+                        <div className='pt-5'>
+                            <DataGridCustom rows={rows} columns={columns} nameItem={'doanh số nhập'} />
                         </div>
                     </div>
                 </div>

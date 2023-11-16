@@ -1,11 +1,10 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
-import { useQueryClient, useMutation, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
 import { IMPORT_TARGET_KEY } from '../../../constants/keyQuery'
 import { useGetDataListImportTarget } from '../../api/useFetchData'
-import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -19,6 +18,7 @@ import { IMPORT_TARGET_CREATE } from '../../api'
 import { http } from '../../utils/http'
 import { useMutationCustom } from '../../../hooks/useReactQuery'
 import { toast } from 'react-toastify'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 const schema = yup
     .object({
@@ -55,8 +55,6 @@ export default function ImportTarget() {
     })
 
     const [newData, setNewData] = useState([])
-    const [page, setPage] = useState(0)
-    const [pageSize, setPageSize] = useState(15)
 
     const { data, isLoading } = useQuery(IMPORT_TARGET_KEY, useGetDataListImportTarget(IMPORT_TARGET_KEY))
 
@@ -74,12 +72,13 @@ export default function ImportTarget() {
         { field: 'target', headerName: 'Mục tiêu', flex: 1.5 }
     ]
 
-    const rows = newData?.data?.map((item, index) => ({
-        index: index + 1,
-        id: item.id || index + 1,
-        date: item.date,
-        target: item.target
-    }))
+    const rows =
+        newData?.data?.map((item, index) => ({
+            index: index + 1,
+            id: item.id || index + 1,
+            date: item.date,
+            target: item.target
+        })) || []
 
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
@@ -202,31 +201,7 @@ export default function ImportTarget() {
                         </div>
                     </div>
                     <div className='card-block remove-label md:overflow-hidden overflow-x-scroll'>
-                        <div className='body'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
-                        </div>
+                        <DataGridCustom rows={rows} columns={columns} nameItem={'chỉ tiêu nhập'} />
                     </div>
                 </div>
             </div>

@@ -19,6 +19,7 @@ import { TARGET, TARGET_CREATE } from '../../api'
 import { http } from '../../utils/http'
 import { useMutationCustom } from '../../../hooks/useReactQuery'
 import { toast } from 'react-toastify'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 const schema = yup
     .object({
@@ -80,8 +81,6 @@ export default function Target() {
     })
 
     const [newData, setNewData] = useState([])
-    const [page, setPage] = useState(0)
-    const [pageSize, setPageSize] = useState(15)
     const [selectFromDate, setSelectFromDate] = useState(dayjs(new Date()).subtract(1, 'day'))
     const [selectToDate, setSelectToDate] = useState(dayjs(new Date()))
 
@@ -96,7 +95,7 @@ export default function Target() {
     const { mutate, isSuccess, isError } = useMutationCustom(addTarget, TARGET_KEY)
 
     const columns = [
-        { field: 'id', headerName: 'STT', flex: 0.5 },
+        { field: 'index', headerName: 'STT', flex: 0.5 },
         { field: 'staff_id', headerName: 'Nhân viên', flex: 1.5 },
         { field: 'group_product_id', headerName: 'Nhóm hàng', flex: 1 },
         { field: 'target', headerName: 'Mục tiêu', flex: 1.5 },
@@ -104,15 +103,16 @@ export default function Target() {
         { field: 'to_date', headerName: 'Đến ngày', flex: 1.5 }
     ]
 
-    const rows = newData?.data?.map((item, index) => ({
-        index: index + 1,
-        id: item.id || index + 1,
-        staff_id: newData?.staff.find((staff) => staff.id === item.staff_id)?.fullname,
-        group_product_id: newData?.product_group.find((group) => group.id === item.group_product_id)?.group_name,
-        target: item.target,
-        from_date: item.from_date,
-        to_date: item.to_date
-    }))
+    const rows =
+        newData?.data?.map((item, index) => ({
+            index: index + 1,
+            id: item.id || index + 1,
+            staff_id: newData?.staff.find((staff) => staff.id === item.staff_id)?.fullname,
+            group_product_id: newData?.product_group.find((group) => group.id === item.group_product_id)?.group_name,
+            target: item.target,
+            from_date: item.from_date,
+            to_date: item.to_date
+        })) || []
     const searchTarget = async () => {
         if (selectFromDate.isAfter(selectToDate)) {
             toast.error('Ngày bắt đầu không được lớn hơn ngày kết thúc')
@@ -378,7 +378,7 @@ export default function Target() {
                                     slotProps={{ textField: { variant: 'filled' } }}
                                 />
                             </LocalizationProvider>
-                            <div>
+                            <div className='w-full'>
                                 <button
                                     type='text'
                                     className='btn btn-primary waves-effect waves-light w-full mt-4'
@@ -389,31 +389,7 @@ export default function Target() {
                                 </button>
                             </div>
                         </div>
-                        <div className='body'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
-                        </div>
+                        <DataGridCustom rows={rows} columns={columns} nameItem={'chỉ tiêu bán'} />
                     </div>
                 </div>
             </div>

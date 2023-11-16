@@ -17,6 +17,7 @@ import { http } from '../../utils/http'
 import { Autocomplete, TextField, MenuItem, Button, Menu } from '@mui/material'
 import AlertDialogSales from '../../../components/modal/modal-sales'
 import AlertDialogSalesBill from '../../../components/modal/modal-salesbill'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 // xóa mặt hàng
 const deteteItemSales = async (id) => {
@@ -240,26 +241,27 @@ export default function ListSales() {
             }
         }
     ]
-    const rows = newdata?.map((item, index) => ({
-        id: item?.id,
-        index: ++index,
-        date: item?.date,
-        status: item?.status === 0 ? 'Chưa thanh toán' : 'Đã thanh toán',
-        warehouse_name: item?.warehouse_name,
-        staff_name: item?.staff_name,
-        customer_name: item?.customer_name,
-        debt: item?.discount + '%',
-        paid:
-            parseFloat(
-                item?.status === 1
-                    ? item?.total_price - item?.total_price * (item?.discount / 100)
-                    : item?.paid_money || 0
-            ).toLocaleString('en-US') + ' đồng',
-        total_price:
-            parseFloat(Math.round(item?.total_price - item?.total_price * (item?.discount / 100))).toLocaleString(
-                'en-US'
-            ) + ' đồng'
-    }))
+    const rows =
+        newdata?.map((item, index) => ({
+            id: item?.id,
+            index: ++index,
+            date: item?.date,
+            status: item?.status === 0 ? 'Chưa thanh toán' : 'Đã thanh toán',
+            warehouse_name: item?.warehouse_name,
+            staff_name: item?.staff_name,
+            customer_name: item?.customer_name,
+            debt: item?.discount + '%',
+            paid:
+                parseFloat(
+                    item?.status === 1
+                        ? item?.total_price - item?.total_price * (item?.discount / 100)
+                        : item?.paid_money || 0
+                ).toLocaleString('en-US') + ' đồng',
+            total_price:
+                parseFloat(Math.round(item?.total_price - item?.total_price * (item?.discount / 100))).toLocaleString(
+                    'en-US'
+                ) + ' đồng'
+        })) || []
     return (
         <section className='pcoded-content'>
             <Helmet>
@@ -402,30 +404,8 @@ export default function ListSales() {
                                 Lọc đơn hàng
                             </button>
                         </div>
-                        <div className='w-full pt-4'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
+                        <div className='pt-5'>
+                            <DataGridCustom rows={rows} columns={columns} nameItem={'đơn bán'} />
                         </div>
                     </div>
                 </div>

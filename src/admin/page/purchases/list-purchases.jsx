@@ -14,6 +14,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import AlertDialogPurchase from '../../../components/modal/modal-purchase'
 import { useGetDataListPurchase } from '../../api/useFetchData'
 import { http } from '../../utils/http'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 // xóa mặt hàng
 const deteteItemPurchases = async (id) => {
@@ -144,16 +145,17 @@ export default function ListParchases() {
             }
         }
     ]
-    const rows = newdata?.map((item, index) => ({
-        id: item?.id,
-        index: ++index,
-        date: item?.date,
-        status: item?.status === 0 ? 'Chưa nhận hàng' : 'Đã nhận hàng',
-        note: item?.note,
-        warehouse_name: item?.warehouse_name,
-        total_quality: parseFloat(item?.total_quality || 0).toLocaleString('en-US'),
-        total_price: parseFloat(Math.round(item?.total_price || 0)).toLocaleString('en-US') + ' đồng'
-    }))
+    const rows =
+        newdata?.map((item, index) => ({
+            id: item?.id,
+            index: ++index,
+            date: item?.date,
+            status: item?.status === 0 ? 'Chưa nhận hàng' : 'Đã nhận hàng',
+            note: item?.note,
+            warehouse_name: item?.warehouse_name,
+            total_quality: parseFloat(item?.total_quality || 0).toLocaleString('en-US'),
+            total_price: parseFloat(Math.round(item?.total_price || 0)).toLocaleString('en-US') + ' đồng'
+        })) || []
 
     return (
         <section className='pcoded-content'>
@@ -236,30 +238,8 @@ export default function ListParchases() {
                                 </button>
                             </div>
                         </div>
-                        <div className='w-full pt-4'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
+                        <div className='pt-5'>
+                            <DataGridCustom rows={rows} columns={columns} nameItem={'đơn nhập'} />
                         </div>
                     </div>
                 </div>

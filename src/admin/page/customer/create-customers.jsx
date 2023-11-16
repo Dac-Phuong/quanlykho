@@ -17,6 +17,7 @@ import AlertDialogUpdateCustomer from '../../../components/modal/modal-updateCus
 import Loading from '../../../components/loading'
 import { CREATE_CUSTOMER, GET_DEBT_CUSTOMER } from '../../api'
 import { http } from '../../utils/http'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 export default function ListCustomers() {
     const Title = 'Khách hàng'
@@ -184,17 +185,20 @@ export default function ListCustomers() {
             }
         }
     ]
-    const rows = data?.data?.map((item, index) => ({
-        id: item.id,
-        index: ++index,
-        fullname: item.fullname,
-        address: item.address,
-        debt: item.debt.toLocaleString('en-US'),
-        order: item.total_orders,
-        phone: item.phone,
-        location: item?.location ? data?.location?.find((ite) => ite.id === item?.location)?.name : 'Không xác định',
-        to_date: item.to_date
-    }))
+    const rows =
+        data?.data?.map((item, index) => ({
+            id: item.id,
+            index: ++index,
+            fullname: item.fullname,
+            address: item.address,
+            debt: item.debt.toLocaleString('en-US'),
+            order: item.total_orders,
+            phone: item.phone,
+            location: item?.location
+                ? data?.location?.find((ite) => ite.id === item?.location)?.name
+                : 'Không xác định',
+            to_date: item.to_date
+        })) || []
 
     if (isLoading) {
         return <Loading />
@@ -353,29 +357,7 @@ export default function ListCustomers() {
                         </div>
                     </div>
                     <div className='card-block remove-label'>
-                        <div className='body mt-16' style={{ width: '100%' }}>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                initialState={{
-                                    ...data?.initialState,
-                                    pagination: { paginationModel: { pageSize: 20 } }
-                                }}
-                                pageSizeOptions={[20, 50, 100]}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
-                        </div>
+                        <DataGridCustom rows={rows} columns={columns} nameItem={'danh sách khách hàng'} />
                     </div>
                 </div>
                 <AlertDialogCustomer

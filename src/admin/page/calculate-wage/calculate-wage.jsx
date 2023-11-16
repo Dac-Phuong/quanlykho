@@ -1,19 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import Loading from '../../../components/loading'
 import HeaderComponents from '../../../components/header'
 import { useGetDataGroup } from '../../api/useFetchData'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 // hàm xóa nhóm phẩm
 export default function CalculateWage() {
+    const [newData, setNewData] = React.useState([])
+
     const Title = 'Danh sách nhóm hàng'
     const queryKey = 'productgroup_key'
     const { data, isLoading, error } = useGetDataGroup(queryKey)
-
+    useEffect(() => {
+        setNewData(data)
+    }, [data])
     if (isLoading) {
         return <Loading />
     }
+    const columns = [
+        { field: 'index', headerName: 'STT', minWidth: 70, flex: 1 },
+        { field: 'group_name', headerName: 'Nhóm hàng', minWidth: 110, flex: 1 },
+        { field: 'commission', headerName: 'Lương', minWidth: 70, flex: 1 }
+    ]
+    const rows =
+        newData?.data?.map((item, index) => ({
+            id: item.id,
+            index: ++index,
+            group_name: item.group_name,
+            commission: item.commission
+        })) || []
 
     return (
         <div className='pcoded-content'>
@@ -30,35 +47,10 @@ export default function CalculateWage() {
                         <small>Bảng tính lương</small>
                     </div>
                 </div>
-                <div className=' card-block remove-label overflow-x-scroll sm:overflow-x-hidden'>
-                    <table className='table table-bordered table-striped table-hover dataTable js-exportable'>
-                        <thead className='text-left'>
-                            <tr>
-                                <th>STT</th>
-                                <th>Mã nhóm</th>
-                                <th>Tên nhóm</th>
-                                <th>Tính lương</th>
-                            </tr>
-                        </thead>
-                        <tbody className='text-left'>
-                            {data?.data?.map((item, index) => {
-                                return (
-                                    <tr key={item.id} className=''>
-                                        <th>{++index}</th>
-                                        <th>{item.group_code}</th>
-                                        <th>{item.group_name}</th>
-                                        {item.commission_type == 0 ? (
-                                            <th>{item.commission_type}%</th>
-                                        ) : (
-                                            <th>
-                                                {item.commission}/{item.commission_target}
-                                            </th>
-                                        )}
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
+                <div className='p-4'>
+                    <div className='pt-5'>
+                        <DataGridCustom rows={rows} columns={columns} nameItem={'báo cáo chiết khấu'} />
+                    </div>
                 </div>
             </div>
         </div>

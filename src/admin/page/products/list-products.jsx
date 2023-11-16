@@ -10,6 +10,7 @@ import HeaderComponents from '../../../components/header'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import { useGetDataProducts } from '../../api/useFetchData'
 import { http } from '../../utils/http'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 // xóa mặt hàng
 const deteteItem = async (id) => {
@@ -148,21 +149,22 @@ export default function ListProducts() {
             }
         }
     ]
-    const rows = newdata?.map((item, index) => ({
-        id: item.id,
-        index: ++index,
-        code: item.code,
-        name: item.name,
-        buy_price: item.buy_price.toLocaleString('en-US'),
-        sale_price: item.sale_price.toLocaleString('en-US'),
-        color: item.color,
-        guarantee: '0',
-        product_groups_name: item.product_groups_name,
-        purchase_quality: item.purchase_quality || 0,
-        sell_quality: item.sell_quality || 0,
-        inventario: item.purchase_quality - item.sell_quality || 0,
-        active: item.active
-    }))
+    const rows =
+        newdata?.map((item, index) => ({
+            id: item.id,
+            index: ++index,
+            code: item.code,
+            name: item.name,
+            buy_price: item.buy_price.toLocaleString('en-US'),
+            sale_price: item.sale_price.toLocaleString('en-US'),
+            color: item.color,
+            guarantee: '0',
+            product_groups_name: item.product_groups_name,
+            purchase_quality: item.purchase_quality || 0,
+            sell_quality: item.sell_quality || 0,
+            inventario: item.purchase_quality - item.sell_quality || 0,
+            active: item.active
+        })) || []
     return (
         <section className='pcoded-content'>
             <Helmet>
@@ -265,30 +267,8 @@ export default function ListProducts() {
                                 Lọc
                             </button>
                         </div>
-                        <div className='w-full pt-4'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
+                        <div className='pt-5'>
+                            <DataGridCustom rows={rows} columns={columns} nameItem={'hàng'} />
                         </div>
                     </div>
                 </div>

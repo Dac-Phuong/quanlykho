@@ -15,6 +15,7 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import AlertDialog from '../../../components/modal/modal-discount'
 import { useGetDataDiscount } from '../../api/useFetchData'
 import { http } from '../../utils/http'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 const deteteItem = async (id) => {
     try {
@@ -182,17 +183,18 @@ export default function ListDiscount() {
         }
     }, [isLoading, data])
 
-    const rows = newData?.map((item, index) => ({
-        id: item.id,
-        index: ++index,
-        code: item.code,
-        name: item.name,
-        discount: item.discount + '%',
-        get_more: item.get_more,
-        inv_condition: item.inv_condition,
-        from_date: item.from_date,
-        to_date: item.to_date
-    }))
+    const rows =
+        newData?.map((item, index) => ({
+            id: item.id,
+            index: ++index,
+            code: item.code,
+            name: item.name,
+            discount: item.discount + '%',
+            get_more: item.get_more,
+            inv_condition: item.inv_condition,
+            from_date: item.from_date,
+            to_date: item.to_date
+        })) || []
     if (isLoading) {
         return <Loading />
     }
@@ -355,28 +357,8 @@ export default function ListDiscount() {
                                 </button>
                             </div>
                         </div>
-                        <div className='body mt-20' style={{ width: '100%' }}>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                initialState={{
-                                    ...data?.initialState,
-                                    pagination: { paginationModel: { pageSize: 20 } }
-                                }}
-                                pageSizeOptions={[20, 50, 100]}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
+                        <div className='pt-5'>
+                            <DataGridCustom rows={rows} columns={columns} nameItem={'chiết khấu'} />
                         </div>
                     </div>
                 </div>

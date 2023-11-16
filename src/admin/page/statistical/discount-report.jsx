@@ -22,6 +22,7 @@ import { DISCOUNT_REPORT_KEY } from '../../../constants/keyQuery'
 import { http } from '../../utils/http'
 import { DISCOUNT_REPORT } from '../../api'
 import BoxInformation from '../../../components/boxInformation'
+import DataGridCustom from '../../../components/dataGridCustom'
 const schema = yup
     .object({
         dayBegin: yup
@@ -55,8 +56,6 @@ const defaultValues = {
 const DiscountReport = () => {
     const [selectedIds, setSelectedIds] = useState([])
     const [newData, setNewData] = useState([])
-    const [page, setPage] = useState(0)
-    const [pageSize, setPageSize] = useState(15)
 
     const {
         handleSubmit,
@@ -103,20 +102,21 @@ const DiscountReport = () => {
         }
     ]
 
-    const rows = newData?.data?.map((item, index) => ({
-        index: index + 1,
-        id: index + 1,
-        day_sell: item.sale_date,
-        staff: item.staff,
-        customer: item.customer,
-        price: item.buy_price,
-        quantity: item.quantity,
-        cpn_discount: item.cpn_discount,
-        cpn_discount_price: item.cpn_discount_price,
-        real_discount: item.real_discount,
-        real_discount_price: item.real_discount_price,
-        disparity: item.disparity
-    }))
+    const rows =
+        newData?.data?.map((item, index) => ({
+            index: index + 1,
+            id: index + 1,
+            day_sell: item.sale_date,
+            staff: item.staff,
+            customer: item.customer,
+            price: item.buy_price,
+            quantity: item.quantity,
+            cpn_discount: item.cpn_discount,
+            cpn_discount_price: item.cpn_discount_price,
+            real_discount: item.real_discount,
+            real_discount_price: item.real_discount_price,
+            disparity: item.disparity
+        })) || []
 
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
@@ -244,30 +244,8 @@ const DiscountReport = () => {
                                 Báo cáo
                             </button>
                         </form>
-                        <div className='w-full pt-4'>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                page={page}
-                                pageSize={pageSize}
-                                onPageChange={(page) => {
-                                    setPage(page)
-                                }}
-                                rowsPerPageOptions={[5, 15, 30, 50]}
-                                onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
+                        <div className='pt-5'>
+                            <DataGridCustom rows={rows} columns={columns} nameItem={'báo cáo chiết khấu'} />
                         </div>
                     </div>
                 </div>

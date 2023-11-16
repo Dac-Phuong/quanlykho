@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import { useGetDataListStaff } from '../../api/useFetchData'
 import { http } from '../../utils/http'
 import { STAFF_KEY } from '../../../constants/keyQuery'
+import DataGridCustom from '../../../components/dataGridCustom'
 
 export default function ListStaff() {
     const Title = 'Nhân viên'
@@ -167,16 +168,17 @@ export default function ListStaff() {
         }
     }, [isLoading, data])
 
-    const rows = newData?.map((item, index) => ({
-        id: item.id,
-        index: ++index,
-        fullname: item.fullname,
-        address: item.address,
-        debt: item.debt.toLocaleString('en-US'),
-        phone: item.phone,
-        active: item.active === 0 ? 'đang làm' : 'nghỉ việc',
-        to_date: item.to_date
-    }))
+    const rows =
+        newData?.map((item, index) => ({
+            id: item.id,
+            index: ++index,
+            fullname: item.fullname,
+            address: item.address,
+            debt: item.debt.toLocaleString('en-US'),
+            phone: item.phone,
+            active: item.active === 0 ? 'đang làm' : 'nghỉ việc',
+            to_date: item.to_date
+        })) || []
 
     if (isLoading) {
         return <Loading />
@@ -306,29 +308,7 @@ export default function ListStaff() {
                         </div>
                     </div>
                     <div className='card-block remove-label'>
-                        <div className='body mt-16' style={{ width: '100%' }}>
-                            <DataGrid
-                                rows={rows || []}
-                                disableColumnFilter
-                                disableColumnSelector
-                                disableDensitySelector
-                                showCellVerticalBorder
-                                showColumnVerticalBorder
-                                autoHeight
-                                initialState={{
-                                    ...data?.initialState,
-                                    pagination: { paginationModel: { pageSize: 20 } }
-                                }}
-                                pageSizeOptions={[20, 50, 100]}
-                                columns={columns}
-                                slots={{ toolbar: GridToolbar }}
-                                slotProps={{
-                                    toolbar: {
-                                        showQuickFilter: true
-                                    }
-                                }}
-                            />
-                        </div>
+                        <DataGridCustom rows={rows} columns={columns} nameItem={'nhân viên'} />
                     </div>
                 </div>
                 <AlertDialogStaff
