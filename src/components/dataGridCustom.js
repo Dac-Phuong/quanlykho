@@ -2,6 +2,8 @@ import { Fragment, useMemo, useState } from 'react'
 import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import { Button, Stack } from '@mui/material'
 import { FaArrowDownLong } from 'react-icons/fa6'
+import { FaSearch } from 'react-icons/fa'
+
 import ReactCSV from './common/ReactCSV'
 
 const DataGridCustom = ({ columns, rows, nameItem }) => {
@@ -46,13 +48,14 @@ const DataGridCustom = ({ columns, rows, nameItem }) => {
                         </Button>
                     </ReactCSV>
                 </div>
-                <div className='w-[250px]'>
+                <div className='w-[250px] flex items-center  border border-solid !border-[#322f2f] rounded'>
+                    <FaSearch className='ml-2' />
                     <input
                         type='text'
                         placeholder='Tìm kiếm'
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className='p-2 border border-solid !border-[#322f2f] text-[#322f2f] rounded w-full'
+                        className='p-2 text-[#322f2f]'
                     />
                 </div>
             </div>

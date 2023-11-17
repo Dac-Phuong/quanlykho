@@ -81,7 +81,7 @@ const GuaranteeProduct = () => {
         { field: 'staffname', headerName: 'Nhân viên', flex: 1 },
         { field: 'customername', headerName: 'Khách hàng', flex: 1 },
         { field: 'code', headerName: 'Mã hàng', flex: 1 },
-        { field: 'quantity', headerName: 'Số lượng', minWidth: 110, flex: 1 },
+        { field: 'quantity', headerName: 'Số lượng bảo hành', minWidth: 110, flex: 1 },
         {
             field: 'active',
             minWidth: 100,
