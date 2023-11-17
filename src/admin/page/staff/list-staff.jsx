@@ -197,8 +197,8 @@ export default function ListStaff() {
         if (formData.phone.trim() === '') {
             showToastError('Vui nhập số điện thoại nhân viên!')
             isValid = false
-        } else if (regex.test(formData.phone)) {
-            showToastError('Số điện thoại không được chứa ký tự đặc biệt!')
+        } else if (regex.test(formData.phone) || !/^[0-9]+$/.test(formData.phone)) {
+            showToastError('Số điện thoại không đúng đúng định dạng!')
             isValid = false
         }
         if (formData.address.trim() === '') {

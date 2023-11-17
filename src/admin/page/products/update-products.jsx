@@ -116,11 +116,18 @@ export default function UpdateProduct() {
             showToastError('Mã sản phẩm không được chứa ký tự đặc biệt!')
             isValid = false
         }
-        if (formData.buy_price === '') {
-            showToastError('Vui lòng nhập giá sản phẩm!')
+        if (formData.buy_price.trim() === '') {
+            showToastError('Vui lòng nhập giá nhập sản phẩm!')
             isValid = false
-        } else if (regex.test(formData.buy_price)) {
-            showToastError('Giá sản phẩm không được chứa ký tự đặc biệt!')
+        } else if (regex.test(formData.buy_price) || !/^[0-9]+$/.test(formData.buy_price)) {
+            showToastError('Giá sản nhập phẩm không được chứa ký tự đặc biệt!')
+            isValid = false
+        }
+        if (formData.sell_price.trim() === '') {
+            showToastError('Vui lòng nhập giá bán sản phẩm!')
+            isValid = false
+        } else if (regex.test(formData.sell_price) || !/^[0-9]+$/.test(formData.sell_price)) {
+            showToastError('Giá bán sản phẩm không được chứa ký tự đặc biệt!')
             isValid = false
         }
         if (formData.group === '') {

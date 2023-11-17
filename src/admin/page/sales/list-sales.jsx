@@ -122,7 +122,7 @@ export default function ListSales() {
         to_date: dayjs(to_date).format('YYYY-MM-DD'),
         staff_id: staff?.id,
         customer_id: customer?.id,
-        status_id: status == 3 ? undefined : status
+        status_id: status === 3 ? undefined : status
     }
     // hàm lọc bán hàng
     const submitFilter = async () => {

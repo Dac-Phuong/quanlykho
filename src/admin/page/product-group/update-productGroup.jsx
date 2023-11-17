@@ -86,6 +86,22 @@ export default function UpdateProductGroup() {
             showToastError('Mã nhóm hàng không được chứa ký tự đặc biệt!')
             isValid = false
         }
+        if (formData.commission.trim() === '') {
+            showToastError('Vui lòng nhập công thức!')
+            isValid = false
+        } else if (regex.test(formData.commission) || !/^[0-9]+$/.test(formData.commission)) {
+            showToastError('Công thức không đúng định dạng chỉ chứa toàn số.')
+            isValid = false
+        }
+        if (formData.commission_type === '1') {
+            if (formData.commission_target.trim() === '') {
+                showToastError('Vui lòng nhập số đơn vị')
+                isValid = false
+            } else if (regex.test(formData.commission_target) || !/^[0-9]+$/.test(formData.commission_target)) {
+                showToastError('Số đơn vị không đúng định dạng chỉ chứa toàn số.')
+                isValid = false
+            }
+        }
         return isValid
     }
 

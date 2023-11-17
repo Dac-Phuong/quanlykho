@@ -37,9 +37,9 @@ export default function ListDiscount() {
     const [selectedProducts, setSelectedProducts] = useState([])
     const [from_date, setFrom_Date] = useState(dayjs(firstDayOfMonth))
     const [to_date, setTo_Date] = useState(dayjs(lastDayOfMonth))
-    const [discount, setDiscount] = useState('')
-    const [get_more, setGet_more] = useState('')
-    const [inv_condition, setInv_condition] = useState('')
+    const [discount, setDiscount] = useState(0)
+    const [get_more, setGet_more] = useState(0)
+    const [inv_condition, setInv_condition] = useState(0)
     const [newData, setNewData] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [selectedId, setSelectedId] = useState(null)
@@ -79,9 +79,9 @@ export default function ListDiscount() {
             setIsLoading(false)
             showToastSuccess('Thêm chiết khấu thành công!')
             setSelectedProducts([])
-            setDiscount('')
-            setGet_more('')
-            setInv_condition('')
+            setDiscount(0)
+            setGet_more(0)
+            setInv_condition(0)
             return response.data
         } catch (error) {
             setIsLoading(false)
@@ -201,8 +201,21 @@ export default function ListDiscount() {
     // kiểm tra dữ liệu
     const validation = () => {
         let isValid = true
+        const regex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/
         if (selectedProducts.length === 0) {
             showToastError('Vui lòng chọn sản phẩm!')
+            isValid = false
+        }
+        if (regex.test(formData.discount) || !/^[0-9]+$/.test(formData.discount.toString())) {
+            showToastError('Chiết khấu không đúng định dạng chỉ chứa toàn số.')
+            isValid = false
+        }
+        if (regex.test(formData.get_more) || !/^[0-9]+$/.test(formData.get_more.toString())) {
+            showToastError('Tặng thêm không đúng định dạng chỉ chứa toàn số.')
+            isValid = false
+        }
+        if (regex.test(formData.inv_condition) || !/^[0-9]+$/.test(formData.inv_condition.toString())) {
+            showToastError('Điều kiện không đúng định dạng chỉ chứa toàn số.')
             isValid = false
         }
         return isValid
@@ -233,7 +246,7 @@ export default function ListDiscount() {
                         </div>
                     </div>
                     <div className='card-block remove-label'>
-                        <div className='flex nowrap'>
+                        <div className='flex nowrap pb-2'>
                             <Autocomplete
                                 multiple
                                 fullWidth
@@ -262,7 +275,9 @@ export default function ListDiscount() {
                                 name='discount'
                                 type='number'
                                 value={discount}
-                                onChange={(event) => setDiscount(event.target.value)}
+                                onChange={(event) => {
+                                    return setDiscount(event.target.value)
+                                }}
                             />
                             <TextField
                                 className='form-control w-full lg:w-[32%]'

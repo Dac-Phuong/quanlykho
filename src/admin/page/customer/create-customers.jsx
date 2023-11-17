@@ -33,7 +33,7 @@ export default function ListCustomers() {
         fullname: '',
         address: '',
         phone: '',
-        debt: 0,
+        debt: '0',
         location: 0
     })
     const handleChange = (event, newValue) => {
@@ -207,7 +207,6 @@ export default function ListCustomers() {
     const validation = () => {
         let isValid = true
         const regex = /[!@#$%^&*()_+{}[\]:;<>,.?~\\]/
-        const regexNumber = /[1-9]/
         if (formData.fullname.trim() === '') {
             showToastError('Vui nhập tên khách hàng!')
             isValid = false
@@ -218,8 +217,8 @@ export default function ListCustomers() {
         if (formData.phone.trim() === '') {
             showToastError('Vui nhập số điện thoại khách hàng!')
             isValid = false
-        } else if (regex.test(formData.phone)) {
-            showToastError('Số điện thoại không được chứa ký tự đặc biệt!')
+        } else if (regex.test(formData.phone) || !/^[0-9]+$/.test(formData.phone)) {
+            showToastError('Số điện thoại không đúng định dạng!')
             isValid = false
         }
         if (formData.address.trim() === '') {
@@ -229,10 +228,10 @@ export default function ListCustomers() {
             showToastError('Địa chỉ không được chứa ký tự đặc biệt!')
             isValid = false
         }
-        if (formData.debt.trim() === '') {
+        if (formData.debt === '') {
             showToastError('Vui nhập công nợ khách hàng!')
             isValid = false
-        } else if (!regexNumber.test(formData.debt)) {
+        } else if (!/^[0-9]+$/.test(formData.debt)) {
             showToastError('Công nợ phải là số!')
             isValid = false
         }
