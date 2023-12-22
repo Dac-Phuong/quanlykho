@@ -263,12 +263,6 @@ export default function Sidebar() {
                         >
                             Chỉ tiêu nhập
                         </MenuItem>
-                        <MenuItem
-                            className={pathname === '#' ? 'text-blue-600 font-medium' : ''}
-                            component={<Link to='#' />}
-                        >
-                            Đơn bán
-                        </MenuItem>
                     </SubMenu>
                 </Menu>
             </div>
