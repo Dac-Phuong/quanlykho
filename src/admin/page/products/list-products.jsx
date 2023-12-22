@@ -7,7 +7,6 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { DELETE_PRODUCTS, FILTER_PRODUCTS, UPDATE_STATUS_PRODUCTS } from '../../api'
 import { showToastError, showToastSuccess } from '../../utils/toastmessage'
 import HeaderComponents from '../../../components/header'
-import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import { useGetDataProducts } from '../../api/useFetchData'
 import { http } from '../../utils/http'
 import DataGridCustom from '../../../components/dataGridCustom'
@@ -37,8 +36,6 @@ export default function ListProducts() {
     const Title = 'Danh sách sản phẩm'
     const [newdata, setNewData] = useState([])
     const [selectedIds, setSelectedIds] = useState([])
-    const [page, setPage] = useState(0)
-    const [pageSize, setPageSize] = useState(15)
     const queryKey = 'list_products'
     const queryClient = useQueryClient()
     const deleteMutation = useMutation(deteteItem)

@@ -57,8 +57,6 @@ const StaffSalary = () => {
     const [selectedStaff, setSelectedStaff] = useState([])
     const [selectGroup, setSelectGroup] = useState([])
     const [newData, setNewData] = useState([])
-    const [page, setPage] = useState(0)
-    const [pageSize, setPageSize] = useState(15)
 
     const {
         handleSubmit,
@@ -112,11 +110,11 @@ const StaffSalary = () => {
             staff: item.staff,
             customer: item.customer,
             product: item.product,
-            price: item.price,
-            quantity: item.quantity,
-            allPrice: item.allPrice,
-            bonus: item.bonus,
-            salary: item.salary,
+            quantity: Number(item.quantity || 0).toLocaleString('en-US'),
+            price: Number(item.price || 0).toLocaleString('en-US'),
+            allPrice: Number(item.allPrice || 0).toLocaleString('en-US'),
+            bonus: Number(item.bonus || 0).toLocaleString('en-US'),
+            salary: Number(item.salary || 0).toLocaleString('en-US'),
             sales_id: item.sales_id
         })) || []
 

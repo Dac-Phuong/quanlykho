@@ -22,7 +22,7 @@ export default function UpdateProduct() {
         name: '',
         code: '',
         buy_price: '',
-        sell_price: '',
+        sale_price: '',
         color: '',
         group: ''
     })
@@ -46,8 +46,8 @@ export default function UpdateProduct() {
                         setFormData({
                             name: response?.data?.item?.name,
                             code: response?.data?.item.code,
-                            buy_price: response?.data?.item?.buy_price,
-                            sell_price: response?.data?.item?.sell_price,
+                            buy_price: response?.data?.item?.buy_price.toString(),
+                            sale_price: response?.data?.item?.sale_price.toString(),
                             color: response?.data?.item?.color,
                             group: response?.data?.item?.group
                         })
@@ -123,10 +123,10 @@ export default function UpdateProduct() {
             showToastError('Giá sản nhập phẩm không được chứa ký tự đặc biệt!')
             isValid = false
         }
-        if (formData.sell_price.trim() === '') {
+        if (formData.sale_price.trim() === '') {
             showToastError('Vui lòng nhập giá bán sản phẩm!')
             isValid = false
-        } else if (regex.test(formData.sell_price) || !/^[0-9]+$/.test(formData.sell_price)) {
+        } else if (regex.test(formData.sale_price) || !/^[0-9]+$/.test(formData.sale_price)) {
             showToastError('Giá bán sản phẩm không được chứa ký tự đặc biệt!')
             isValid = false
         }
@@ -206,8 +206,8 @@ export default function UpdateProduct() {
                                         style={{ width: '100%' }}
                                         label='Giá bán'
                                         type='number'
-                                        name='sell_price'
-                                        value={formData.sell_price}
+                                        name='sale_price'
+                                        value={formData.sale_price}
                                         onChange={handleInputChange}
                                         id='standard-basic'
                                         variant='standard'
@@ -287,7 +287,7 @@ export default function UpdateProduct() {
                                             <th>{formData.code}</th>
                                             <th>{formData.name}</th>
                                             <th>{formData.buy_price}</th>
-                                            <th>{formData.sell_price}</th>
+                                            <th>{formData.sale_price}</th>
                                             <th>{formData.color}</th>
                                             <th>{group_name}</th>
                                         </tr>

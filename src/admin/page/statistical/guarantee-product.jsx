@@ -58,8 +58,6 @@ const GuaranteeProduct = () => {
     const [selectedStaff, setSelectedStaff] = useState([])
     const [selectGroup, setSelectGroup] = useState([])
     const [newData, setNewData] = useState([])
-    const [page, setPage] = useState(0)
-    const [pageSize, setPageSize] = useState(15)
 
     const {
         handleSubmit,
@@ -111,7 +109,7 @@ const GuaranteeProduct = () => {
             staffname: item.staffname,
             customername: item.customername,
             code: item.code,
-            quantity: item.quantity,
+            quantity: Number(item.quantity || 0).toLocaleString('en-US'),
             sales_id: item.sales_id
         })) || []
 

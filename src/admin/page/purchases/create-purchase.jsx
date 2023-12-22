@@ -144,6 +144,7 @@ export default function CreatePurchase() {
         if (isValid) {
             setLoading(true)
             mutation.mutate(formData)
+            setNewArray([])
         }
     }
     // View

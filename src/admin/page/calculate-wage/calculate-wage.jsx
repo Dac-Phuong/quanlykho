@@ -29,7 +29,7 @@ export default function CalculateWage() {
             id: item.id,
             index: ++index,
             group_name: item.group_name,
-            commission: item.commission
+            commission: Number(item.commission || 0).toLocaleString('en-US')
         })) || []
 
     return (

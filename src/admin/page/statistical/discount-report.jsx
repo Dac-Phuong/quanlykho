@@ -109,16 +109,16 @@ const DiscountReport = () => {
             day_sell: item.sale_date,
             staff: item.staff,
             customer: item.customer,
-            price: item.buy_price,
-            quantity: item.quantity,
-            cpn_discount: item.cpn_discount,
-            cpn_discount_price: item.cpn_discount_price,
-            real_discount: item.real_discount,
-            real_discount_price: item.real_discount_price,
-            disparity: item.disparity,
+            price: Number(item.price || 0).toLocaleString('en-US'),
+            quantity: Number(item.quantity || 0).toLocaleString('en-US'),
+            cpn_discount: Number(item.cpn_discount || 0).toLocaleString('en-US'),
+            cpn_discount_price: Number(item.cpn_discount_price || 0).toLocaleString('en-US'),
+            real_discount: Number(item.real_discount || 0).toLocaleString('en-US'),
+            real_discount_price: Number(item.real_discount_price || 0).toLocaleString('en-US'),
+            disparity: Number(item.disparity || 0).toLocaleString('en-US'),
             sales_id: item.sales_id
         })) || []
-    console.log(rows, newData?.data)
+
     const onSubmit = async (data) => {
         let bodyFormData = new FormData()
         bodyFormData.append('from_date', dayjs(data.dayBegin).format('DD-MM-YYYY'))

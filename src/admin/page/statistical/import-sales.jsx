@@ -90,12 +90,11 @@ const ImportSales = () => {
             id: index + 1,
             date: item.date,
             code: item.code,
-            quantity: item.quantity,
-            bonus: item.bonus,
-            price: item.price,
-            discount: item.discount,
-            product_group_id: item.product_group_id,
-            thisTTPrice: item.thisTTPrice
+            quantity: Number(item.quantity || 0).toLocaleString('en-US'),
+            price: Number(item.price || 0).toLocaleString('en-US'),
+            discount: Number(item.discount || 0).toLocaleString('en-US'),
+            product_group_id: Number(item.product_group_id || 0).toLocaleString('en-US'),
+            thisTTPrice: Number(item.thisTTPrice || 0).toLocaleString('en-US')
         })) || []
 
     const onSubmit = async (data) => {

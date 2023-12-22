@@ -6,7 +6,6 @@ import { CREATE_STAFF, GET_ITEM_STAFF, UPDATE_STAFF_STATUS } from '../../api'
 import { showToastError, showToastSuccess } from '../../utils/toastmessage'
 import HeaderComponents from '../../../components/header'
 import { TextField } from '@mui/material'
-import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import { getUserData } from '../../utils/function'
 import AlertDialogStaff from '../../../components/modal/modal-staff'
 import { Link } from 'react-router-dom'
@@ -90,7 +89,7 @@ export default function ListStaff() {
     const handleUpdateStatus = (id) => {
         updateStatuss.mutate(id, {
             onSuccess: () => {
-                queryClient.invalidateQueries({ queryKey: ['staff_key'] })
+                queryClient.invalidateQueries({ queryKey: STAFF_KEY })
             }
         })
     }

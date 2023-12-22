@@ -2,6 +2,7 @@ import { BsFillCartPlusFill } from 'react-icons/bs'
 
 const BoxInformation = (props) => {
     const { data, textData, title, color = 0, hiddenFooter = true, icon = false } = props
+    const newData = Number(data || 0).toLocaleString('en-US')
 
     const arrBgColor = ['bg-blue-600', 'bg-red-600', 'bg-green-600', 'bg-yellow-600', 'bg-purple-600', 'bg-gray-600']
 
@@ -19,7 +20,7 @@ const BoxInformation = (props) => {
             <div className='card-block min-h-[135px]'>
                 <div className='row align-items-center'>
                     <div className='col-8'>
-                        <h4 className={`${arrTextColor[color]}`}>{(data ? data : 0) + ' ' + textData}</h4>
+                        <h4 className={`${arrTextColor[color]}`}>{newData + ' ' + textData}</h4>
                         <h6 className='text-muted m-b-0'>{title}</h6>
                     </div>
                     <div className='col-4 text-right'>

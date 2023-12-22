@@ -113,13 +113,13 @@ const RealSales = () => {
             staff: item.staff,
             customer: item.customer,
             product: item.product,
-            original_sale_price: item.original_sale_price,
-            quantity: item.quantity,
-            bonus: item.bonus,
-            discount: item.discount,
-            final_price: item.final_price,
-            thisTTPriceWithBN: item.thisTTPriceWithBN,
-            thisTTPriceWithoutBN: item.thisTTPriceWithoutBN,
+            original_sale_price: Number(item.original_sale_price || 0).toLocaleString('en-US'),
+            quantity: Number(item.quantity || 0).toLocaleString('en-US'),
+            bonus: Number(item.bonus || 0).toLocaleString('en-US'),
+            discount: Number(item.discount || 0).toLocaleString('en-US'),
+            final_price: Number(item.final_price || 0).toLocaleString('en-US'),
+            thisTTPriceWithBN: Number(item.thisTTPriceWithBN || 0).toLocaleString('en-US'),
+            thisTTPriceWithoutBN: Number(item.thisTTPriceWithoutBN || 0).toLocaleString('en-US'),
             sales_id: item.sales_id
         })) || []
 

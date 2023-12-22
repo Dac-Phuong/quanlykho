@@ -31,7 +31,7 @@ export default function UpdateStaff() {
         fullname: '',
         address: '',
         phone: '',
-        debt: 0
+        debt: '0'
     })
 
     useEffect(() => {
@@ -45,8 +45,8 @@ export default function UpdateStaff() {
                         setFormData({
                             fullname: response?.data?.item_staff?.fullname,
                             address: response?.data?.item_staff.address,
-                            phone: response?.data?.item_staff?.phone,
-                            debt: response?.data?.item_staff?.debt
+                            phone: response?.data?.item_staff?.phone.toString(),
+                            debt: response?.data?.item_staff?.debt || '0'
                         })
                     }
                 })
@@ -92,9 +92,9 @@ export default function UpdateStaff() {
             showToastError('Thay đổi trạng thái thất bại')
         }
     }
-    const updateStatuss = useMutation(updateStatus)
+    const { mutate } = useMutation(updateStatus)
     const handleUpdateStatus = (id) => {
-        updateStatuss.mutate(id, {
+        mutate(id, {
             onSuccess: () => {
                 queryClient.invalidateQueries({ queryKey: queryKey })
             }
@@ -132,6 +132,13 @@ export default function UpdateStaff() {
             isValid = false
         } else if (regex.test(formData.address)) {
             showToastError('Địa chỉ không được chứa ký tự đặc biệt!')
+            isValid = false
+        }
+        if (formData.debt.trim() === '') {
+            showToastError('Vui nhập công nợ nhân viên!')
+            isValid = false
+        } else if (regex.test(formData.debt) || !/^[0-9]+$/.test(formData.debt)) {
+            showToastError('Công nợ nhân viên không được chứa ký tự đặc biệt!')
             isValid = false
         }
         return isValid
