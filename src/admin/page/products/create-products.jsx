@@ -51,14 +51,6 @@ export default function CreateProduct() {
     const mutation = useMutation(createProduct, {
         onSuccess: () => {
             queryClient.invalidateQueries(queryKey)
-            setFormData({
-                name: '',
-                code: '',
-                buy_price: '',
-                sell_price: '',
-                color: '',
-                group: ''
-            })
         },
         onError: (error) => {
             console.error('Lỗi khi gửi yêu cầu POST:', error)
@@ -110,6 +102,14 @@ export default function CreateProduct() {
         if (isValid) {
             setLoading(true)
             mutation.mutate(formData)
+            setFormData({
+                name: '',
+                code: '',
+                buy_price: '',
+                sell_price: '',
+                color: '',
+                group: ''
+            })
         }
     }
     // View
@@ -201,6 +201,7 @@ export default function CreateProduct() {
                                 clearOnEscape
                                 className='mt-4'
                                 options={data?.data}
+                                value={data?.data.find((item) => item?.id === formData.group) || null}
                                 onChange={(e, item) =>
                                     setFormData({
                                         ...formData,

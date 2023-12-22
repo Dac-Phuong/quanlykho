@@ -23,6 +23,7 @@ export default function CreatePurchase() {
     const [warehouseId, setWarehouseId] = useState('')
     const [status, setSatus] = useState(0)
     const [note, setNote] = useState('')
+    const [productData, setProductData] = useState('')
     const queryKey = 'purchase_key'
     const [newArray, setNewArray] = useState([])
     //   thêm sản phẩm vào mảng state
@@ -44,6 +45,7 @@ export default function CreatePurchase() {
                 const updatedItems = newArray.filter((item) => item.product_id !== newValue.id)
                 setNewArray(updatedItems)
             }
+            setProductData(newValue.id)
         }
     }
     // lấy dữ liệu từ input của các item
@@ -145,6 +147,9 @@ export default function CreatePurchase() {
             setLoading(true)
             mutation.mutate(formData)
             setNewArray([])
+            setProductData('')
+            setNote('')
+            setSatus(0)
         }
     }
     // View
@@ -172,6 +177,7 @@ export default function CreatePurchase() {
                                 clearOnEscape
                                 options={data && data.products ? data.products : []}
                                 onChange={handleAutocompleteChange}
+                                value={data?.products.find((item) => item?.id === productData) || ''}
                                 getOptionLabel={(rows) => rows?.name || ''}
                                 renderInput={(params) => (
                                     <TextField
