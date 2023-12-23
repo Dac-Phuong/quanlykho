@@ -383,10 +383,10 @@ export default function CreateSales() {
                                     })}
                                 </TextField>
                             </div>
-                            <div className='flex my-3'>
+                            <div className='flex my-3 max-sm:flex-col'>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DatePicker
-                                        className='w-[49%] max-sm:w-2/4 mr-4 max-sm:mr-1'
+                                        className='sm:w-[49%] max-sm:w-full mr-4 max-sm:mr-1'
                                         label='Ngày tạo đơn'
                                         value={date}
                                         onChange={(newValue) => setDate(newValue)}
@@ -394,7 +394,7 @@ export default function CreateSales() {
                                     />
                                 </LocalizationProvider>
                                 <TextField
-                                    className='w-[49%] max-sm:w-2/4 mt-2  max-sm:mr-1'
+                                    className='sm:w-[49%] max-sm:w-full mt-2  max-sm:mr-1'
                                     select
                                     value={status}
                                     onChange={handleChangeStatus}

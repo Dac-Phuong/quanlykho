@@ -21,7 +21,7 @@ export default function CalculateWage() {
     }
     const columns = [
         { field: 'index', headerName: 'STT', minWidth: 70, flex: 1 },
-        { field: 'group_name', headerName: 'Nhóm hàng', minWidth: 110, flex: 1 },
+        { field: 'group_name', headerName: 'Nhóm hàng', minWidth: 150, flex: 1 },
         { field: 'commission', headerName: 'Lương', minWidth: 70, flex: 1 }
     ]
     const rows =

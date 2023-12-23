@@ -75,10 +75,10 @@ const ImportSales = () => {
 
     const columns = [
         { field: 'index', headerName: 'STT', minWidth: 70, flex: 0.5 },
-        { field: 'code', headerName: 'Mã hàng', minWidth: 210, flex: 1 },
+        { field: 'code', headerName: 'Mã hàng', minWidth: 70, flex: 0.5 },
         { field: 'date', headerName: 'Ngày nhập', minWidth: 110, flex: 1 },
-        { field: 'quantity', headerName: 'SL', flex: 1 },
-        { field: 'price', headerName: 'KM', flex: 1 },
+        { field: 'quantity', headerName: 'SL', flex: 1, minWidth: 100 },
+        { field: 'price', headerName: 'KM', flex: 1, minWidth: 100 },
         { field: 'discount', headerName: 'Đơn giá', flex: 1 },
         { field: 'product_group_id', headerName: 'CK', minWidth: 110, flex: 1 },
         { field: 'thisTTPrice', headerName: 'TT', minWidth: 130, flex: 1 }

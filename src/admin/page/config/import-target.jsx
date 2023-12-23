@@ -68,8 +68,8 @@ export default function ImportTarget() {
 
     const columns = [
         { field: 'id', headerName: 'STT', flex: 0.5 },
-        { field: 'date', headerName: 'Ngày', flex: 1 },
-        { field: 'target', headerName: 'Mục tiêu', flex: 1.5 }
+        { field: 'date', headerName: 'Ngày', flex: 1, minWidth: 100 },
+        { field: 'target', headerName: 'Mục tiêu', flex: 1.5, minWidth: 100 }
     ]
 
     const rows =

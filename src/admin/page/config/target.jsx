@@ -96,11 +96,11 @@ export default function Target() {
 
     const columns = [
         { field: 'index', headerName: 'STT', flex: 0.5 },
-        { field: 'staff_id', headerName: 'Nhân viên', flex: 1.5 },
-        { field: 'group_product_id', headerName: 'Nhóm hàng', flex: 1 },
-        { field: 'target', headerName: 'Mục tiêu', flex: 1.5 },
-        { field: 'from_date', headerName: 'Từ ngày', flex: 1.5 },
-        { field: 'to_date', headerName: 'Đến ngày', flex: 1.5 }
+        { field: 'staff_id', headerName: 'Nhân viên', flex: 1.5, minWidth: 180 },
+        { field: 'group_product_id', headerName: 'Nhóm hàng', flex: 1, minWidth: 100 },
+        { field: 'target', headerName: 'Mục tiêu', flex: 1.5, minWidth: 100 },
+        { field: 'from_date', headerName: 'Từ ngày', flex: 1.5, minWidth: 100 },
+        { field: 'to_date', headerName: 'Đến ngày', flex: 1.5, minWidth: 100 }
     ]
 
     const rows =

@@ -116,7 +116,7 @@ export default function ListStaff() {
 
     const columns = [
         { field: 'index', headerName: 'STT' },
-        { field: 'fullname', headerName: 'Họ và tên', minWidth: 120, flex: 1 },
+        { field: 'fullname', headerName: 'Họ và tên', minWidth: 180, flex: 1 },
         { field: 'address', headerName: 'Địa chỉ', minWidth: 220, flex: 1 },
         { field: 'phone', headerName: 'Số điện thoại', minWidth: 140, flex: 1 },
         { field: 'debt', headerName: 'Công nợ', minWidth: 120, flex: 1 },

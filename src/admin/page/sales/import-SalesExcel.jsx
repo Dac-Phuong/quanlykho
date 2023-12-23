@@ -133,17 +133,17 @@ export default function ImportSalesExcel() {
                         </div>
                     </div>
                     <div className='card-block remove-label'>
-                        <div className='flex mt-1 justify-between max-sm:justify-normal'>
+                        <div className='flex mt-1 justify-between max-sm:justify-normal max-sm:flex-col'>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DatePicker
-                                    className=' w-[49%] max-sm:w-2/4 mr-3  max-sm:mr-1'
+                                    className=' sm:w-[49%] w-full mr-3  max-sm:mr-1'
                                     label='Ngày tạo đơn'
                                     value={date}
                                     onChange={(newValue) => setDate(newValue)}
                                     slotProps={{ textField: { variant: 'filled' } }}
                                 />
                             </LocalizationProvider>
-                            <div className='w-[49%] mt-[8px] max-sm:mr-1'>
+                            <div className='sm:w-[49%] w-full mt-[8px] max-sm:mr-1'>
                                 <TextField
                                     fullWidth
                                     select
@@ -227,7 +227,7 @@ export default function ImportSalesExcel() {
                             />
                         </div>
                         <div className='mt-10'>
-                            <Form.Group controlId='formFile' className='mb-3 w-[49%]'>
+                            <Form.Group controlId='formFile' className='mb-3 w-full sm:w-[49%]'>
                                 <Form.Control onChange={handleFileSelect} type='file' />
                             </Form.Group>
                         </div>

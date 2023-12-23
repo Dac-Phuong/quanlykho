@@ -40,22 +40,26 @@ const DataGridCustom = ({ columns, rows, nameItem }) => {
     return (
         <Fragment>
             <div className='flex gap-5 items-center justify-between flex-wrap pb-3'>
-                <div>
+                <div className='max-w-full'>
                     <ReactCSV filename={`Danh sách ${nameItem}`} headers={headers} data={filteredRows || []}>
-                        <Button color='secondary' variant='outlined' className='flex flex-nowrap items-center gap-x-1'>
+                        <Button
+                            color='secondary'
+                            variant='outlined'
+                            className='flex flex-nowrap items-center gap-x-1 w-full'
+                        >
                             <FaArrowDownLong />
                             Xuất File
                         </Button>
                     </ReactCSV>
                 </div>
-                <div className='w-[250px] flex items-center  border border-solid !border-[#322f2f] rounded'>
+                <div className='max-w-full w-[250px] flex items-center  border border-solid !border-[#322f2f] rounded'>
                     <FaSearch className='ml-2' />
                     <input
                         type='text'
                         placeholder='Tìm kiếm'
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className='p-2 text-[#322f2f]'
+                        className='p-2 text-[#322f2f] w-full'
                     />
                 </div>
             </div>

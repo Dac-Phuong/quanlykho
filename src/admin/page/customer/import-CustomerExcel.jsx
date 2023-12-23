@@ -142,7 +142,7 @@ export default function ImportCustomers() {
                             </div>
                         </div>
                         <div className='mt-10'>
-                            <Form.Group controlId='formFile' className='mb-3 w-[49%]'>
+                            <Form.Group controlId='formFile' className='mb-3 w-full sm:w-[49%]'>
                                 <Form.Control onChange={handleFileSelect} type='file' />
                             </Form.Group>
                         </div>

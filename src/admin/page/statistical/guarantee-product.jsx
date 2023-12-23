@@ -75,10 +75,10 @@ const GuaranteeProduct = () => {
     const columns = [
         { field: 'index', headerName: 'STT', minWidth: 70, flex: 0.5 },
         { field: 'date', headerName: 'Ngày', minWidth: 110, flex: 1 },
-        { field: 'sale_code', headerName: 'Mã ĐH', minWidth: 210, flex: 1 },
+        { field: 'sale_code', headerName: 'Mã ĐH', minWidth: 70, flex: 0.5 },
         { field: 'staffname', headerName: 'Nhân viên', flex: 1 },
         { field: 'customername', headerName: 'Khách hàng', flex: 1 },
-        { field: 'code', headerName: 'Mã hàng', flex: 1 },
+        { field: 'code', headerName: 'Mã hàng', minWidth: 70, flex: 0.5 },
         { field: 'quantity', headerName: 'Số lượng bảo hành', minWidth: 110, flex: 1 },
         {
             field: 'active',
